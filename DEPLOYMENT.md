@@ -1,5 +1,11 @@
 # Vercel deployment
 
+## Git deployment
+
+Repository: `https://github.com/wpulier/nycanimal`
+
+The Vercel project is connected to this repository. Pushing to `main` triggers a production deployment.
+
 ## Required Vercel environment variables
 
 Set these for Production, Preview, and Development in Vercel:
@@ -23,7 +29,7 @@ ADMIN_API_TOKEN
 
 ```bash
 npm run check
-npx vercel --yes
+git push origin main
 ```
 
 After deploy, open `/admin`, paste `ADMIN_API_TOKEN`, upload a sticker, then confirm it appears on the public catalog and item page.
