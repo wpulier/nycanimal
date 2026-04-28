@@ -32,7 +32,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
       </div>
 
       {view === "catalog" ? (
-        <section className={styles.stickerBoard} aria-label="Sticker catalog">
+        <section className={styles.stickerBoard} aria-label="Catalog view">
           {sortedItems.map((item) => (
             <Link
               className={styles.sticker}
