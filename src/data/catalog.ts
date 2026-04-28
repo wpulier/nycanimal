@@ -18,6 +18,11 @@ export type CatalogItem = {
     latitude: number;
     longitude: number;
   };
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
+  treeRefs?: string[];
   summary: string;
   seasonalNote: string;
   pageMode: "field-card" | "scroll-story" | "specimen";
@@ -62,7 +67,9 @@ export const catalogItems: CatalogItem[] = [
     color: "#8fbc6b",
     angle: -15,
     position: { catalogX: 30, catalogY: 48, mapX: 63, mapY: 58 },
+    coordinates: { latitude: 40.72669402, longitude: -73.98183092 },
     geo: { latitude: 40.72669402, longitude: -73.98183092 },
+    treeRefs: ["5103318"],
     summary: "A tall canopy tree with arching limbs that shapes the park's shade and seasonal color.",
     seasonalNote: "Spring leaf-out, summer shade, yellow fall color, and winter branch structure all tell different stories.",
     pageMode: "specimen",

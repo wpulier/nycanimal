@@ -14,9 +14,16 @@
     "list:catalog": "tsx scripts/list-catalog.ts",
     "list:media": "tsx scripts/list-media.ts",
     "import:tompkins-map": "tsx scripts/import-tompkins-map.ts",
-    "map:check": "tsx scripts/check-tompkins-map.ts"
+    "map:check": "tsx scripts/check-tompkins-map.ts",
+    "seed:trees": "tsx scripts/seed-tree-points.ts",
+    "list:trees": "tsx scripts/list-tree-points.ts",
+    "seed:tompkins": "npm run seed:catalog && npm run seed:trees"
   },
   "dependencies": {
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-zoom": "^3.0.8",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
     "firebase": "^12.12.1",
     "firebase-admin": "^13.8.0",
     "next": "16.2.4",

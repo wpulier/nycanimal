@@ -18,6 +18,7 @@ const blankItem: CatalogItem = {
   seasonalNote: "",
   pageMode: "field-card",
   facts: [""],
+  treeRefs: [],
   mediaRefs: [],
   searchNames: [],
   status: "published",
@@ -38,6 +39,7 @@ export function AdminStudio() {
   const [items, setItems] = useState<CatalogItem[]>([]);
   const [item, setItem] = useState<CatalogItem>(blankItem);
   const [factsText, setFactsText] = useState("");
+  const [treeRefsText, setTreeRefsText] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
@@ -55,6 +57,7 @@ export function AdminStudio() {
   function selectItem(nextItem: CatalogItem) {
     setItem(nextItem);
     setFactsText(nextItem.facts.join("\n"));
+    setTreeRefsText((nextItem.treeRefs ?? []).join("\n"));
   }
 
   async function saveToken(event: FormEvent) {
@@ -69,6 +72,12 @@ export function AdminStudio() {
     event.preventDefault();
     setBusy(true);
     setMessage("Saving item...");
+    const latitude = item.coordinates?.latitude ?? item.geo?.latitude;
+    const longitude = item.coordinates?.longitude ?? item.geo?.longitude;
+    const coordinates =
+      Number.isFinite(latitude) && Number.isFinite(longitude)
+        ? { latitude: Number(latitude), longitude: Number(longitude) }
+        : undefined;
 
     const payload: CatalogItem = {
       ...item,
@@ -88,6 +97,8 @@ export function AdminStudio() {
               longitude: Number(item.geo.longitude),
             }
           : undefined,
+      coordinates,
+      treeRefs: treeRefsText.split("\n").map((treeRef) => treeRef.trim()).filter(Boolean),
       facts: factsText.split("\n").map((fact) => fact.trim()).filter(Boolean),
       searchNames: [item.commonName, item.sticker, item.latinName].filter(Boolean).map((name) => String(name).toLowerCase()),
       mediaRefs: item.mediaRefs ?? [],
@@ -164,7 +175,7 @@ export function AdminStudio() {
 
       <section className={styles.adminGrid}>
         <aside className={styles.adminList}>
-          <button type="button" onClick={() => { setItem(blankItem); setFactsText(""); }}>
+          <button type="button" onClick={() => { setItem(blankItem); setFactsText(""); setTreeRefsText(""); }}>
             New catalog item
           </button>
           {items.map((catalogItem) => (
@@ -187,13 +198,14 @@ export function AdminStudio() {
           <label>Summary<textarea value={item.summary} onChange={(event) => setItem({ ...item, summary: event.target.value })} /></label>
           <label>Season note<textarea value={item.seasonalNote} onChange={(event) => setItem({ ...item, seasonalNote: event.target.value })} /></label>
           <label>Facts, one per line<textarea value={factsText} onChange={(event) => setFactsText(event.target.value)} /></label>
+          <label>NYC tree IDs, one per line<textarea value={treeRefsText} onChange={(event) => setTreeRefsText(event.target.value)} placeholder="5103318" /></label>
           <div className={styles.coordGrid}>
             <label>Catalog X<input type="number" value={item.position.catalogX} onChange={(event) => setItem({ ...item, position: { ...item.position, catalogX: Number(event.target.value) } })} /></label>
             <label>Catalog Y<input type="number" value={item.position.catalogY} onChange={(event) => setItem({ ...item, position: { ...item.position, catalogY: Number(event.target.value) } })} /></label>
             <label>Map X<input type="number" value={item.position.mapX} onChange={(event) => setItem({ ...item, position: { ...item.position, mapX: Number(event.target.value) } })} /></label>
             <label>Map Y<input type="number" value={item.position.mapY} onChange={(event) => setItem({ ...item, position: { ...item.position, mapY: Number(event.target.value) } })} /></label>
-            <label>Latitude<input type="number" step="0.00000001" value={item.geo?.latitude ?? ""} onChange={(event) => setItem({ ...item, geo: { latitude: Number(event.target.value), longitude: item.geo?.longitude ?? -73.9818 } })} /></label>
-            <label>Longitude<input type="number" step="0.00000001" value={item.geo?.longitude ?? ""} onChange={(event) => setItem({ ...item, geo: { latitude: item.geo?.latitude ?? 40.7265, longitude: Number(event.target.value) } })} /></label>
+            <label>Latitude<input type="number" step="0.00000001" value={item.coordinates?.latitude ?? item.geo?.latitude ?? ""} onChange={(event) => setItem({ ...item, coordinates: { latitude: Number(event.target.value), longitude: item.coordinates?.longitude ?? item.geo?.longitude ?? -73.9818 } })} /></label>
+            <label>Longitude<input type="number" step="0.00000001" value={item.coordinates?.longitude ?? item.geo?.longitude ?? ""} onChange={(event) => setItem({ ...item, coordinates: { latitude: item.coordinates?.latitude ?? item.geo?.latitude ?? 40.7265, longitude: Number(event.target.value) } })} /></label>
           </div>
           <button disabled={busy || !activeToken} type="submit">Save / publish item</button>
         </form>

@@ -26,6 +26,11 @@ export const geoPointSchema = z.object({
   longitude: z.number().min(-180).max(180),
 });
 
+export const mapPointSchema = z.object({
+  x: z.number(),
+  y: z.number(),
+});
+
 export const mediaAssetSchema = z.object({
   id: z.string().min(1),
   itemSlug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
@@ -47,7 +52,9 @@ export const catalogItemSchema = z.object({
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   angle: z.number().min(-30).max(30),
   position: catalogPositionSchema,
+  coordinates: geoPointSchema.optional(),
   geo: geoPointSchema.optional(),
+  treeRefs: z.array(z.string().min(1)).default([]),
   summary: z.string().min(20),
   seasonalNote: z.string().min(10),
   pageMode: pageModeSchema,
@@ -83,6 +90,22 @@ export const llmCatalogDraftSchema = z.object({
   }),
 });
 
+export const treePointSchema = z.object({
+  id: z.string().min(1),
+  commonName: z.string().min(1),
+  latinName: z.string().min(1).optional(),
+  dbh: z.number().optional(),
+  condition: z.string().optional(),
+  structure: z.string().optional(),
+  riskRating: z.string().optional(),
+  updatedDate: z.string().optional(),
+  coordinates: geoPointSchema.optional(),
+  mapPoint: mapPointSchema.optional(),
+  treeMapUrl: z.string().url().optional(),
+  source: z.literal("nyc-parks-forestry-tree-points").default("nyc-parks-forestry-tree-points"),
+});
+
 export type CatalogItem = z.infer<typeof catalogItemSchema>;
 export type LlmCatalogDraft = z.infer<typeof llmCatalogDraftSchema>;
 export type MediaAsset = z.infer<typeof mediaAssetSchema>;
+export type TreePoint = z.infer<typeof treePointSchema>;
