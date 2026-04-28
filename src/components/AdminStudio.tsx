@@ -81,6 +81,13 @@ export function AdminStudio() {
         mapX: Number(item.position.mapX),
         mapY: Number(item.position.mapY),
       },
+      geo:
+        item.geo?.latitude && item.geo?.longitude
+          ? {
+              latitude: Number(item.geo.latitude),
+              longitude: Number(item.geo.longitude),
+            }
+          : undefined,
       facts: factsText.split("\n").map((fact) => fact.trim()).filter(Boolean),
       searchNames: [item.commonName, item.sticker, item.latinName].filter(Boolean).map((name) => String(name).toLowerCase()),
       mediaRefs: item.mediaRefs ?? [],
@@ -185,6 +192,8 @@ export function AdminStudio() {
             <label>Catalog Y<input type="number" value={item.position.catalogY} onChange={(event) => setItem({ ...item, position: { ...item.position, catalogY: Number(event.target.value) } })} /></label>
             <label>Map X<input type="number" value={item.position.mapX} onChange={(event) => setItem({ ...item, position: { ...item.position, mapX: Number(event.target.value) } })} /></label>
             <label>Map Y<input type="number" value={item.position.mapY} onChange={(event) => setItem({ ...item, position: { ...item.position, mapY: Number(event.target.value) } })} /></label>
+            <label>Latitude<input type="number" step="0.00000001" value={item.geo?.latitude ?? ""} onChange={(event) => setItem({ ...item, geo: { latitude: Number(event.target.value), longitude: item.geo?.longitude ?? -73.9818 } })} /></label>
+            <label>Longitude<input type="number" step="0.00000001" value={item.geo?.longitude ?? ""} onChange={(event) => setItem({ ...item, geo: { latitude: item.geo?.latitude ?? 40.7265, longitude: Number(event.target.value) } })} /></label>
           </div>
           <button disabled={busy || !activeToken} type="submit">Save / publish item</button>
         </form>

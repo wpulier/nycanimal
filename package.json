@@ -12,7 +12,9 @@
     "check": "npm run lint && npm run build",
     "seed:catalog": "tsx scripts/seed-catalog.ts",
     "list:catalog": "tsx scripts/list-catalog.ts",
-    "list:media": "tsx scripts/list-media.ts"
+    "list:media": "tsx scripts/list-media.ts",
+    "import:tompkins-map": "tsx scripts/import-tompkins-map.ts",
+    "map:check": "tsx scripts/check-tompkins-map.ts"
   },
   "dependencies": {
     "firebase": "^12.12.1",

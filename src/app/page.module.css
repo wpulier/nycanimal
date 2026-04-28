@@ -161,7 +161,156 @@
 
 .mapBoard {
   overflow: hidden;
-  background: #d9c79d;
+  background:
+    radial-gradient(circle at 24% 22%, rgba(243, 91, 44, 0.14), transparent 22rem),
+    radial-gradient(circle at 78% 68%, rgba(40, 58, 34, 0.18), transparent 24rem),
+    #d9c79d;
+}
+
+.tompkinsSvg {
+  position: absolute;
+  inset: max(8px, env(safe-area-inset-top)) 0 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 20px 0 rgba(27, 33, 24, 0.1));
+}
+
+.mapBoundaryShadow {
+  fill: rgba(27, 33, 24, 0.16);
+  transform: translate(10px, 12px);
+}
+
+.mapBoundary {
+  fill: #b7d889;
+  filter: url("#ink-wobble");
+  stroke: rgba(27, 33, 24, 0.9);
+  stroke-linejoin: round;
+  stroke-width: 7;
+}
+
+.mapZone {
+  fill: rgba(255, 247, 221, 0.48);
+  stroke: rgba(27, 33, 24, 0.45);
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.mapZone[data-kind="dog-run"] {
+  fill: rgba(190, 160, 190, 0.78);
+}
+
+.mapZone[data-kind="playground"] {
+  fill: rgba(242, 192, 120, 0.86);
+}
+
+.mapZone[data-kind="court"] {
+  fill: rgba(216, 172, 97, 0.84);
+}
+
+.mapZone[data-kind="pool"] {
+  fill: rgba(70, 187, 210, 0.82);
+}
+
+.mapZone[data-kind="garden"],
+.mapZone[data-kind="park-feature"] {
+  fill: rgba(137, 184, 98, 0.66);
+}
+
+.realMapPath {
+  fill: none;
+  stroke: rgba(255, 250, 232, 0.9);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 18;
+}
+
+.realMapPath[data-kind="service-path"] {
+  stroke-width: 10;
+}
+
+.treeCanopyLayer circle {
+  opacity: 0.74;
+  stroke: rgba(255, 247, 221, 0.9);
+  stroke-width: 2.2;
+}
+
+.featuredTreeMarker {
+  pointer-events: none;
+}
+
+.featuredTreeMarker circle {
+  fill: transparent;
+  stroke: #f35b2c;
+  stroke-dasharray: 9 7;
+  stroke-width: 6;
+}
+
+.featuredTreeMarker text,
+.mapLandmarks text,
+.mapStreetLabel,
+.mapTitleLabel {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: rgba(255, 247, 221, 0.86);
+  stroke-linejoin: round;
+}
+
+.featuredTreeMarker text {
+  fill: var(--coral);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  stroke-width: 6px;
+}
+
+.mapLandmarks circle {
+  fill: var(--coral);
+  stroke: rgba(255, 247, 221, 0.95);
+  stroke-width: 3;
+}
+
+.mapLandmarks text {
+  display: none;
+  fill: var(--ink);
+  font-size: 17px;
+  stroke-width: 5px;
+}
+
+.mapLandmarks g[data-kind="bathroom"] text,
+.mapLandmarks g[data-kind="memorial"] text {
+  display: block;
+}
+
+.mapStreetLabel {
+  fill: rgba(27, 33, 24, 0.48);
+  font-size: 28px;
+  letter-spacing: 0.08em;
+  stroke-width: 5px;
+  text-transform: uppercase;
+}
+
+.mapTitleLabel {
+  fill: rgba(40, 58, 34, 0.76);
+  font-family: var(--font-display), serif;
+  font-size: 54px;
+  letter-spacing: -0.06em;
+  stroke-width: 7px;
+  text-anchor: middle;
+}
+
+.mapCredit {
+  position: fixed;
+  left: max(14px, env(safe-area-inset-left));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  z-index: 12;
+  max-width: min(560px, calc(100vw - 180px));
+  border: 2px solid rgba(27, 33, 24, 0.8);
+  border-radius: 999px;
+  background: rgba(255, 247, 221, 0.82);
+  color: rgba(27, 33, 24, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 8px 12px;
 }
 
 .mapPathOne,
@@ -195,7 +344,7 @@
   position: absolute;
   left: var(--x);
   top: var(--y);
-  z-index: 2;
+  z-index: 9;
   min-width: 86px;
   min-height: 54px;
   transform: translate(-50%, -50%);

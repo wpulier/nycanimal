@@ -21,6 +21,11 @@ export const catalogPositionSchema = z.object({
   mapY: z.number().min(0).max(100),
 });
 
+export const geoPointSchema = z.object({
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
+
 export const mediaAssetSchema = z.object({
   id: z.string().min(1),
   itemSlug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
@@ -42,6 +47,7 @@ export const catalogItemSchema = z.object({
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   angle: z.number().min(-30).max(30),
   position: catalogPositionSchema,
+  geo: geoPointSchema.optional(),
   summary: z.string().min(20),
   seasonalNote: z.string().min(10),
   pageMode: pageModeSchema,

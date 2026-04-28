@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { TompkinsMap } from "@/components/TompkinsMap";
 import { getPublishedCatalogItemsClient } from "@/lib/catalogClient";
 import type { CatalogItem } from "@/lib/catalogSchema";
 import { getFirebaseAnalytics } from "@/lib/firebase";
@@ -52,26 +53,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
           ))}
         </section>
       ) : (
-        <section className={styles.mapBoard} aria-label="Tompkins map">
-          <div className={styles.mapPathOne} />
-          <div className={styles.mapPathTwo} />
-          <div className={styles.mapLawn} />
-          {sortedItems.map((item) => (
-            <Link
-              className={styles.mapPin}
-              href={`/items/${item.slug}`}
-              key={item.slug}
-              style={{
-                "--x": `${item.position.mapX}%`,
-                "--y": `${item.position.mapY}%`,
-                "--sticker-color": item.color,
-              } as React.CSSProperties}
-            >
-              {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-              <span>{item.sticker}</span>
-            </Link>
-          ))}
-        </section>
+        <TompkinsMap items={sortedItems} />
       )}
     </main>
   );
