@@ -1,0 +1,28 @@
+{
+  "suggestedItem": {
+    "slug": "unknown-plane-tree-candidate",
+    "commonName": "London Plane Tree Candidate",
+    "latinName": "Platanus x acerifolia",
+    "kind": "tree",
+    "sticker": "Plane Tree",
+    "color": "#d6a85e",
+    "angle": 5,
+    "position": { "catalogX": 60, "catalogY": 40, "mapX": 44, "mapY": 62 },
+    "summary": "A candidate catalog entry from a field observation that needs human review before publishing.",
+    "seasonalNote": "Mottled bark remains a visible identifier across seasons.",
+    "pageMode": "specimen",
+    "facts": ["Patchy bark is a strong visual clue.", "Common in New York City parks."],
+    "mediaRefs": [],
+    "searchNames": ["plane tree", "london plane", "mottled bark"],
+    "status": "draft"
+  },
+  "source": {
+    "type": "field-observation",
+    "note": "Observed near a central path; needs exact map placement."
+  },
+  "llm": {
+    "model": "gpt-5",
+    "confidence": 0.74,
+    "rationale": "The note describes mottled bark and park context matching London plane tree, but no photo was attached."
+  }
+}

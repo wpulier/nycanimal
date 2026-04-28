@@ -1,0 +1,34 @@
+{
+  "name": "nycanimal",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "seed:rock-pigeon": "tsx scripts/seed-rock-pigeon.ts",
+    "firestore:seed-rock-pigeon": "tsx scripts/seed-rock-pigeon.ts",
+    "check": "npm run lint && npm run build",
+    "seed:catalog": "tsx scripts/seed-catalog.ts",
+    "list:catalog": "tsx scripts/list-catalog.ts",
+    "list:media": "tsx scripts/list-media.ts"
+  },
+  "dependencies": {
+    "firebase": "^12.12.1",
+    "firebase-admin": "^13.8.0",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

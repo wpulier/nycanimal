@@ -1,0 +1,5 @@
+.env
+.env.*
+secrets/
+.next/
+node_modules/
