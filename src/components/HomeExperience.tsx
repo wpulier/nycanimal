@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { CatalogItem } from "@/lib/catalogSchema";
 import styles from "@/app/page.module.css";
 
@@ -15,6 +15,8 @@ type StickerView = {
   index: number;
 };
 
+type MapWarmupState = "idle" | "warming" | "ready" | "failed";
+
 const primaryOrder = [
   "rock-pigeon",
   "eastern-gray-squirrel",
@@ -23,7 +25,9 @@ const primaryOrder = [
   "london-plane",
   "cobblestone-edge",
 ];
-const MAP_WARM_MOUNT_TIMEOUT_MS = 1800;
+const INITIAL_EAGER_STICKER_COUNT = 4;
+const HIGH_PRIORITY_STICKER_COUNT = 2;
+const MAP_WARM_IDLE_TIMEOUT_MS = 250;
 const TompkinsMap = dynamic(() => import("@/components/TompkinsMap").then((module) => module.TompkinsMap), {
   ssr: false,
   loading: () => (
@@ -41,33 +45,48 @@ function preloadTompkinsMapInBackground() {
   void import("@/components/TompkinsMap").then((module) => module.preloadTompkinsMap());
 }
 
-function afterVisibleStickerImagesLoad(root: HTMLElement) {
-  const images = Array.from(root.querySelectorAll("img[data-warmup='true']")).filter(
-    (image): image is HTMLImageElement => image instanceof HTMLImageElement,
+function nextFrame() {
+  return new Promise<void>((resolve) => {
+    window.requestAnimationFrame(() => resolve());
+  });
+}
+
+function isInInitialViewport(element: HTMLElement) {
+  const bounds = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  return bounds.top < viewportHeight && bounds.bottom > 0 && bounds.left < viewportWidth && bounds.right > 0;
+}
+
+function waitForStickerImage(image: HTMLImageElement) {
+  const decodeImage = () => {
+    if (!image.decode) return Promise.resolve();
+    return image.decode().then(() => undefined).catch(() => undefined);
+  };
+
+  if (image.complete) {
+    return decodeImage();
+  }
+
+  return new Promise<void>((resolve) => {
+    image.addEventListener("load", () => void decodeImage().then(resolve), { once: true });
+    image.addEventListener("error", () => resolve(), { once: true });
+  });
+}
+
+async function afterCriticalStickerImagesPaint(root: HTMLElement) {
+  const images = Array.from(root.querySelectorAll("img")).filter(
+    (image): image is HTMLImageElement => image instanceof HTMLImageElement && isInInitialViewport(image),
   );
 
   if (!images.length) {
-    return Promise.resolve();
+    await nextFrame();
+    return;
   }
 
-  return Promise.all(
-    images.map(
-      (image) =>
-        new Promise<void>((resolve) => {
-          if (image.complete) {
-            if (image.decode) {
-              image.decode().then(resolve).catch(resolve);
-            } else {
-              resolve();
-            }
-            return;
-          }
-
-          image.addEventListener("load", () => resolve(), { once: true });
-          image.addEventListener("error", () => resolve(), { once: true });
-        }),
-    ),
-  ).then(() => undefined);
+  await Promise.all(images.map(waitForStickerImage));
+  await nextFrame();
 }
 
 function hashSlug(slug: string) {
@@ -156,11 +175,19 @@ function PlaceholderSticker({ item }: { item: CatalogItem }) {
 
 export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
-  const [isMapMounted, setIsMapMounted] = useState(false);
+  const [mapWarmupState, setMapWarmupState] = useState<MapWarmupState>("idle");
+  const [pendingMapReveal, setPendingMapReveal] = useState(false);
+  const pendingMapRevealRef = useRef(false);
   const stickerPaperRef = useRef<HTMLDivElement>(null);
   const sortedItems = useMemo(() => [...initialItems].sort((a, b) => a.commonName.localeCompare(b.commonName)), [initialItems]);
   const stickerViews = useMemo(() => buildStickerViews(initialItems), [initialItems]);
   const paperHeight = useMemo(() => boardHeight(stickerViews), [stickerViews]);
+  const isMapMounted = mapWarmupState !== "idle";
+
+  const startMapWarmup = useCallback(() => {
+    preloadTompkinsMapInBackground();
+    setMapWarmupState((current) => (current === "idle" ? "warming" : current));
+  }, []);
 
   useEffect(() => {
     const root = stickerPaperRef.current;
@@ -178,19 +205,18 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
 
     const warmMap = () => {
       if (cancelled) return;
-      preloadTompkinsMapInBackground();
-      setIsMapMounted(true);
+      startMapWarmup();
     };
 
-    afterVisibleStickerImagesLoad(root).then(() => {
+    afterCriticalStickerImagesPaint(root).then(() => {
       if (cancelled) return;
 
       if (idleWindow.requestIdleCallback) {
-        idleId = idleWindow.requestIdleCallback(warmMap, { timeout: MAP_WARM_MOUNT_TIMEOUT_MS });
+        idleId = idleWindow.requestIdleCallback(warmMap, { timeout: MAP_WARM_IDLE_TIMEOUT_MS });
         return;
       }
 
-      timeoutId = window.setTimeout(warmMap, 250);
+      timeoutId = window.setTimeout(warmMap, 0);
     });
 
     return () => {
@@ -198,17 +224,47 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
       if (idleId !== undefined) idleWindow.cancelIdleCallback?.(idleId);
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [startMapWarmup]);
 
   const showCatalog = () => {
+    pendingMapRevealRef.current = false;
+    setPendingMapReveal(false);
     setView("catalog");
   };
 
   const showMap = () => {
-    setIsMapMounted(true);
-    preloadTompkinsMapInBackground();
-    setView("map");
+    startMapWarmup();
+
+    if (mapWarmupState === "ready" || mapWarmupState === "failed") {
+      pendingMapRevealRef.current = false;
+      setPendingMapReveal(false);
+      setView("map");
+      return;
+    }
+
+    pendingMapRevealRef.current = true;
+    setPendingMapReveal(true);
   };
+
+  const handleMapReady = useCallback(() => {
+    setMapWarmupState("ready");
+
+    if (pendingMapRevealRef.current) {
+      pendingMapRevealRef.current = false;
+      setPendingMapReveal(false);
+      setView("map");
+    }
+  }, []);
+
+  const handleMapError = useCallback(() => {
+    setMapWarmupState("failed");
+
+    if (pendingMapRevealRef.current) {
+      pendingMapRevealRef.current = false;
+      setPendingMapReveal(false);
+      setView("map");
+    }
+  }, []);
 
   return (
     <main className={styles.shell}>
@@ -216,7 +272,13 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
         <button className={view === "catalog" ? styles.activeTab : ""} onClick={showCatalog} type="button">
           Catalog
         </button>
-        <button className={view === "map" ? styles.activeTab : ""} onClick={showMap} type="button">
+        <button
+          aria-busy={pendingMapReveal ? "true" : undefined}
+          className={view === "map" ? styles.activeTab : ""}
+          data-pending={pendingMapReveal ? "true" : undefined}
+          onClick={showMap}
+          type="button"
+        >
           Map
         </button>
       </div>
@@ -227,6 +289,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
           className={styles.viewLayer}
           data-active={view === "catalog"}
           data-view="catalog"
+          inert={view !== "catalog" ? true : undefined}
         >
           <section className={styles.stickerBoard} aria-label="Catalog view">
             <div
@@ -262,12 +325,11 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
                   <span className={styles.stickerAsset}>
                     {item.stickerImageUrl ? (
                       <img
-	                        src={item.stickerImageUrl}
-	                        alt=""
-                        data-warmup={index < 4 ? "true" : undefined}
-	                        decoding="async"
-                        fetchPriority={index < 2 ? "high" : "auto"}
-                        loading={index < 4 ? "eager" : "lazy"}
+                        src={item.stickerImageUrl}
+                        alt=""
+                        decoding="async"
+                        fetchPriority={index < HIGH_PRIORITY_STICKER_COUNT ? "high" : "auto"}
+                        loading={index < INITIAL_EAGER_STICKER_COUNT ? "eager" : "lazy"}
                       />
                     ) : (
                       <PlaceholderSticker item={item} />
@@ -287,7 +349,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
             data-active={view === "map"}
             data-view="map"
           >
-            <TompkinsMap items={sortedItems} />
+            <TompkinsMap items={sortedItems} onError={handleMapError} onReady={handleMapReady} />
           </section>
         ) : null}
       </div>

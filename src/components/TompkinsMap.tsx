@@ -33,6 +33,7 @@ type GoogleMap3DElement = HTMLElement & {
   bounds?: { north: number; south: number; east: number; west: number };
   center?: { lat: number; lng: number; altitude?: number };
   heading?: number;
+  isSteady?: boolean;
   range?: number;
   tilt?: number;
   flyCameraTo?: (options: {
@@ -79,6 +80,19 @@ type GoogleCamera = {
   heading: number;
   range: number;
   tilt: number;
+};
+
+type GoogleSteadyChangeEvent = Event & {
+  detail?: {
+    isSteady?: boolean;
+  };
+  isSteady?: boolean;
+};
+
+type TompkinsMapProps = {
+  items: CatalogItem[];
+  onError?: () => void;
+  onReady?: () => void;
 };
 
 const GOOGLE_MAPS_VERSION = "weekly";
@@ -339,6 +353,10 @@ function appendGoogleBoundary(map: GoogleMap3DElement, maps3d: GoogleMaps3DLibra
   map.append(boundary);
 }
 
+function waitForNextPaint(callback: () => void) {
+  return window.requestAnimationFrame(callback);
+}
+
 function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error" }) {
   return (
     <section className={styles.mapBoard} aria-label="Google 3D Tompkins Square Park map">
@@ -358,19 +376,56 @@ function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error"
   );
 }
 
-function GoogleTompkinsMap({ apiKey, items }: { apiKey: string; items: CatalogItem[] }) {
+function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps & { apiKey: string }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<GoogleMap3DElement | null>(null);
+  const onErrorRef = useRef(onError);
+  const onReadyRef = useRef(onReady);
   const [loadFailed, setLoadFailed] = useState(false);
   const mapPins = useMemo(() => buildGoogleMapPins(items), [items]);
+
+  useEffect(() => {
+    onErrorRef.current = onError;
+    onReadyRef.current = onReady;
+  }, [onError, onReady]);
 
   useEffect(() => {
     const container = mapContainerRef.current;
     if (!container) return;
 
     let cancelled = false;
+    let failed = false;
+    let ready = false;
+    let sceneBuilt = false;
+    let steadyBeforeSceneBuilt = false;
     let detachPinScaling: (() => void) | undefined;
+    let detachSteadyListener: (() => void) | undefined;
+    let detachMapErrorListener: (() => void) | undefined;
+    let readyFrameId: number | undefined;
+
+    const failMapLoad = () => {
+      if (cancelled || failed) return;
+      failed = true;
+      setLoadFailed(true);
+      onErrorRef.current?.();
+    };
+
+    const markMapReady = () => {
+      if (cancelled || failed || ready) return;
+
+      if (!sceneBuilt) {
+        steadyBeforeSceneBuilt = true;
+        return;
+      }
+
+      ready = true;
+      readyFrameId = waitForNextPaint(() => {
+        if (!cancelled) onReadyRef.current?.();
+      });
+    };
+
     container.replaceChildren();
+    setLoadFailed(false);
 
     loadGoogle3DLibraries(apiKey)
       .then(({ maps3d, marker }) => {
@@ -394,9 +449,18 @@ function GoogleTompkinsMap({ apiKey, items }: { apiKey: string; items: CatalogIt
           range: TOMPKINS_CAMERA.range,
           tilt: TOMPKINS_CAMERA.tilt,
         });
-        map.addEventListener("gmp-error", () => {
-          if (!cancelled) setLoadFailed(true);
-        });
+        const handleMapError = () => failMapLoad();
+        const handleSteadyChange = (event: Event) => {
+          const steadyEvent = event as GoogleSteadyChangeEvent;
+          if (steadyEvent.isSteady === true || steadyEvent.detail?.isSteady === true) {
+            markMapReady();
+          }
+        };
+
+        map.addEventListener("gmp-error", handleMapError);
+        map.addEventListener("gmp-steadychange", handleSteadyChange);
+        detachMapErrorListener = () => map.removeEventListener("gmp-error", handleMapError);
+        detachSteadyListener = () => map.removeEventListener("gmp-steadychange", handleSteadyChange);
         map.className = styles.googleMapElement;
         mapRef.current = map;
         container.append(map);
@@ -448,14 +512,20 @@ function GoogleTompkinsMap({ apiKey, items }: { apiKey: string; items: CatalogIt
           });
           map.append(interactiveMarker);
         }
+
+        sceneBuilt = true;
+        if (steadyBeforeSceneBuilt || map.isSteady === true) {
+          markMapReady();
+        }
       })
-      .catch(() => {
-        if (!cancelled) setLoadFailed(true);
-      });
+      .catch(failMapLoad);
 
     return () => {
       cancelled = true;
+      if (readyFrameId !== undefined) window.cancelAnimationFrame(readyFrameId);
       detachPinScaling?.();
+      detachSteadyListener?.();
+      detachMapErrorListener?.();
       mapRef.current = null;
       container.replaceChildren();
     };
@@ -490,10 +560,16 @@ function GoogleTompkinsMap({ apiKey, items }: { apiKey: string; items: CatalogIt
   );
 }
 
-export function TompkinsMap({ items }: { items: CatalogItem[] }) {
-  if (!hasGoogleMapsApiKey()) {
+export function TompkinsMap({ items, onError, onReady }: TompkinsMapProps) {
+  const hasApiKey = hasGoogleMapsApiKey();
+
+  useEffect(() => {
+    if (!hasApiKey) onError?.();
+  }, [hasApiKey, onError]);
+
+  if (!hasApiKey) {
     return <GoogleMapUnavailable reason="missing-key" />;
   }
 
-  return <GoogleTompkinsMap apiKey={publicEnv.googleMapsApiKey} items={items} />;
+  return <GoogleTompkinsMap apiKey={publicEnv.googleMapsApiKey} items={items} onError={onError} onReady={onReady} />;
 }

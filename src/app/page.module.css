@@ -120,14 +120,12 @@
   overflow-y: auto;
   opacity: 0;
   pointer-events: none;
-  visibility: hidden;
 }
 
 .viewLayer[data-active="true"] {
   z-index: 1;
   opacity: 1;
   pointer-events: auto;
-  visibility: visible;
 }
 
 .mapViewLayer {
