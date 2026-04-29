@@ -176,13 +176,13 @@ function PlaceholderSticker({ item }: { item: CatalogItem }) {
 export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
   const [mapWarmupState, setMapWarmupState] = useState<MapWarmupState>("idle");
-  const [pendingMapReveal, setPendingMapReveal] = useState(false);
-  const pendingMapRevealRef = useRef(false);
   const stickerPaperRef = useRef<HTMLDivElement>(null);
   const sortedItems = useMemo(() => [...initialItems].sort((a, b) => a.commonName.localeCompare(b.commonName)), [initialItems]);
   const stickerViews = useMemo(() => buildStickerViews(initialItems), [initialItems]);
   const paperHeight = useMemo(() => boardHeight(stickerViews), [stickerViews]);
   const isMapMounted = mapWarmupState !== "idle";
+  const isMapClickable = mapWarmupState === "ready" || mapWarmupState === "failed";
+  const isMapPending = !isMapClickable;
 
   const startMapWarmup = useCallback(() => {
     preloadTompkinsMapInBackground();
@@ -227,43 +227,20 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
   }, [startMapWarmup]);
 
   const showCatalog = () => {
-    pendingMapRevealRef.current = false;
-    setPendingMapReveal(false);
     setView("catalog");
   };
 
   const showMap = () => {
-    startMapWarmup();
-
-    if (mapWarmupState === "ready" || mapWarmupState === "failed") {
-      pendingMapRevealRef.current = false;
-      setPendingMapReveal(false);
-      setView("map");
-      return;
-    }
-
-    pendingMapRevealRef.current = true;
-    setPendingMapReveal(true);
+    if (!isMapClickable) return;
+    setView("map");
   };
 
   const handleMapReady = useCallback(() => {
     setMapWarmupState("ready");
-
-    if (pendingMapRevealRef.current) {
-      pendingMapRevealRef.current = false;
-      setPendingMapReveal(false);
-      setView("map");
-    }
   }, []);
 
   const handleMapError = useCallback(() => {
     setMapWarmupState("failed");
-
-    if (pendingMapRevealRef.current) {
-      pendingMapRevealRef.current = false;
-      setPendingMapReveal(false);
-      setView("map");
-    }
   }, []);
 
   return (
@@ -273,10 +250,11 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
           Catalog
         </button>
         <button
-          aria-busy={pendingMapReveal ? "true" : undefined}
-          aria-label={pendingMapReveal ? "Map loading" : undefined}
+          aria-busy={isMapPending ? "true" : undefined}
+          aria-label={isMapPending ? "Map loading" : undefined}
           className={view === "map" ? styles.activeTab : ""}
-          data-pending={pendingMapReveal ? "true" : undefined}
+          data-pending={isMapPending ? "true" : undefined}
+          disabled={!isMapClickable}
           onClick={showMap}
           type="button"
         >

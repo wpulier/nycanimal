@@ -105,6 +105,10 @@
   padding: 12px 18px;
 }
 
+.tabs button:disabled {
+  cursor: wait;
+}
+
 .tabs button[data-pending="true"] {
   background: rgba(40, 58, 34, 0.08);
 }
