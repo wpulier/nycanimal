@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "@/app/page.module.css";
 import { tompkinsMapData } from "@/data/tompkinsMap";
+import { catalogItemSlugForTreeSpecies } from "@/data/treeSpeciesCatalog";
 import type { CatalogItem } from "@/lib/catalogSchema";
 import { projectGeoToTompkinsMap } from "@/lib/tompkinsProjection";
 
@@ -55,8 +56,8 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const zoomRef = useRef<ZoomBehavior<HTMLDivElement, unknown> | null>(null);
   const { width, height } = tompkinsMapData.metadata.viewBox;
-  const featuredElm = tompkinsMapData.trees.find((tree) => tree.id === "5103318");
   const [transform, setTransform] = useState<ZoomTransform>(zoomIdentity);
+  const [activeTreeId, setActiveTreeId] = useState<string | null>(null);
 
   const initialTransform = useCallback(() => {
     const viewport = viewportRef.current;
@@ -89,6 +90,15 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
     [items],
   );
 
+  const activeTree = useMemo(
+    () => tompkinsMapData.trees.find((tree) => tree.id === activeTreeId) ?? null,
+    [activeTreeId],
+  );
+
+  const activeTreeSlug = activeTree
+    ? catalogItemSlugForTreeSpecies(activeTree.commonName, activeTree.latinName, items)
+    : null;
+
   useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport) return;
@@ -119,7 +129,7 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
 
   return (
     <section className={styles.mapBoard} aria-label="GIS-faithful Tompkins Square Park map">
-      <div className={styles.mapViewport} data-zoom-level={zoomLevel(transform.k)} ref={viewportRef}>
+      <div className={styles.mapViewport} data-zoom-level={zoomLevel(transform.k)} onClick={() => setActiveTreeId(null)} ref={viewportRef}>
         <svg className={styles.tompkinsSvg} role="img" aria-label="Tompkins Square Park boundary, paths, zones, landmarks, and tree canopy">
           <defs>
             <pattern id="map-paper-grid" width="42" height="42" patternUnits="userSpaceOnUse">
@@ -151,24 +161,37 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
 
             <g className={styles.treeCanopyLayer}>
               {tompkinsMapData.trees.map((tree) => (
-                <circle
-                  cx={tree.point.x}
-                  cy={tree.point.y}
-                  fill={treeColor(tree.commonName)}
-                  key={tree.id}
-                  r={treeRadius(tree.dbh)}
-                >
-                  <title>{`${tree.commonName}${tree.dbh ? `, ${tree.dbh} inch DBH` : ""} / Tree ${tree.id}`}</title>
-                </circle>
+                <g key={tree.id}>
+                  <circle
+                    className={styles.treeDot}
+                    cx={tree.point.x}
+                    cy={tree.point.y}
+                    fill={treeColor(tree.commonName)}
+                    r={treeRadius(tree.dbh)}
+                  />
+                  <circle
+                    className={styles.treeHitArea}
+                    cx={tree.point.x}
+                    cy={tree.point.y}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setActiveTreeId((current) => (current === tree.id ? null : tree.id));
+                    }}
+                    r={Math.max(treeRadius(tree.dbh), 18 / transform.k)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setActiveTreeId(tree.id);
+                      }
+                    }}
+                  >
+                    <title>{`${tree.commonName}${tree.dbh ? `, ${tree.dbh} inch DBH` : ""} / Tree ${tree.id}`}</title>
+                  </circle>
+                </g>
               ))}
             </g>
-
-            {featuredElm ? (
-              <g className={styles.featuredTreeMarker}>
-                <circle cx={featuredElm.point.x} cy={featuredElm.point.y} r="22" />
-                <text x={featuredElm.point.x + 25} y={featuredElm.point.y - 18}>Tree 5103318</text>
-              </g>
-            ) : null}
 
             <g className={styles.mapLandmarks}>
               {tompkinsMapData.landmarks.map((landmark) => (
@@ -180,11 +203,10 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
               ))}
             </g>
 
-            <text className={styles.mapStreetLabel} x="120" y="650" transform="rotate(-55 120 650)">Avenue A</text>
-            <text className={styles.mapStreetLabel} x="840" y="350" transform="rotate(-55 840 350)">Avenue B</text>
-            <text className={styles.mapStreetLabel} x="495" y="90" transform="rotate(23 495 90)">E 10 St</text>
-            <text className={styles.mapStreetLabel} x="510" y="940" transform="rotate(23 510 940)">E 7 St</text>
-            <text className={styles.mapTitleLabel} x="500" y="515">Tompkins Square Park</text>
+            <text className={styles.mapStreetLabel} x="20" y="785" transform="rotate(-55 20 785)">Avenue A</text>
+            <text className={styles.mapStreetLabel} x="965" y="420" transform="rotate(-55 965 420)">Avenue B</text>
+            <text className={styles.mapStreetLabel} x="495" y="35" transform="rotate(23 495 35)">E 10 St</text>
+            <text className={styles.mapStreetLabel} x="510" y="1012" transform="rotate(23 510 1012)">E 7 St</text>
           </g>
         </svg>
 
@@ -197,13 +219,34 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
               left: transform.applyX(point.x),
               top: transform.applyY(point.y),
               "--sticker-color": item.color,
-              "--pin-scale": Math.max(0.58, Math.min(1.18, 1 / Math.sqrt(transform.k))),
+              "--pin-scale": Math.max(0.34, Math.min(0.72, 0.72 / Math.sqrt(transform.k))),
             } as CSSProperties}
           >
             {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
             <span>{item.sticker}</span>
           </Link>
         ))}
+
+        {activeTree && activeTreeSlug ? (
+          <div
+            className={styles.treePopover}
+            onClick={(event) => event.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
+            style={{
+              left: transform.applyX(activeTree.point.x),
+              top: transform.applyY(activeTree.point.y),
+            }}
+          >
+            <p className={styles.treePopoverKicker}>Tree {activeTree.id}</p>
+            <h3>{activeTree.commonName}</h3>
+            {activeTree.latinName ? <p className={styles.treePopoverLatin}>{activeTree.latinName}</p> : null}
+            <dl>
+              {activeTree.dbh ? <><dt>DBH</dt><dd>{activeTree.dbh} in</dd></> : null}
+              {activeTree.condition ? <><dt>Condition</dt><dd>{activeTree.condition}</dd></> : null}
+            </dl>
+            <Link href={`/items/${activeTreeSlug}`}>Open species card</Link>
+          </div>
+        ) : null}
       </div>
 
       <div className={styles.mapZoomControls} aria-label="Map zoom controls">

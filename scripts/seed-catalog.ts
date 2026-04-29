@@ -1,6 +1,6 @@
 import { FieldValue } from "firebase-admin/firestore";
 import "./load-local-env";
-import { catalogItems } from "../src/data/catalog";
+import { allCatalogItems as catalogItems } from "../src/data/catalog";
 import { catalogItemSchema } from "../src/lib/catalogSchema";
 import { getAdminDb } from "../src/lib/firebaseAdmin";
 

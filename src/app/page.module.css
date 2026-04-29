@@ -1,6 +1,6 @@
 .shell {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   width: 100vw;
   min-height: 100svh;
   margin: 0;
@@ -109,7 +109,8 @@
 }
 
 .stickerBoard {
-  overflow: hidden;
+  min-height: 260svh;
+  overflow: visible;
   background:
     linear-gradient(rgba(40, 58, 34, 0.08) 2px, transparent 2px),
     linear-gradient(90deg, rgba(40, 58, 34, 0.08) 2px, transparent 2px),
@@ -160,6 +161,8 @@
 }
 
 .mapBoard {
+  height: 100svh;
+  min-height: 100svh;
   overflow: hidden;
   background:
     radial-gradient(circle at 24% 22%, rgba(243, 91, 44, 0.14), transparent 22rem),
@@ -250,24 +253,20 @@
   stroke-width: 10;
 }
 
-.treeCanopyLayer circle {
+.treeDot {
   opacity: 0.74;
   stroke: rgba(255, 247, 221, 0.9);
   stroke-width: 2.2;
 }
 
-.featuredTreeMarker {
-  pointer-events: none;
-}
-
-.featuredTreeMarker circle {
+.treeHitArea {
+  cursor: pointer;
   fill: transparent;
-  stroke: #f35b2c;
-  stroke-dasharray: 9 7;
-  stroke-width: 6;
+  opacity: 1;
+  pointer-events: auto;
+  stroke: transparent;
 }
 
-.featuredTreeMarker text,
 .mapLandmarks text,
 .mapStreetLabel,
 .mapTitleLabel {
@@ -276,13 +275,6 @@
   paint-order: stroke;
   stroke: rgba(255, 247, 221, 0.86);
   stroke-linejoin: round;
-}
-
-.featuredTreeMarker text {
-  fill: var(--coral);
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  stroke-width: 6px;
 }
 
 .mapLandmarks circle {
@@ -303,7 +295,7 @@
   display: block;
 }
 
-.mapViewport[data-zoom-level="far"] .treeCanopyLayer circle {
+.mapViewport[data-zoom-level="far"] .treeDot {
   opacity: 0.52;
 }
 
@@ -331,6 +323,92 @@
   letter-spacing: -0.06em;
   stroke-width: 7px;
   text-anchor: middle;
+}
+
+.treePopover {
+  position: absolute;
+  z-index: 16;
+  width: min(250px, calc(100vw - 28px));
+  transform: translate(-50%, calc(-100% - 18px));
+  border: 2px solid rgba(27, 33, 24, 0.88);
+  border-radius: 22px;
+  background: rgba(255, 247, 221, 0.96);
+  box-shadow: 8px 10px 0 rgba(27, 33, 24, 0.16);
+  color: var(--ink);
+  padding: 14px;
+}
+
+.treePopover::after {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid rgba(27, 33, 24, 0.88);
+  border-bottom: 2px solid rgba(27, 33, 24, 0.88);
+  background: rgba(255, 247, 221, 0.96);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.treePopover h3,
+.treePopover p,
+.treePopover dl {
+  margin: 0;
+}
+
+.treePopover h3 {
+  font-family: var(--font-display), serif;
+  font-size: 1.65rem;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.treePopoverKicker {
+  color: var(--coral);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px !important;
+  text-transform: uppercase;
+}
+
+.treePopoverLatin {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 7px !important;
+}
+
+.treePopover dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  margin-block: 10px !important;
+  font-size: 0.82rem;
+}
+
+.treePopover dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.treePopover dd {
+  margin: 0;
+  font-weight: 900;
+}
+
+.treePopover a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  border: 2px solid rgba(27, 33, 24, 0.86);
+  border-radius: 999px;
+  background: var(--moss);
+  color: #fff7dd;
+  font-size: 0.82rem;
+  font-weight: 900;
+  padding: 8px 10px;
 }
 
 .mapCredit {
@@ -404,12 +482,12 @@
 .mapPin {
   position: absolute;
   z-index: 9;
-  min-width: 86px;
-  min-height: 54px;
+  min-width: 58px;
+  min-height: 36px;
   transform: translate(-50%, -50%) scale(var(--pin-scale, 1));
   border-radius: 999px;
-  padding: 10px 14px;
-  font-size: 0.9rem;
+  padding: 6px 9px;
+  font-size: 0.74rem;
   transform-origin: center;
 }
 

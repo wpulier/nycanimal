@@ -1,4 +1,6 @@
-export type CatalogKind = "bird" | "plant" | "tree" | "object" | "mammal";
+import { getTreeSpeciesCatalogItems } from "@/data/treeSpeciesCatalog";
+
+export type CatalogKind = "bird" | "plant" | "tree" | "object" | "mammal" | "insect" | "fungus";
 
 export type CatalogItem = {
   slug: string;
@@ -118,6 +120,9 @@ export const catalogItems: CatalogItem[] = [
   },
 ];
 
+export const generatedTreeSpeciesItems = getTreeSpeciesCatalogItems(catalogItems);
+export const allCatalogItems = [...catalogItems, ...generatedTreeSpeciesItems];
+
 export function getCatalogItem(slug: string) {
-  return catalogItems.find((item) => item.slug === slug);
+  return allCatalogItems.find((item) => item.slug === slug);
 }

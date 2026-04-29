@@ -13,6 +13,7 @@ async function main() {
         id: doc.id,
         commonName: data.commonName,
         latinName: data.latinName,
+        catalogItemSlug: data.catalogItemSlug,
         dbh: data.dbh,
         latitude: data.coordinates?.latitude,
         longitude: data.coordinates?.longitude,

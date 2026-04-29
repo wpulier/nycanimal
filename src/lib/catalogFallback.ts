@@ -1,4 +1,4 @@
-import { catalogItems as localCatalogItems } from "@/data/catalog";
+import { allCatalogItems as localCatalogItems } from "@/data/catalog";
 import { catalogItemSchema, type CatalogItem } from "@/lib/catalogSchema";
 
 export const localCatalogFallback: CatalogItem[] = localCatalogItems.map((item) =>

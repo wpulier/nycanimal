@@ -1,6 +1,8 @@
 import { FieldValue } from "firebase-admin/firestore";
 import "./load-local-env";
+import { catalogItems } from "../src/data/catalog";
 import { tompkinsMapData } from "../src/data/tompkinsMap";
+import { catalogItemSlugForTreeSpecies } from "../src/data/treeSpeciesCatalog";
 import { treePointSchema } from "../src/lib/catalogSchema";
 import { getAdminDb } from "../src/lib/firebaseAdmin";
 
@@ -17,6 +19,7 @@ async function main() {
   for (const rawTree of tompkinsMapData.trees) {
     const treePoint = treePointSchema.parse({
       id: rawTree.id,
+      catalogItemSlug: catalogItemSlugForTreeSpecies(rawTree.commonName, rawTree.latinName, catalogItems),
       commonName: rawTree.commonName,
       latinName: rawTree.latinName,
       dbh: rawTree.dbh,

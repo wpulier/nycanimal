@@ -92,6 +92,7 @@ export const llmCatalogDraftSchema = z.object({
 
 export const treePointSchema = z.object({
   id: z.string().min(1),
+  catalogItemSlug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   commonName: z.string().min(1),
   latinName: z.string().min(1).optional(),
   dbh: z.number().optional(),
