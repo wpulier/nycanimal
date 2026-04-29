@@ -16,6 +16,15 @@ function nextItem(items: ItemNavItem[], currentSlug: string) {
   return items[(currentIndex + 1) % items.length] ?? null;
 }
 
+function previousItem(items: ItemNavItem[], currentSlug: string) {
+  if (items.length < 2) return null;
+
+  const currentIndex = items.findIndex((item) => item.slug === currentSlug);
+  if (currentIndex === -1) return items.at(-1) ?? null;
+
+  return items[(currentIndex - 1 + items.length) % items.length] ?? null;
+}
+
 export function ItemPageChrome({
   children,
   currentSlug,
@@ -25,6 +34,7 @@ export function ItemPageChrome({
   currentSlug: string;
   items: ItemNavItem[];
 }) {
+  const previous = previousItem(items, currentSlug);
   const next = nextItem(items, currentSlug);
 
   return (
@@ -35,9 +45,22 @@ export function ItemPageChrome({
 
       {children}
 
+      {previous ? (
+        <Link
+          className={`${styles.itemStepControl} ${styles.itemStepControlLeft}`}
+          href={`/items/${previous.slug}`}
+          aria-label={`Previous sticker: ${previous.commonName}`}
+        >
+          <span aria-hidden="true">←</span>
+        </Link>
+      ) : null}
+
       {next ? (
-        <Link className={styles.itemNextControl} href={`/items/${next.slug}`} aria-label={`Next sticker: ${next.commonName}`}>
-          <span>Next</span>
+        <Link
+          className={`${styles.itemStepControl} ${styles.itemStepControlRight}`}
+          href={`/items/${next.slug}`}
+          aria-label={`Next sticker: ${next.commonName}`}
+        >
           <span aria-hidden="true">→</span>
         </Link>
       ) : null}

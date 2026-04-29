@@ -97,11 +97,23 @@ function clamp(value: number, min: number, max: number) {
 
 function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): StickerLayout {
   const hash = hashSlug(item.slug);
-  const row = Math.floor(fallbackIndex / 3);
-  const col = fallbackIndex % 3;
-  const columnCenters = row % 2 === 0 ? [22, 52, 78] : [29, 58, 82];
-  const xJitter = ((hash % 13) - 6) * 0.85;
-  const yJitter = (((hash >> 3) % 25) - 12) * 0.9;
+  const rowPatterns = [
+    [24, 72],
+    [17, 50, 82],
+    [34, 68],
+    [22, 54, 78],
+  ];
+  let row = 0;
+  let remaining = fallbackIndex;
+
+  while (remaining >= rowPatterns[row % rowPatterns.length].length) {
+    remaining -= rowPatterns[row % rowPatterns.length].length;
+    row += 1;
+  }
+
+  const columnCenters = rowPatterns[row % rowPatterns.length];
+  const xJitter = ((hash % 17) - 8) * 0.72;
+  const yJitter = (((hash >> 3) % 23) - 11) * 0.75;
   const widthByKind: Record<CatalogItem["kind"], number> = {
     bird: 132,
     plant: 118,
@@ -113,10 +125,10 @@ function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): Sticke
   };
 
   return {
-    x: clamp(columnCenters[col] + xJitter, 18, 82),
-    y: 1510 + row * 146 + yJitter,
-    width: widthByKind[item.kind] + (hash % 19) - 9,
-    rotate: ((hash % 31) - 15) * 0.9,
+    x: clamp(columnCenters[remaining] + xJitter, 16, 84),
+    y: 1470 + row * 184 + yJitter,
+    width: widthByKind[item.kind] + (hash % 15) - 7,
+    rotate: ((hash % 29) - 14) * 0.82,
     zIndex: 2 + (hash % 8),
   };
 }

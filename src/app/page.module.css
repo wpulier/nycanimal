@@ -207,11 +207,11 @@
   position: relative;
   z-index: 40;
   display: grid;
-  gap: 12px;
+  gap: 9px;
   justify-items: center;
   align-content: start;
-  min-height: 250px;
-  padding: 78px 24px 28px;
+  min-height: 232px;
+  padding: 78px 24px 22px;
   text-align: center;
 }
 
@@ -237,14 +237,17 @@
 .tapCue {
   position: relative;
   z-index: 28;
-  margin: 2px 0 0;
+  margin: 0;
   transform: rotate(-1.5deg);
   background: rgba(241, 218, 171, 0.66);
   box-shadow: 0 5px 10px rgba(86, 66, 35, 0.12);
   color: rgba(27, 33, 24, 0.7);
-  font-family: cursive;
-  font-size: 0.86rem;
-  padding: 7px 16px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -679,11 +682,12 @@
 .itemPageChrome {
   position: relative;
   min-height: 100svh;
+  padding-top: calc(52px + env(safe-area-inset-top));
   padding-bottom: calc(74px + env(safe-area-inset-bottom));
 }
 
 .itemBackControl,
-.itemNextControl {
+.itemStepControl {
   position: fixed;
   z-index: 80;
   display: inline-flex;
@@ -709,16 +713,23 @@
   padding: 10px 13px;
 }
 
-.itemNextControl {
-  right: max(14px, env(safe-area-inset-right));
+.itemStepControl {
   bottom: calc(16px + env(safe-area-inset-bottom));
-  gap: 8px;
-  min-width: 78px;
-  padding: 13px 15px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
 }
 
-.itemNextControl span:last-child {
-  font-size: 1rem;
+.itemStepControlLeft {
+  left: max(14px, env(safe-area-inset-left));
+}
+
+.itemStepControlRight {
+  right: max(14px, env(safe-area-inset-right));
+}
+
+.itemStepControl span {
+  font-size: 1.2rem;
   transform: translateY(-1px);
 }
 
