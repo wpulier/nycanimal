@@ -103,10 +103,10 @@ const TOMPKINS_CAMERA: GoogleCamera = {
   tilt: 0,
 };
 const TOMPKINS_OBLIQUE_CAMERA: GoogleCamera = {
-  center: { lat: 40.7255, lng: -73.98172, altitude: 0 },
+  center: { lat: 40.72482, lng: -73.98172, altitude: 0 },
   heading: TOMPKINS_CAMERA.heading,
-  range: 540,
-  tilt: 48,
+  range: 460,
+  tilt: 38,
 };
 const TOMPKINS_CONTEXT_PAD_LNG = 0.00062;
 const TOMPKINS_CONTEXT_PAD_LAT = 0.0005;
