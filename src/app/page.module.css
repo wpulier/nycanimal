@@ -79,9 +79,11 @@
   left: 50%;
   bottom: max(18px, env(safe-area-inset-bottom));
   z-index: 20;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   transform: translateX(-50%);
+  width: min(380px, calc(100vw - 28px));
   padding: 6px;
   border: 2px solid rgba(27, 33, 24, 0.9);
   border-radius: 999px;
@@ -95,7 +97,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-width: 96px;
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
   border: 0;
   border-radius: 999px;
   background: transparent;
@@ -103,6 +107,7 @@
   cursor: pointer;
   font-weight: 800;
   padding: 12px 18px;
+  white-space: nowrap;
 }
 
 .tabs button:disabled {
@@ -114,6 +119,7 @@
 }
 
 .tabs button[data-pending="true"]::after {
+  flex: 0 0 auto;
   width: 0.72em;
   height: 0.72em;
   border: 2px solid currentColor;
@@ -772,12 +778,12 @@
   }
 
   .tabs {
-    right: 14px;
     bottom: max(14px, env(safe-area-inset-bottom));
+    width: min(350px, calc(100vw - 20px));
   }
 
   .tabs button {
-    flex: 1;
+    padding-inline: 12px;
   }
 
   .sticker {
@@ -785,6 +791,23 @@
     min-height: 0;
   }
 
+}
+
+@media (max-width: 300px) {
+  .tabs {
+    gap: 6px;
+    width: calc(100vw - 12px);
+    padding: 5px;
+  }
+
+  .tabs button {
+    min-height: 50px;
+    padding-inline: 8px;
+  }
+
+  .tabs button[data-pending="true"] {
+    gap: 6px;
+  }
 }
 
 .mapPin img,
