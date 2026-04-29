@@ -41,6 +41,7 @@ export type CatalogItem = {
   summary: string;
   seasonalNote: string;
   pageMode: "field-card" | "scroll-story" | "specimen";
+  experienceKey?: string;
   facts: string[];
 };
 
@@ -66,6 +67,7 @@ export const catalogItems: CatalogItem[] = [
     summary: "The park's most visible city bird, adapted to pavement, benches, crumbs, ledges, and crowds.",
     seasonalNote: "Visible year-round, with extra activity around open lawns and paths after lunch hours.",
     pageMode: "scroll-story",
+    experienceKey: "rock-pigeon",
     facts: ["Descended from cliff-nesting rock doves.", "Uses magnetic and visual cues to navigate.", "Iridescent neck feathers shift with the viewing angle."],
   },
   {
@@ -81,6 +83,7 @@ export const catalogItems: CatalogItem[] = [
     summary: "Small, loud, social birds that work the edges of playgrounds, fences, and cafe tables.",
     seasonalNote: "Easy to spot in shrubs and fence lines, especially when leaves are sparse.",
     pageMode: "field-card",
+    experienceKey: "house-sparrow",
     facts: ["Often moves in quick groups.", "Males have darker bib markings.", "Thrives around human-built habitats."],
   },
   {
@@ -99,6 +102,7 @@ export const catalogItems: CatalogItem[] = [
     summary: "A tall canopy tree with arching limbs that shapes the park's shade and seasonal color.",
     seasonalNote: "Spring leaf-out, summer shade, yellow fall color, and winter branch structure all tell different stories.",
     pageMode: "specimen",
+    experienceKey: "american-elm",
     facts: ["Leaves are asymmetrical at the base.", "Mature elms can create vase-like silhouettes.", "Good candidate for a seasonal photo timeline."],
   },
   {
@@ -114,6 +118,7 @@ export const catalogItems: CatalogItem[] = [
     summary: "A tough city tree with mottled bark that handles compacted soil and urban air better than most.",
     seasonalNote: "The peeling bark is visible all year and becomes a strong visual identifier in winter.",
     pageMode: "specimen",
+    experienceKey: "london-plane",
     facts: ["Patchy bark makes camouflage-like patterns.", "Common throughout NYC streets and parks.", "Seed balls can hang through winter."],
   },
   {
@@ -129,6 +134,7 @@ export const catalogItems: CatalogItem[] = [
     summary: "Fast, acrobatic mammals that turn fences, trunks, and trash cans into connected routes.",
     seasonalNote: "Most frantic in fall when caching food; easiest to watch near mature trees.",
     pageMode: "scroll-story",
+    experienceKey: "eastern-gray-squirrel",
     facts: ["Uses tail movements for balance and communication.", "Caches nuts in scattered locations.", "Can rotate ankles to descend trees headfirst."],
   },
   {

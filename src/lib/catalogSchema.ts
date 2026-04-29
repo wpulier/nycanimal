@@ -12,7 +12,16 @@ export const catalogKindSchema = z.enum([
 
 export const pageModeSchema = z.enum(["field-card", "scroll-story", "specimen"]);
 
-export const mediaRoleSchema = z.enum(["sticker", "photo", "video", "reference"]);
+export const mediaRoleSchema = z.enum([
+  "sticker",
+  "photo",
+  "video",
+  "gif",
+  "texture",
+  "diagram",
+  "audio",
+  "reference",
+]);
 
 export const catalogPositionSchema = z.object({
   catalogX: z.number().min(0).max(100),
@@ -52,6 +61,13 @@ export const mediaAssetSchema = z.object({
   contentType: z.string().min(1),
   size: z.number().int().nonnegative(),
   status: z.enum(["draft", "published"]).default("published"),
+  caption: z.string().min(1).max(240).optional(),
+  alt: z.string().min(1).max(240).optional(),
+  credit: z.string().min(1).max(160).optional(),
+  sortOrder: z.number().optional(),
+  width: z.number().int().positive().optional(),
+  height: z.number().int().positive().optional(),
+  tags: z.array(z.string().min(1).max(48)).default([]),
 });
 
 const stickerImageSrcSchema = z.union([
@@ -75,6 +91,7 @@ export const catalogItemSchema = z.object({
   summary: z.string().min(20),
   seasonalNote: z.string().min(10),
   pageMode: pageModeSchema,
+  experienceKey: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
   facts: z.array(z.string().min(4)).min(1).max(8),
   mediaRefs: z.array(z.string()).default([]),
   stickerAssetId: z.string().optional(),

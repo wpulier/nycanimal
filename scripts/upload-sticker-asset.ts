@@ -55,6 +55,7 @@ async function main() {
     contentType: "image/png",
     size: fileStats.size,
     status: "published" as const,
+    tags: [],
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   };

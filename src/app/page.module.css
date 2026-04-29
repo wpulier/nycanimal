@@ -970,6 +970,350 @@
   transform: rotate(-5deg);
 }
 
+.bespokeShell {
+  width: min(1040px, calc(100vw - 28px));
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+
+.bespokeShell h1 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 13vw, 9rem);
+  letter-spacing: -0.08em;
+  line-height: 0.86;
+}
+
+.bespokeShell h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.6rem, 8vw, 5.8rem);
+  letter-spacing: -0.07em;
+  line-height: 0.88;
+}
+
+.bespokeShell p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.55;
+}
+
+.pigeonWorld,
+.squirrelWorld,
+.sparrowWorld,
+.treeWorld {
+  overflow: hidden;
+  border-radius: 36px;
+}
+
+.pigeonWorld {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(167, 183, 255, 0.52), transparent 20rem),
+    linear-gradient(135deg, #fff7dd, #dce2c6);
+}
+
+.pigeonHero,
+.squirrelCanopy,
+.sparrowHero,
+.treeHero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 0.9fr);
+  gap: clamp(22px, 6vw, 70px);
+  align-items: center;
+  min-height: 520px;
+  border: 3px solid rgba(27, 33, 24, 0.88);
+  border-radius: 36px;
+  background: rgba(255, 247, 221, 0.72);
+  box-shadow: 12px 14px 0 rgba(27, 33, 24, 0.14);
+  padding: clamp(24px, 5vw, 58px);
+}
+
+.pigeonSkyline {
+  position: absolute;
+  inset: auto 28px 24px 28px;
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.pigeonSkyline i {
+  display: block;
+  width: 24%;
+  height: 80px;
+  border: 3px solid var(--ink);
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+}
+
+.pigeonSkyline i:nth-child(2) {
+  height: 140px;
+}
+
+.pigeonHeroSticker {
+  justify-self: center;
+  width: min(380px, 100%);
+  filter:
+    drop-shadow(0 0 2px #fffdf2)
+    drop-shadow(0 0 12px #fffdf2)
+    drop-shadow(20px 24px 18px rgba(27, 33, 24, 0.24));
+  transform: rotate(-5deg);
+}
+
+.pigeonMotionGrid,
+.sparrowStepStudy {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.pigeonTrackCard,
+.sparrowStepStudy > div:first-child {
+  display: grid;
+  gap: 12px;
+  border: 3px solid rgba(27, 33, 24, 0.86);
+  border-radius: 30px;
+  background: rgba(255, 247, 221, 0.84);
+  padding: 20px;
+  transform: rotate(-3deg);
+}
+
+.pigeonTrackCard span {
+  border: 2px solid rgba(27, 33, 24, 0.86);
+  border-radius: 999px;
+  background: rgba(167, 183, 255, 0.55);
+  font-weight: 900;
+  padding: 12px 14px;
+  text-transform: uppercase;
+}
+
+.pigeonMotionGrid > div:last-child,
+.sparrowStepStudy > div:last-child {
+  border: 3px solid rgba(27, 33, 24, 0.86);
+  border-radius: 30px;
+  background: rgba(255, 247, 221, 0.84);
+  padding: 24px;
+}
+
+.experienceMedia {
+  width: 100%;
+  margin-top: 16px;
+  border: 2px solid rgba(27, 33, 24, 0.72);
+  border-radius: 22px;
+  background: #1b2118;
+}
+
+.experienceNotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.experienceNotes article,
+.treeMetrics article,
+.behaviorCards article {
+  border: 2px solid rgba(27, 33, 24, 0.75);
+  border-radius: 24px;
+  background: rgba(255, 247, 221, 0.78);
+  padding: 18px;
+}
+
+.experienceNotes span,
+.treeMetrics span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--coral);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.experienceMediaStrip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.experienceMediaStrip img {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px solid rgba(27, 33, 24, 0.72);
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+.squirrelWorld {
+  background:
+    radial-gradient(circle at 20% 14%, rgba(143, 188, 107, 0.48), transparent 19rem),
+    linear-gradient(145deg, #fff7dd, #d8c39a);
+}
+
+.treeRoute {
+  position: relative;
+  min-height: 360px;
+}
+
+.treeRoute i {
+  position: absolute;
+  left: 22%;
+  width: 34%;
+  height: 96%;
+  border: 16px solid rgba(92, 75, 45, 0.86);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  transform: rotate(9deg);
+}
+
+.treeRoute i:nth-child(2) {
+  left: 50%;
+  width: 26%;
+  height: 74%;
+  transform: rotate(-14deg);
+}
+
+.treeRoute i:nth-child(3) {
+  left: 9%;
+  top: 32%;
+  width: 70%;
+  height: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(92, 75, 45, 0.86);
+  transform: rotate(-22deg);
+}
+
+.treeRoute img {
+  position: absolute;
+  right: 10%;
+  bottom: 16%;
+  width: min(260px, 66%);
+  filter: drop-shadow(14px 18px 14px rgba(27, 33, 24, 0.22));
+}
+
+.behaviorCards,
+.treeMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.behaviorCards h2 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.sparrowWorld {
+  background:
+    radial-gradient(circle at 76% 26%, rgba(242, 192, 120, 0.58), transparent 20rem),
+    #fff7dd;
+}
+
+.sparrowHero img {
+  justify-self: center;
+  width: min(300px, 100%);
+  filter: drop-shadow(14px 18px 14px rgba(27, 33, 24, 0.22));
+}
+
+.sparrowStepStudy > div:first-child {
+  min-height: 250px;
+  place-items: center;
+}
+
+.sparrowStepStudy i {
+  display: block;
+  width: 42px;
+  height: 22px;
+  border: 3px solid rgba(27, 33, 24, 0.78);
+  border-radius: 50%;
+  transform: rotate(var(--step-angle, 10deg));
+}
+
+.sparrowStepStudy i:nth-child(2) {
+  --step-angle: -12deg;
+  margin-left: 58px;
+}
+
+.sparrowStepStudy i:nth-child(3) {
+  --step-angle: 18deg;
+  margin-left: 14px;
+}
+
+.sparrowStepStudy i:nth-child(4) {
+  --step-angle: -8deg;
+  margin-left: 84px;
+}
+
+.treeWorld {
+  background:
+    radial-gradient(circle at 12% 78%, rgba(143, 188, 107, 0.4), transparent 22rem),
+    linear-gradient(145deg, #fff7dd, #e6efd8);
+}
+
+.treeDiagramCard {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  border: 2px dashed rgba(27, 33, 24, 0.48);
+  border-radius: 42% 48% 36% 52%;
+  background: rgba(255, 247, 221, 0.5);
+}
+
+.treeDiagramCard img {
+  max-width: 74%;
+  max-height: 260px;
+  object-fit: contain;
+  filter: drop-shadow(12px 16px 12px rgba(27, 33, 24, 0.2));
+}
+
+.treeDiagramCard span {
+  font-family: var(--font-display), serif;
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+}
+
+.treeDiagramCard i {
+  position: absolute;
+  width: 36%;
+  height: 2px;
+  background: rgba(27, 33, 24, 0.72);
+}
+
+.treeDiagramCard i:nth-of-type(1) {
+  top: 30%;
+  right: 8%;
+  transform: rotate(18deg);
+}
+
+.treeDiagramCard i:nth-of-type(2) {
+  left: 8%;
+  top: 52%;
+  transform: rotate(-14deg);
+}
+
+.treeDiagramCard i:nth-of-type(3) {
+  right: 18%;
+  bottom: 24%;
+  transform: rotate(-8deg);
+}
+
+.treeMetrics strong {
+  display: block;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
 .adminShell {
   width: min(1280px, calc(100vw - 28px));
   min-height: 100svh;
@@ -1109,9 +1453,7 @@
   resize: vertical;
 }
 
-.adminForm label:nth-of-type(8),
-.adminForm label:nth-of-type(9),
-.adminForm label:nth-of-type(10),
+.adminForm label:has(textarea),
 .adminForm .coordGrid,
 .adminForm button {
   grid-column: 1 / -1;
@@ -1177,7 +1519,16 @@
 @media (max-width: 980px) {
   .adminGrid,
   .adminForm,
-  .modePanel {
+  .modePanel,
+  .pigeonHero,
+  .squirrelCanopy,
+  .sparrowHero,
+  .treeHero,
+  .pigeonMotionGrid,
+  .sparrowStepStudy,
+  .experienceNotes,
+  .behaviorCards,
+  .treeMetrics {
     grid-template-columns: 1fr;
   }
 
@@ -1187,6 +1538,10 @@
   }
 
   .coordGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .experienceMediaStrip {
     grid-template-columns: 1fr 1fr;
   }
 }

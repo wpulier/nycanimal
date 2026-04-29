@@ -25,6 +25,15 @@ export async function POST(request: NextRequest) {
   const file = formData.get("file");
   const itemSlug = String(formData.get("itemSlug") ?? "");
   const roleResult = mediaRoleSchema.safeParse(formData.get("role") ?? "sticker");
+  const caption = String(formData.get("caption") ?? "").trim();
+  const alt = String(formData.get("alt") ?? "").trim();
+  const credit = String(formData.get("credit") ?? "").trim();
+  const rawSortOrder = String(formData.get("sortOrder") ?? "").trim();
+  const sortOrder = rawSortOrder ? Number(rawSortOrder) : undefined;
+  const tags = String(formData.get("tags") ?? "")
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "Missing file" }, { status: 400 });
@@ -67,6 +76,11 @@ export async function POST(request: NextRequest) {
     contentType: file.type || "application/octet-stream",
     size: file.size,
     status: "published" as const,
+    tags,
+    ...(caption ? { caption } : {}),
+    ...(alt ? { alt } : {}),
+    ...(credit ? { credit } : {}),
+    ...(sortOrder !== undefined && Number.isFinite(sortOrder) ? { sortOrder } : {}),
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   };

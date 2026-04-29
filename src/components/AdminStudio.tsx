@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import type { CatalogItem } from "@/lib/catalogSchema";
+import type { CatalogItem, MediaAsset } from "@/lib/catalogSchema";
 import styles from "@/app/page.module.css";
 
 const blankItem: CatalogItem = {
@@ -17,6 +17,7 @@ const blankItem: CatalogItem = {
   summary: "",
   seasonalNote: "",
   pageMode: "field-card",
+  experienceKey: undefined,
   facts: [""],
   treeRefs: [],
   mediaRefs: [],
@@ -41,6 +42,11 @@ export function AdminStudio() {
   const [factsText, setFactsText] = useState("");
   const [treeRefsText, setTreeRefsText] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [mediaRole, setMediaRole] = useState<MediaAsset["role"]>("sticker");
+  const [mediaCaption, setMediaCaption] = useState("");
+  const [mediaAlt, setMediaAlt] = useState("");
+  const [mediaCredit, setMediaCredit] = useState("");
+  const [mediaTags, setMediaTags] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -102,6 +108,7 @@ export function AdminStudio() {
       facts: factsText.split("\n").map((fact) => fact.trim()).filter(Boolean),
       searchNames: [item.commonName, item.sticker, item.latinName].filter(Boolean).map((name) => String(name).toLowerCase()),
       mediaRefs: item.mediaRefs ?? [],
+      experienceKey: item.experienceKey || undefined,
       status: "published",
     };
 
@@ -123,7 +130,7 @@ export function AdminStudio() {
     setBusy(false);
   }
 
-  async function uploadSticker(event: FormEvent) {
+  async function uploadMedia(event: FormEvent) {
     event.preventDefault();
     if (!file || !item.slug) {
       setMessage("Choose a file and save/select an item first.");
@@ -131,11 +138,15 @@ export function AdminStudio() {
     }
 
     setBusy(true);
-    setMessage("Uploading sticker...");
+    setMessage(`Uploading ${mediaRole}...`);
     const formData = new FormData();
     formData.set("file", file);
     formData.set("itemSlug", item.slug);
-    formData.set("role", "sticker");
+    formData.set("role", mediaRole);
+    formData.set("caption", mediaCaption);
+    formData.set("alt", mediaAlt);
+    formData.set("credit", mediaCredit);
+    formData.set("tags", mediaTags);
 
     const response = await fetch("/api/admin/media", {
       method: "POST",
@@ -151,8 +162,12 @@ export function AdminStudio() {
 
     await loadItems();
     const data = await response.json();
-    setItem((current) => ({ ...current, stickerImageUrl: data.asset.downloadUrl, stickerAssetId: data.asset.id }));
-    setMessage("Sticker uploaded and attached.");
+    setItem((current) => ({
+      ...current,
+      mediaRefs: [...(current.mediaRefs ?? []), data.asset.id],
+      ...(mediaRole === "sticker" ? { stickerImageUrl: data.asset.downloadUrl, stickerAssetId: data.asset.id } : {}),
+    }));
+    setMessage(`${mediaRole} uploaded and attached.`);
     setBusy(false);
   }
 
@@ -192,6 +207,7 @@ export function AdminStudio() {
           <label>Latin name<input value={item.latinName ?? ""} onChange={(event) => setItem({ ...item, latinName: event.target.value || undefined })} /></label>
           <label>Kind<select value={item.kind} onChange={(event) => setItem({ ...item, kind: event.target.value as CatalogItem["kind"] })}><option>bird</option><option>plant</option><option>tree</option><option>mammal</option><option>insect</option><option>fungus</option><option>object</option></select></label>
           <label>Page mode<select value={item.pageMode} onChange={(event) => setItem({ ...item, pageMode: event.target.value as CatalogItem["pageMode"] })}><option value="field-card">field-card</option><option value="scroll-story">scroll-story</option><option value="specimen">specimen</option></select></label>
+          <label>Experience key<input value={item.experienceKey ?? ""} onChange={(event) => setItem({ ...item, experienceKey: toSlug(event.target.value) || undefined })} placeholder="rock-pigeon" /></label>
           <label>Sticker label<input value={item.sticker} onChange={(event) => setItem({ ...item, sticker: event.target.value })} /></label>
           <label>Color<input value={item.color} onChange={(event) => setItem({ ...item, color: event.target.value })} /></label>
           <label>Angle<input type="number" value={item.angle} onChange={(event) => setItem({ ...item, angle: Number(event.target.value) })} /></label>
@@ -217,9 +233,14 @@ export function AdminStudio() {
           </div>
           <h2>{item.commonName || "New field card"}</h2>
           <p>{item.summary || "Write a summary, upload a sticker, and publish it into the catalog."}</p>
-          <form onSubmit={uploadSticker}>
-            <input accept="image/*" type="file" onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
-            <button disabled={busy || !activeToken || !item.slug} type="submit">Upload sticker</button>
+          <form onSubmit={uploadMedia}>
+            <label>Media role<select value={mediaRole} onChange={(event) => setMediaRole(event.target.value as MediaAsset["role"])}><option value="sticker">sticker</option><option value="photo">photo</option><option value="video">video</option><option value="gif">gif</option><option value="texture">texture</option><option value="diagram">diagram</option><option value="audio">audio</option><option value="reference">reference</option></select></label>
+            <input accept="image/*,video/*,audio/*,.pdf" type="file" onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
+            <input value={mediaCaption} onChange={(event) => setMediaCaption(event.target.value)} placeholder="Caption" />
+            <input value={mediaAlt} onChange={(event) => setMediaAlt(event.target.value)} placeholder="Alt text" />
+            <input value={mediaCredit} onChange={(event) => setMediaCredit(event.target.value)} placeholder="Credit" />
+            <input value={mediaTags} onChange={(event) => setMediaTags(event.target.value)} placeholder="tags, comma-separated" />
+            <button disabled={busy || !activeToken || !item.slug} type="submit">Upload media</button>
           </form>
           {message ? <p className={styles.adminMessage}>{message}</p> : null}
         </section>
