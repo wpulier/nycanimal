@@ -14,6 +14,8 @@ function withoutUndefined<T extends Record<string, unknown>>(value: T) {
 async function main() {
   const db = getAdminDb();
   const batch = db.batch();
+  const layoutBatch = db.batch();
+  let layoutCount = 0;
 
   for (const rawItem of catalogItems) {
     const ref = db.collection("catalogItems").doc(rawItem.slug);
@@ -31,18 +33,22 @@ async function main() {
       status: "published",
     });
 
-    batch.set(
-      ref,
-      {
-        ...withoutUndefined(item),
-        updatedAt: FieldValue.serverTimestamp(),
-        createdAt: FieldValue.serverTimestamp(),
-      },
-      { merge: true },
-    );
+    batch.set(ref, {
+      ...withoutUndefined(item),
+      updatedAt: FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    if ("stickerLayout" in rawItem && rawItem.stickerLayout) {
+      layoutBatch.update(ref, { stickerLayout: rawItem.stickerLayout });
+      layoutCount += 1;
+    }
   }
 
   await batch.commit();
+  if (layoutCount) {
+    await layoutBatch.commit();
+  }
   console.log(`Seeded ${catalogItems.length} catalog items.`);
 }
 

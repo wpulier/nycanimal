@@ -116,7 +116,6 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
   const sortedItems = useMemo(() => [...items].sort((a, b) => a.commonName.localeCompare(b.commonName)), [items]);
   const stickerViews = useMemo(() => buildStickerViews(items), [items]);
   const paperHeight = useMemo(() => boardHeight(stickerViews), [stickerViews]);
-  const illustratedCount = useMemo(() => items.filter((item) => Boolean(item.stickerImageUrl)).length, [items]);
 
   useEffect(() => {
     void getFirebaseAnalytics();
@@ -143,11 +142,9 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
               <p>What&apos;s alive in the park today?</p>
               <h1>Tompkins Square Park</h1>
               <span>Field Guide Catalog</span>
-              <strong>{illustratedCount} of {items.length} sticker assets collected</strong>
             </header>
 
             <span className={`${styles.paperNote} ${styles.paperNoteLeft}`}>Seen today</span>
-            <span className={`${styles.paperNote} ${styles.paperNoteRight}`}>Tap to identify</span>
             <span className={styles.paperDoodle} aria-hidden="true" />
 
             {stickerViews.map(({ item, layout, index }) => (
