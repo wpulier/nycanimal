@@ -24,6 +24,7 @@ async function main() {
       mediaRefs: "mediaRefs" in rawItem ? rawItem.mediaRefs : existingData.mediaRefs ?? [],
       stickerAssetId: "stickerAssetId" in rawItem ? rawItem.stickerAssetId : existingData.stickerAssetId,
       stickerImageUrl: "stickerImageUrl" in rawItem ? rawItem.stickerImageUrl : existingData.stickerImageUrl,
+      stickerLayout: "stickerLayout" in rawItem ? rawItem.stickerLayout : existingData.stickerLayout,
       searchNames: [rawItem.commonName, rawItem.sticker, rawItem.latinName]
         .filter(Boolean)
         .map((name) => String(name).toLowerCase()),

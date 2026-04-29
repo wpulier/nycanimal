@@ -28,9 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 function BigSticker({ item }: { item: CatalogItem }) {
   return (
-    <div className={styles.bigSticker} style={{ transform: `rotate(${item.angle}deg)` }}>
-      {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-      <span>{item.sticker}</span>
+    <div className={`${styles.bigSticker} ${item.stickerImageUrl ? styles.bigStickerImage : ""}`} style={{ transform: `rotate(${item.angle}deg)` }}>
+      {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : <span>{item.sticker}</span>}
     </div>
   );
 }

@@ -2,17 +2,121 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { TompkinsMap } from "@/components/TompkinsMap";
 import { getPublishedCatalogItemsClient } from "@/lib/catalogClient";
 import type { CatalogItem } from "@/lib/catalogSchema";
 import { getFirebaseAnalytics } from "@/lib/firebase";
 import styles from "@/app/page.module.css";
 
+type StickerLayout = NonNullable<CatalogItem["stickerLayout"]>;
+
+type StickerView = {
+  item: CatalogItem;
+  layout: StickerLayout;
+  index: number;
+};
+
+const primaryOrder = [
+  "rock-pigeon",
+  "eastern-gray-squirrel",
+  "house-sparrow",
+  "american-elm",
+  "london-plane",
+  "cobblestone-edge",
+];
+
+function hashSlug(slug: string) {
+  return [...slug].reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) >>> 0, 7);
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function orderCatalogItems(items: CatalogItem[]) {
+  const rank = new Map(primaryOrder.map((slug, index) => [slug, index]));
+  return [...items].sort((a, b) => {
+    const aRank = rank.get(a.slug) ?? 999;
+    const bRank = rank.get(b.slug) ?? 999;
+    return aRank - bRank || a.commonName.localeCompare(b.commonName);
+  });
+}
+
+function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): StickerLayout {
+  const hash = hashSlug(item.slug);
+  const row = Math.floor(fallbackIndex / 3);
+  const col = fallbackIndex % 3;
+  const columnCenters = row % 2 === 0 ? [22, 52, 78] : [29, 58, 82];
+  const xJitter = ((hash % 13) - 6) * 0.85;
+  const yJitter = (((hash >> 3) % 25) - 12) * 0.9;
+  const widthByKind: Record<CatalogItem["kind"], number> = {
+    bird: 132,
+    plant: 118,
+    tree: 112,
+    mammal: 142,
+    insect: 118,
+    fungus: 116,
+    object: 124,
+  };
+
+  return {
+    x: clamp(columnCenters[col] + xJitter, 18, 82),
+    y: 1510 + row * 146 + yJitter,
+    width: widthByKind[item.kind] + (hash % 19) - 9,
+    rotate: ((hash % 31) - 15) * 0.9,
+    zIndex: 2 + (hash % 8),
+  };
+}
+
+function buildStickerViews(items: CatalogItem[]) {
+  let fallbackIndex = 0;
+  return orderCatalogItems(items).map((item, index): StickerView => {
+    const layout = item.stickerLayout ?? fallbackStickerLayout(item, fallbackIndex++);
+    return { item, layout, index };
+  });
+}
+
+function boardHeight(views: StickerView[]) {
+  const tallestStickerBottom = views.reduce((max, view) => Math.max(max, view.layout.y + view.layout.width * 0.78), 0);
+  return Math.max(1800, Math.ceil(tallestStickerBottom + 260));
+}
+
+function PlaceholderSticker({ item }: { item: CatalogItem }) {
+  const isTreeLike = item.kind === "tree" || item.kind === "plant";
+  const isAnimal = item.kind === "bird" || item.kind === "mammal";
+
+  return (
+    <svg className={styles.placeholderSticker} viewBox="0 0 120 120" aria-hidden="true">
+      <path className={styles.placeholderBacking} d="M23 69C16 42 31 18 58 14c29-4 53 14 51 44-2 32-26 50-54 49-17-1-27-14-32-38Z" />
+      {isTreeLike ? (
+        <>
+          <path className={styles.placeholderFill} d="M61 101C55 83 48 67 40 50c11 4 18 11 23 21 3-17 12-30 29-40-1 23-8 39-22 50 11-2 20 0 28 6-14 11-26 14-37 14Z" />
+          <path className={styles.placeholderLine} d="M61 101C63 77 69 55 91 31M60 76c-8-11-15-19-20-26M65 70c12-1 23-3 33-8" />
+        </>
+      ) : isAnimal ? (
+        <>
+          <path className={styles.placeholderFill} d="M22 72c17-29 42-44 72-43 10 0 18 7 19 17 1 13-10 22-27 25L61 92c-17 9-35 1-39-20Z" />
+          <path className={styles.placeholderLine} d="M50 79c17-18 31-29 54-33M79 41l17-13M38 83c7 7 14 10 23 9" />
+          <circle className={styles.placeholderEye} cx="91" cy="45" r="4" />
+        </>
+      ) : (
+        <>
+          <path className={styles.placeholderFill} d="M38 96c-19-16-21-43-4-62 19-20 50-21 63 0 13 22 2 51-23 62-13 6-25 6-36 0Z" />
+          <path className={styles.placeholderLine} d="M35 76c21-8 42-20 63-42M47 95c8-22 19-41 34-58" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
   const [items, setItems] = useState(initialItems);
   const sortedItems = useMemo(() => [...items].sort((a, b) => a.commonName.localeCompare(b.commonName)), [items]);
+  const stickerViews = useMemo(() => buildStickerViews(items), [items]);
+  const paperHeight = useMemo(() => boardHeight(stickerViews), [stickerViews]);
+  const illustratedCount = useMemo(() => items.filter((item) => Boolean(item.stickerImageUrl)).length, [items]);
 
   useEffect(() => {
     void getFirebaseAnalytics();
@@ -34,23 +138,44 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
 
       {view === "catalog" ? (
         <section className={styles.stickerBoard} aria-label="Catalog view">
-          {sortedItems.map((item) => (
-            <Link
-              className={styles.sticker}
-              href={`/items/${item.slug}`}
-              key={item.slug}
-              style={{
-                "--x": `${item.position.catalogX}%`,
-                "--y": `${item.position.catalogY}%`,
-                "--angle": `${item.angle}deg`,
-                "--sticker-color": item.color,
-              } as React.CSSProperties}
-            >
-              {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-              <span>{item.sticker}</span>
-              <small>{item.kind}</small>
-            </Link>
-          ))}
+          <div className={styles.stickerPaper} style={{ "--paper-height": `${paperHeight}px` } as CSSProperties}>
+            <header className={styles.catalogHeader}>
+              <p>What&apos;s alive in the park today?</p>
+              <h1>Tompkins Square Park</h1>
+              <span>Field Guide Catalog</span>
+              <strong>{illustratedCount} of {items.length} sticker assets collected</strong>
+            </header>
+
+            <span className={`${styles.paperNote} ${styles.paperNoteLeft}`}>Seen today</span>
+            <span className={`${styles.paperNote} ${styles.paperNoteRight}`}>Tap to identify</span>
+            <span className={styles.paperDoodle} aria-hidden="true" />
+
+            {stickerViews.map(({ item, layout, index }) => (
+              <Link
+                aria-label={`Open ${item.commonName}`}
+                className={styles.sticker}
+                data-featured={layout.featured ? "true" : undefined}
+                data-has-asset={item.stickerImageUrl ? "true" : "false"}
+                href={`/items/${item.slug}`}
+                key={item.slug}
+                style={{
+                  "--sticker-x": `${layout.x}%`,
+                  "--sticker-y": `${layout.y}px`,
+                  "--sticker-w": `${layout.width}px`,
+                  "--angle": `${layout.rotate}deg`,
+                  "--sticker-color": item.color,
+                  "--z": layout.zIndex ?? index + 1,
+                  "--delay": `${Math.min(index, 18) * 34}ms`,
+                } as CSSProperties}
+              >
+                <span className={styles.stickerAsset}>
+                  {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : <PlaceholderSticker item={item} />}
+                </span>
+                {layout.status ? <span className={styles.stickerStatus}>{layout.status}</span> : null}
+                {layout.label ? <span className={styles.stickerCaption}>{layout.label}</span> : null}
+              </Link>
+            ))}
+          </div>
         </section>
       ) : (
         <TompkinsMap items={sortedItems} />

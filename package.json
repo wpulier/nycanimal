@@ -17,7 +17,8 @@
     "map:check": "tsx scripts/check-tompkins-map.ts",
     "seed:trees": "tsx scripts/seed-tree-points.ts",
     "list:trees": "tsx scripts/list-tree-points.ts",
-    "seed:tompkins": "npm run seed:catalog && npm run seed:trees"
+    "seed:tompkins": "npm run seed:catalog && npm run seed:trees",
+    "upload:sticker": "tsx scripts/upload-sticker-asset.ts"
   },
   "dependencies": {
     "firebase": "^12.12.1",

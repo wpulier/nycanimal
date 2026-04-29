@@ -16,6 +16,16 @@ export type CatalogItem = {
     mapX: number;
     mapY: number;
   };
+  stickerLayout?: {
+    x: number;
+    y: number;
+    width: number;
+    rotate: number;
+    zIndex?: number;
+    featured?: boolean;
+    label?: string;
+    status?: string;
+  };
   geo?: {
     latitude: number;
     longitude: number;
@@ -25,6 +35,9 @@ export type CatalogItem = {
     longitude: number;
   };
   treeRefs?: string[];
+  mediaRefs?: string[];
+  stickerAssetId?: string;
+  stickerImageUrl?: string;
   summary: string;
   seasonalNote: string;
   pageMode: "field-card" | "scroll-story" | "specimen";
@@ -41,6 +54,17 @@ export const catalogItems: CatalogItem[] = [
     color: "#a7b7ff",
     angle: -8,
     position: { catalogX: 10, catalogY: 18, mapX: 54, mapY: 42 },
+    stickerImageUrl: "/stickers/rock-pigeon.png",
+    stickerLayout: {
+      x: 46,
+      y: 234,
+      width: 262,
+      rotate: -6,
+      zIndex: 20,
+      featured: true,
+      label: "Pigeon / Rock Dove",
+      status: "Seen today",
+    },
     summary: "The park's most visible city bird, adapted to pavement, benches, crumbs, ledges, and crowds.",
     seasonalNote: "Visible year-round, with extra activity around open lawns and paths after lunch hours.",
     pageMode: "scroll-story",
@@ -55,6 +79,7 @@ export const catalogItems: CatalogItem[] = [
     color: "#f2c078",
     angle: 11,
     position: { catalogX: 56, catalogY: 12, mapX: 35, mapY: 34 },
+    stickerLayout: { x: 72, y: 670, width: 148, rotate: -8, zIndex: 9, status: "Spotted nearby" },
     summary: "Small, loud, social birds that work the edges of playgrounds, fences, and cafe tables.",
     seasonalNote: "Easy to spot in shrubs and fence lines, especially when leaves are sparse.",
     pageMode: "field-card",
@@ -69,6 +94,7 @@ export const catalogItems: CatalogItem[] = [
     color: "#8fbc6b",
     angle: -15,
     position: { catalogX: 30, catalogY: 48, mapX: 63, mapY: 58 },
+    stickerLayout: { x: 46, y: 760, width: 150, rotate: 10, zIndex: 8 },
     coordinates: { latitude: 40.72669402, longitude: -73.98183092 },
     geo: { latitude: 40.72669402, longitude: -73.98183092 },
     treeRefs: ["5103318"],
@@ -86,6 +112,7 @@ export const catalogItems: CatalogItem[] = [
     color: "#d6a85e",
     angle: 7,
     position: { catalogX: 70, catalogY: 46, mapX: 44, mapY: 62 },
+    stickerLayout: { x: 77, y: 1190, width: 150, rotate: -12, zIndex: 8 },
     summary: "A tough city tree with mottled bark that handles compacted soil and urban air better than most.",
     seasonalNote: "The peeling bark is visible all year and becomes a strong visual identifier in winter.",
     pageMode: "specimen",
@@ -100,6 +127,7 @@ export const catalogItems: CatalogItem[] = [
     color: "#b8b0a1",
     angle: 14,
     position: { catalogX: 14, catalogY: 72, mapX: 69, mapY: 30 },
+    stickerLayout: { x: 73, y: 300, width: 150, rotate: 9, zIndex: 10, status: "Tap to identify" },
     summary: "Fast, acrobatic mammals that turn fences, trunks, and trash cans into connected routes.",
     seasonalNote: "Most frantic in fall when caching food; easiest to watch near mature trees.",
     pageMode: "scroll-story",
@@ -113,6 +141,7 @@ export const catalogItems: CatalogItem[] = [
     color: "#c7c2b7",
     angle: -4,
     position: { catalogX: 48, catalogY: 72, mapX: 24, mapY: 70 },
+    stickerLayout: { x: 24, y: 1320, width: 145, rotate: 5, zIndex: 7, status: "Rare" },
     summary: "A built texture of the park: habitat edge, water channel, heat sink, and historical surface all at once.",
     seasonalNote: "After rain, small textures and mossy seams become easier to notice.",
     pageMode: "field-card",

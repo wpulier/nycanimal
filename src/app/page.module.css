@@ -75,15 +75,17 @@
 
 .tabs {
   position: fixed;
-  right: max(18px, env(safe-area-inset-right));
+  left: 50%;
   bottom: max(18px, env(safe-area-inset-bottom));
   z-index: 20;
   display: flex;
   gap: 8px;
+  transform: translateX(-50%);
   padding: 6px;
   border: 2px solid rgba(27, 33, 24, 0.9);
   border-radius: 999px;
-  background: #fff7dd;
+  background: rgba(255, 247, 221, 0.94);
+  box-shadow: 0 12px 30px rgba(27, 33, 24, 0.16);
 }
 
 .tabs button {
@@ -109,13 +111,110 @@
 }
 
 .stickerBoard {
-  min-height: 260svh;
-  overflow: visible;
+  min-height: 100svh;
+  overflow: hidden;
   background:
-    linear-gradient(rgba(40, 58, 34, 0.08) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(40, 58, 34, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 12% 8%, rgba(216, 172, 97, 0.18), transparent 180px),
+    radial-gradient(circle at 88% 16%, rgba(243, 91, 44, 0.13), transparent 160px),
+    radial-gradient(circle at 64% 68%, rgba(40, 58, 34, 0.09), transparent 230px),
     #fff7dd;
-  background-size: 46px 46px;
+}
+
+.stickerPaper {
+  position: relative;
+  width: min(100vw, 480px);
+  min-height: var(--paper-height);
+  margin: 0 auto;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(40, 58, 34, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40, 58, 34, 0.07) 1px, transparent 1px),
+    radial-gradient(circle at 18% 5%, rgba(147, 104, 55, 0.11), transparent 76px),
+    radial-gradient(circle at 88% 42%, rgba(147, 104, 55, 0.08), transparent 92px),
+    #fff7dd;
+  background-size: 38px 38px, 38px 38px, auto, auto, auto;
+  box-shadow: inset 0 0 80px rgba(147, 104, 55, 0.13);
+}
+
+.catalogHeader {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  padding: 34px 20px 18px;
+  text-align: center;
+}
+
+.catalogHeader p {
+  margin: 0;
+  border-bottom: 1px solid rgba(27, 33, 24, 0.48);
+  color: rgba(27, 33, 24, 0.72);
+  font-family: cursive;
+  font-size: 1.05rem;
+  line-height: 1.1;
+}
+
+.catalogHeader h1 {
+  margin: 0;
+  color: #20431f;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.15rem, 9vw, 3.45rem);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.catalogHeader span {
+  color: #20431f;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.catalogHeader strong {
+  margin-top: 7px;
+  background: rgba(222, 195, 143, 0.58);
+  box-shadow: 0 3px 0 rgba(147, 104, 55, 0.12);
+  color: rgba(27, 33, 24, 0.78);
+  font-size: 0.92rem;
+  padding: 7px 18px;
+}
+
+.paperNote {
+  position: absolute;
+  z-index: 16;
+  background: rgba(241, 218, 171, 0.72);
+  box-shadow: 0 5px 10px rgba(86, 66, 35, 0.12);
+  color: rgba(27, 33, 24, 0.7);
+  font-family: cursive;
+  font-size: 0.9rem;
+  padding: 8px 17px;
+}
+
+.paperNoteLeft {
+  top: 246px;
+  left: 30px;
+  transform: rotate(-5deg);
+}
+
+.paperNoteRight {
+  top: 230px;
+  right: 31px;
+  transform: rotate(7deg);
+}
+
+.paperDoodle {
+  position: absolute;
+  top: 190px;
+  right: 88px;
+  z-index: 3;
+  width: 60px;
+  height: 34px;
+  border: 2px solid rgba(32, 67, 31, 0.42);
+  border-color: rgba(32, 67, 31, 0.42) transparent transparent rgba(32, 67, 31, 0.42);
+  border-radius: 50%;
+  transform: rotate(18deg);
 }
 
 .sticker,
@@ -132,32 +231,133 @@
 
 .sticker {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: 150px;
-  min-height: 106px;
-  transform: rotate(var(--angle));
-  border-radius: 28px 42px 30px 38px;
-  padding: 18px;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  left: var(--sticker-x);
+  top: var(--sticker-y);
+  z-index: var(--z);
+  width: var(--sticker-w);
+  min-height: 0;
+  transform: translate(-50%, -50%) rotate(var(--angle));
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink);
+  padding: 0;
+  animation: stickerSettle 520ms cubic-bezier(0.2, 0.85, 0.24, 1.18) both;
+  animation-delay: var(--delay);
+  transform-origin: 50% 62%;
+  transition: transform 180ms ease, filter 180ms ease;
+  will-change: transform;
 }
 
-.sticker:hover {
-  transform: rotate(var(--angle)) translateY(-8px) scale(1.04);
-  box-shadow: 13px 16px 0 rgba(27, 33, 24, 0.2);
+.sticker:hover,
+.sticker:focus-visible {
+  transform: translate(-50%, calc(-50% - 9px)) rotate(var(--angle)) scale(1.045);
+  outline: 0;
 }
 
-.sticker span {
-  font-family: var(--font-display), serif;
-  font-size: 1.7rem;
-  letter-spacing: -0.06em;
+.sticker:active {
+  transform: translate(-50%, calc(-50% - 3px)) rotate(var(--angle)) scale(0.985);
+}
+
+.stickerAsset {
+  display: block;
+  width: 100%;
+}
+
+.sticker img,
+.placeholderSticker {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter:
+    drop-shadow(0 0 1px #fffdf2)
+    drop-shadow(0 0 5px #fffdf2)
+    drop-shadow(8px 11px 7px rgba(27, 33, 24, 0.2));
+}
+
+.sticker[data-featured="true"] img,
+.sticker[data-featured="true"] .placeholderSticker {
+  filter:
+    drop-shadow(0 0 1px #fffdf2)
+    drop-shadow(0 0 7px #fffdf2)
+    drop-shadow(0 0 22px rgba(242, 192, 120, 0.42))
+    drop-shadow(11px 15px 12px rgba(27, 33, 24, 0.22));
+}
+
+.placeholderBacking {
+  fill: #fffdf2;
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 10;
+}
+
+.placeholderFill {
+  fill: var(--sticker-color);
+  opacity: 0.88;
+  stroke: rgba(27, 33, 24, 0.62);
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.placeholderLine {
+  fill: none;
+  stroke: rgba(27, 33, 24, 0.62);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.placeholderEye {
+  fill: var(--coral);
+  stroke: rgba(27, 33, 24, 0.8);
+  stroke-width: 2;
+}
+
+.stickerStatus,
+.stickerCaption {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  background: rgba(239, 211, 161, 0.78);
+  box-shadow: 0 6px 10px rgba(86, 66, 35, 0.12);
+  color: rgba(27, 33, 24, 0.75);
+  font-family: cursive;
+  pointer-events: none;
   text-align: center;
+  white-space: nowrap;
 }
 
-.sticker small {
-  margin-top: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+.stickerStatus {
+  top: -20px;
+  transform: translateX(-50%) rotate(-4deg);
+  font-size: 0.78rem;
+  padding: 5px 12px;
+}
+
+.stickerCaption {
+  bottom: -24px;
+  transform: translateX(-50%) rotate(2deg);
+  min-width: 132px;
+  font-size: 0.95rem;
+  padding: 7px 14px;
+}
+
+@keyframes stickerSettle {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 24px)) rotate(calc(var(--angle) - 5deg)) scale(1.08);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker {
+    animation: none;
+    transition: none;
+  }
 }
 
 .mapBoard {
@@ -665,16 +865,12 @@
   }
 
   .sticker {
-    width: 118px;
-    min-height: 90px;
+    width: var(--sticker-w);
+    min-height: 0;
   }
 
-  .sticker span {
-    font-size: 1.25rem;
-  }
 }
 
-.sticker img,
 .mapPin img,
 .bigSticker img,
 .studioSticker img {
@@ -684,9 +880,25 @@
   filter: drop-shadow(0 8px 0 rgba(27, 33, 24, 0.16));
 }
 
-.sticker:has(img) span,
 .mapPin:has(img) span {
   margin-top: 6px;
+}
+
+.bigStickerImage {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.bigStickerImage img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 2px #fffdf2)
+    drop-shadow(0 0 8px #fffdf2)
+    drop-shadow(16px 18px 14px rgba(27, 33, 24, 0.2));
 }
 
 .modePanel {

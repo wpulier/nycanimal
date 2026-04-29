@@ -14,6 +14,7 @@ async function main() {
         commonName: data.commonName,
         kind: data.kind,
         pageMode: data.pageMode,
+        hasSticker: Boolean(data.stickerImageUrl),
       };
     }),
   );

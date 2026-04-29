@@ -21,6 +21,17 @@ export const catalogPositionSchema = z.object({
   mapY: z.number().min(0).max(100),
 });
 
+export const stickerLayoutSchema = z.object({
+  x: z.number().min(0).max(100),
+  y: z.number().min(0),
+  width: z.number().min(64).max(380),
+  rotate: z.number().min(-35).max(35),
+  zIndex: z.number().int().min(0).max(100).optional(),
+  featured: z.boolean().optional(),
+  label: z.string().min(1).max(80).optional(),
+  status: z.string().min(1).max(48).optional(),
+});
+
 export const geoPointSchema = z.object({
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
@@ -43,6 +54,11 @@ export const mediaAssetSchema = z.object({
   status: z.enum(["draft", "published"]).default("published"),
 });
 
+const stickerImageSrcSchema = z.union([
+  z.string().url(),
+  z.string().regex(/^\/(?!\/)[^\s]*$/),
+]);
+
 export const catalogItemSchema = z.object({
   slug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   commonName: z.string().min(2),
@@ -52,6 +68,7 @@ export const catalogItemSchema = z.object({
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   angle: z.number().min(-30).max(30),
   position: catalogPositionSchema,
+  stickerLayout: stickerLayoutSchema.optional(),
   coordinates: geoPointSchema.optional(),
   geo: geoPointSchema.optional(),
   treeRefs: z.array(z.string().min(1)).default([]),
@@ -61,7 +78,7 @@ export const catalogItemSchema = z.object({
   facts: z.array(z.string().min(4)).min(1).max(8),
   mediaRefs: z.array(z.string()).default([]),
   stickerAssetId: z.string().optional(),
-  stickerImageUrl: z.string().url().optional(),
+  stickerImageUrl: stickerImageSrcSchema.optional(),
   searchNames: z.array(z.string()).default([]),
   status: z.enum(["draft", "published"]).default("published"),
 });
