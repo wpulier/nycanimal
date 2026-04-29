@@ -6,6 +6,27 @@ export type GeoPoint = {
 };
 
 export function projectGeoToTompkinsMap({ latitude, longitude }: GeoPoint) {
+  const projection = getTompkinsProjection();
+  const projected = projection.raw([longitude, latitude]);
+
+  return {
+    x: projection.offsetX + (projected.x - projection.minX) * projection.scale,
+    y: projection.offsetY + (projected.y - projection.minY) * projection.scale,
+  };
+}
+
+export function projectTompkinsMapToGeo({ x, y }: { x: number; y: number }): GeoPoint {
+  const projection = getTompkinsProjection();
+  const rawX = (x - projection.offsetX) / projection.scale + projection.minX;
+  const rawY = (y - projection.offsetY) / projection.scale + projection.minY;
+
+  return {
+    latitude: projection.center.lat - rawY / projection.latScale,
+    longitude: rawX / projection.lngScale + projection.center.lng,
+  };
+}
+
+function getTompkinsProjection() {
   const boundary = tompkinsMapData.boundary.map((point) => [point.lng, point.lat] as const);
   const center = boundary.reduce(
     (acc, [lng, lat]) => ({ lng: acc.lng + lng, lat: acc.lat + lat }),
@@ -33,10 +54,16 @@ export function projectGeoToTompkinsMap({ latitude, longitude }: GeoPoint) {
   const scale = Math.min((width - padding * 2) / (maxX - minX), (height - padding * 2) / (maxY - minY));
   const offsetX = (width - (maxX - minX) * scale) / 2;
   const offsetY = (height - (maxY - minY) * scale) / 2;
-  const projected = raw([longitude, latitude]);
 
   return {
-    x: offsetX + (projected.x - minX) * scale,
-    y: offsetY + (projected.y - minY) * scale,
+    center,
+    latScale,
+    lngScale,
+    raw,
+    minX,
+    minY,
+    scale,
+    offsetX,
+    offsetY,
   };
 }

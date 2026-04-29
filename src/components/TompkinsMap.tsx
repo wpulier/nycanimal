@@ -1,20 +1,57 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { select } from "d3-selection";
-import { zoom, zoomIdentity, type ZoomBehavior, type ZoomTransform } from "d3-zoom";
+import maplibregl, { type LngLatBoundsLike, type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import type { Feature, FeatureCollection, LineString, Point, Polygon } from "geojson";
 import styles from "@/app/page.module.css";
 import { tompkinsMapData } from "@/data/tompkinsMap";
 import { catalogItemSlugForTreeSpecies } from "@/data/treeSpeciesCatalog";
 import type { CatalogItem } from "@/lib/catalogSchema";
-import { projectGeoToTompkinsMap } from "@/lib/tompkinsProjection";
+import { projectTompkinsMapToGeo } from "@/lib/tompkinsProjection";
 
-function pointsToPath(points: readonly { x: number; y: number }[], close = false) {
-  if (!points.length) return "";
-  const [first, ...rest] = points;
-  return `M ${first.x} ${first.y} ${rest.map((point) => `L ${point.x} ${point.y}`).join(" ")}${close ? " Z" : ""}`;
+type LngLatTuple = [number, number];
+
+type ActiveMapCard = {
+  id: string;
+  kind: "tree" | "item";
+  lngLat: LngLatTuple;
+  kicker: string;
+  title: string;
+  subtitle?: string;
+  details: Array<{ label: string; value: string }>;
+  href?: string;
+};
+
+function lngLat(point: { lng: number; lat: number }): LngLatTuple {
+  return [point.lng, point.lat];
+}
+
+function closeRing(points: readonly { lng: number; lat: number }[]) {
+  const coordinates = points.map(lngLat);
+  const first = coordinates[0];
+  const last = coordinates[coordinates.length - 1];
+
+  if (first && last && (first[0] !== last[0] || first[1] !== last[1])) {
+    coordinates.push(first);
+  }
+
+  return coordinates;
+}
+
+function pointToLngLat(point: { x: number; y: number }) {
+  const geo = projectTompkinsMapToGeo(point);
+  return [geo.longitude, geo.latitude] as LngLatTuple;
+}
+
+function itemLngLat(item: CatalogItem): LngLatTuple {
+  const coordinates = item.coordinates ?? item.geo;
+
+  if (coordinates) {
+    return [coordinates.longitude, coordinates.latitude];
+  }
+
+  return pointToLngLat({ x: item.position.mapX * 10, y: item.position.mapY * 10 });
 }
 
 function treeColor(commonName: string) {
@@ -33,227 +70,333 @@ function treeRadius(dbh?: number) {
   return Math.max(4.25, Math.min(14, 3.8 + dbh / 5));
 }
 
-function itemMapPoint(item: CatalogItem) {
-  const coordinates = item.coordinates ?? item.geo;
+function featureCollection<TGeometry extends Point | LineString | Polygon>(features: Array<Feature<TGeometry>>) {
+  return { type: "FeatureCollection", features } satisfies FeatureCollection<TGeometry>;
+}
 
-  if (coordinates) {
-    return projectGeoToTompkinsMap(coordinates);
-  }
+function buildBounds(): LngLatBoundsLike {
+  const bounds = new maplibregl.LngLatBounds();
+  tompkinsMapData.boundary.forEach((point) => bounds.extend(lngLat(point)));
+  return bounds;
+}
+
+function buildMaxBounds(): LngLatBoundsLike {
+  const lngs = tompkinsMapData.boundary.map((point) => point.lng);
+  const lats = tompkinsMapData.boundary.map((point) => point.lat);
+  const padLng = 0.0014;
+  const padLat = 0.0011;
+
+  return [
+    [Math.min(...lngs) - padLng, Math.min(...lats) - padLat],
+    [Math.max(...lngs) + padLng, Math.max(...lats) + padLat],
+  ];
+}
+
+function buildMapStyle(items: CatalogItem[]): StyleSpecification {
+  const boundary = featureCollection<Polygon>([
+    {
+      type: "Feature",
+      properties: {},
+      geometry: { type: "Polygon", coordinates: [closeRing(tompkinsMapData.boundary)] },
+    },
+  ]);
+
+  const zones = featureCollection<Polygon>(
+    tompkinsMapData.zones.map((zone) => ({
+      type: "Feature",
+      properties: { id: zone.id, name: zone.name, kind: zone.kind },
+      geometry: { type: "Polygon", coordinates: [closeRing(zone.points)] },
+    })),
+  );
+
+  const paths = featureCollection<LineString>(
+    tompkinsMapData.paths.map((path) => ({
+      type: "Feature",
+      properties: { id: path.id, name: path.name, kind: path.kind },
+      geometry: { type: "LineString", coordinates: path.points.map(lngLat) },
+    })),
+  );
+
+  const trees = featureCollection<Point>(
+    tompkinsMapData.trees.map((tree) => ({
+      type: "Feature",
+      properties: {
+        id: tree.id,
+        commonName: tree.commonName,
+        latinName: tree.latinName ?? "",
+        dbh: tree.dbh ?? 0,
+        condition: tree.condition ?? "",
+        color: treeColor(tree.commonName),
+        radius: treeRadius(tree.dbh),
+      },
+      geometry: { type: "Point", coordinates: lngLat(tree.point) },
+    })),
+  );
+
+  const itemPoints = featureCollection<Point>(
+    items.map((item) => ({
+      type: "Feature",
+      properties: {
+        slug: item.slug,
+        commonName: item.commonName,
+        latinName: item.latinName ?? "",
+        kind: item.kind,
+        color: item.color,
+      },
+      geometry: { type: "Point", coordinates: itemLngLat(item) },
+    })),
+  );
+
+  const landmarks = featureCollection<Point>(
+    tompkinsMapData.landmarks.map((landmark) => ({
+      type: "Feature",
+      properties: { id: landmark.id, name: landmark.name, kind: landmark.kind },
+      geometry: { type: "Point", coordinates: lngLat(landmark.point) },
+    })),
+  );
+
+  const streetLabels = featureCollection<Point>([
+    { type: "Feature", properties: { label: "AVENUE A", rotate: -55 }, geometry: { type: "Point", coordinates: pointToLngLat({ x: 20, y: 785 }) } },
+    { type: "Feature", properties: { label: "AVENUE B", rotate: -55 }, geometry: { type: "Point", coordinates: pointToLngLat({ x: 965, y: 420 }) } },
+    { type: "Feature", properties: { label: "E 10 ST", rotate: 23 }, geometry: { type: "Point", coordinates: pointToLngLat({ x: 495, y: 35 }) } },
+    { type: "Feature", properties: { label: "E 7 ST", rotate: 23 }, geometry: { type: "Point", coordinates: pointToLngLat({ x: 510, y: 1012 }) } },
+  ]);
 
   return {
-    x: item.position.mapX * 10,
-    y: item.position.mapY * 10,
+    version: 8,
+    glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+    sources: {
+      boundary: { type: "geojson", data: boundary },
+      zones: { type: "geojson", data: zones },
+      paths: { type: "geojson", data: paths },
+      trees: { type: "geojson", data: trees },
+      items: { type: "geojson", data: itemPoints },
+      landmarks: { type: "geojson", data: landmarks },
+      streetLabels: { type: "geojson", data: streetLabels },
+    },
+    layers: [
+      { id: "paper", type: "background", paint: { "background-color": "#fff7dd" } },
+      { id: "boundary-shadow", type: "fill", source: "boundary", paint: { "fill-color": "rgba(27, 33, 24, 0.16)", "fill-translate": [10, 12] } },
+      { id: "boundary-fill", type: "fill", source: "boundary", paint: { "fill-color": "#b7d889" } },
+      {
+        id: "zones-fill",
+        type: "fill",
+        source: "zones",
+        paint: {
+          "fill-color": [
+            "match",
+            ["get", "kind"],
+            "dog-run", "rgba(190, 160, 190, 0.78)",
+            "playground", "rgba(242, 192, 120, 0.86)",
+            "court", "rgba(216, 172, 97, 0.84)",
+            "pool", "rgba(70, 187, 210, 0.82)",
+            "garden", "rgba(137, 184, 98, 0.66)",
+            "park-feature", "rgba(137, 184, 98, 0.66)",
+            "rgba(255, 247, 221, 0.48)",
+          ],
+        },
+      },
+      { id: "zones-outline", type: "line", source: "zones", paint: { "line-color": "rgba(27, 33, 24, 0.42)", "line-width": 2.2 } },
+      { id: "paths", type: "line", source: "paths", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "rgba(255, 250, 232, 0.9)", "line-width": ["interpolate", ["linear"], ["zoom"], 16, 7, 19, 16, 21, 26] } },
+      { id: "boundary-outline", type: "line", source: "boundary", layout: { "line-join": "round" }, paint: { "line-color": "rgba(27, 33, 24, 0.9)", "line-width": ["interpolate", ["linear"], ["zoom"], 16, 2.5, 20, 7] } },
+      { id: "trees", type: "circle", source: "trees", paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 16, ["*", ["get", "radius"], 0.42], 20, ["get", "radius"], 21, ["*", ["get", "radius"], 1.35]], "circle-opacity": ["interpolate", ["linear"], ["zoom"], 16, 0.48, 19, 0.78], "circle-stroke-color": "rgba(255, 247, 221, 0.9)", "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 16, 0.8, 20, 2.2] } },
+      { id: "landmarks", type: "circle", source: "landmarks", paint: { "circle-color": "#f35b2c", "circle-radius": ["interpolate", ["linear"], ["zoom"], 16, 3, 20, 8], "circle-stroke-color": "rgba(255, 247, 221, 0.95)", "circle-stroke-width": 2 } },
+      { id: "tree-hit", type: "circle", source: "trees", paint: { "circle-color": "#000000", "circle-opacity": 0.01, "circle-radius": ["interpolate", ["linear"], ["zoom"], 16, 12, 20, 20, 21, 24] } },
+      { id: "item-points", type: "circle", source: "items", paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 16, 6, 19, 11, 21, 15], "circle-stroke-color": "rgba(27, 33, 24, 0.92)", "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 16, 2, 20, 4], "circle-translate": [0, 0], "circle-opacity": 0.94 } },
+      {
+        id: "street-labels",
+        type: "symbol",
+        source: "streetLabels",
+        layout: {
+          "text-field": ["get", "label"],
+          "text-font": ["Open Sans Bold"],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 16, 15, 20, 28],
+          "text-rotate": ["get", "rotate"],
+          "text-allow-overlap": true,
+          "text-ignore-placement": true,
+        },
+        paint: {
+          "text-color": "rgba(27, 33, 24, 0.48)",
+          "text-halo-color": "rgba(255, 247, 221, 0.86)",
+          "text-halo-width": 2,
+        },
+      },
+    ],
   };
 }
 
-function zoomLevel(scale: number) {
-  if (scale >= 2.7) return "near";
-  if (scale >= 1.45) return "mid";
-  return "far";
+function getCardScreenPoint(map: MapLibreMap | null, activeCard: ActiveMapCard | null) {
+  if (!map || !activeCard) return null;
+  return map.project(activeCard.lngLat);
 }
 
 export function TompkinsMap({ items }: { items: CatalogItem[] }) {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const zoomRef = useRef<ZoomBehavior<HTMLDivElement, unknown> | null>(null);
-  const { width, height } = tompkinsMapData.metadata.viewBox;
-  const [transform, setTransform] = useState<ZoomTransform>(zoomIdentity);
-  const [activeTreeId, setActiveTreeId] = useState<string | null>(null);
-
-  const initialTransform = useCallback(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return zoomIdentity;
-    const rect = viewport.getBoundingClientRect();
-    const fitScale = Math.min(rect.width / width, rect.height / height) * 0.9;
-    return zoomIdentity
-      .translate((rect.width - width * fitScale) / 2, (rect.height - height * fitScale) / 2)
-      .scale(fitScale);
-  }, [height, width]);
-
-  const applyTransform = useCallback((nextTransform: ZoomTransform) => {
-    const viewport = viewportRef.current;
-    const zoomBehavior = zoomRef.current;
-    if (!viewport || !zoomBehavior) return;
-    select(viewport).call(zoomBehavior.transform, nextTransform);
-  }, []);
-
-  const resetView = useCallback(() => applyTransform(initialTransform()), [applyTransform, initialTransform]);
-
-  const zoomBy = useCallback((factor: number) => {
-    const viewport = viewportRef.current;
-    const zoomBehavior = zoomRef.current;
-    if (!viewport || !zoomBehavior) return;
-    select(viewport).call(zoomBehavior.scaleBy, factor);
-  }, []);
-
-  const itemPoints = useMemo(
-    () => items.map((item) => ({ item, point: itemMapPoint(item) })),
-    [items],
-  );
-
-  const activeTree = useMemo(
-    () => tompkinsMapData.trees.find((tree) => tree.id === activeTreeId) ?? null,
-    [activeTreeId],
-  );
-
-  const activeTreeSlug = activeTree
-    ? catalogItemSlugForTreeSpecies(activeTree.commonName, activeTree.latinName, items)
-    : null;
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<MapLibreMap | null>(null);
+  const activeCardRef = useRef<ActiveMapCard | null>(null);
+  const [mapInstance, setMapInstance] = useState<MapLibreMap | null>(null);
+  const [activeCard, setActiveCard] = useState<ActiveMapCard | null>(null);
+  const [cameraTick, setCameraTick] = useState(0);
+  const mapStyle = useMemo(() => buildMapStyle(items), [items]);
+  const itemBySlug = useMemo(() => new Map(items.map((item) => [item.slug, item])), [items]);
 
   useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
+    activeCardRef.current = activeCard;
+  }, [activeCard]);
 
-    const zoomBehavior = zoom<HTMLDivElement, unknown>()
-      .scaleExtent([0.55, 6])
-      .translateExtent([
-        [-width * 0.45, -height * 0.45],
-        [width * 1.45, height * 1.45],
-      ])
-      .filter((event) => !(event.target instanceof Element && Boolean(event.target.closest("a,button"))))
-      .wheelDelta((event) => -event.deltaY * (event.deltaMode === 1 ? 0.04 : 0.002))
-      .on("zoom", (event) => setTransform(event.transform));
+  useEffect(() => {
+    const container = mapContainerRef.current;
+    if (!container) return;
 
-    zoomRef.current = zoomBehavior;
-    select(viewport).call(zoomBehavior).call(zoomBehavior.transform, initialTransform());
-
-    const resizeObserver = new ResizeObserver(() => {
-      select(viewport).call(zoomBehavior.transform, initialTransform());
+    const map = new maplibregl.Map({
+      container,
+      style: mapStyle,
+      bounds: buildBounds(),
+      fitBoundsOptions: { padding: 84, duration: 0 },
+      maxBounds: buildMaxBounds(),
+      minZoom: 15.65,
+      maxZoom: 21.4,
+      attributionControl: false,
+      dragRotate: false,
+      pitchWithRotate: false,
+      touchPitch: false,
+      touchZoomRotate: true,
+      doubleClickZoom: true,
+      keyboard: true,
+      clickTolerance: 6,
+      fadeDuration: 120,
     });
-    resizeObserver.observe(viewport);
+
+    mapRef.current = map;
+    setMapInstance(map);
+
+    const syncActiveCard = () => {
+      if (activeCardRef.current) setCameraTick((tick) => tick + 1);
+    };
+
+    map.on("move", syncActiveCard);
+    map.on("zoom", syncActiveCard);
+    map.on("resize", syncActiveCard);
+    map.on("load", () => setCameraTick((tick) => tick + 1));
+    map.on("click", (event) => {
+      const features = map.queryRenderedFeatures(event.point, { layers: ["item-points", "tree-hit"] });
+      const itemFeature = features.find((feature) => feature.layer.id === "item-points");
+      const treeFeature = features.find((feature) => feature.layer.id === "tree-hit");
+
+      if (itemFeature?.geometry.type === "Point") {
+        const slug = String(itemFeature.properties.slug ?? "");
+        const item = itemBySlug.get(slug);
+        const coordinates = itemFeature.geometry.coordinates as LngLatTuple;
+
+        if (item) {
+          setActiveCard({
+            id: slug,
+            kind: "item",
+            lngLat: coordinates,
+            kicker: item.kind,
+            title: item.commonName,
+            subtitle: item.latinName,
+            details: [{ label: "Card", value: item.pageMode.replace("-", " ") }],
+            href: `/items/${item.slug}`,
+          });
+          return;
+        }
+      }
+
+      if (treeFeature?.geometry.type === "Point") {
+        const props = treeFeature.properties;
+        const commonName = String(props.commonName ?? "Tree");
+        const latinName = String(props.latinName ?? "");
+        const treeId = String(props.id ?? "");
+        const slug = catalogItemSlugForTreeSpecies(commonName, latinName || undefined, items);
+        const coordinates = treeFeature.geometry.coordinates as LngLatTuple;
+        const details = [
+          props.dbh ? { label: "DBH", value: `${props.dbh} in` } : null,
+          props.condition ? { label: "Condition", value: String(props.condition) } : null,
+        ].filter((detail): detail is { label: string; value: string } => Boolean(detail));
+
+        setActiveCard({
+          id: treeId,
+          kind: "tree",
+          lngLat: coordinates,
+          kicker: `Tree ${treeId}`,
+          title: commonName,
+          subtitle: latinName || undefined,
+          details,
+          href: `/items/${slug}`,
+        });
+        return;
+      }
+
+      setActiveCard(null);
+    });
+
+    for (const layerId of ["item-points", "tree-hit"]) {
+      map.on("mouseenter", layerId, () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+      map.on("mouseleave", layerId, () => {
+        map.getCanvas().style.cursor = "";
+      });
+    }
 
     return () => {
-      resizeObserver.disconnect();
-      select(viewport).on(".zoom", null);
+      map.remove();
+      mapRef.current = null;
+      setMapInstance(null);
     };
-  }, [height, initialTransform, width]);
+  }, [itemBySlug, items, mapStyle]);
+
+  const resetView = useCallback(() => {
+    mapRef.current?.fitBounds(buildBounds(), { padding: 84, duration: 520, essential: true });
+  }, []);
+
+  const zoomBy = useCallback((delta: number) => {
+    if (delta > 0) {
+      mapRef.current?.zoomIn({ duration: 260, essential: true });
+    } else {
+      mapRef.current?.zoomOut({ duration: 260, essential: true });
+    }
+  }, []);
+
+  // cameraTick forces a render during camera movement so the overlay stays anchored.
+  void cameraTick;
+  const activePoint = getCardScreenPoint(mapInstance, activeCard);
 
   return (
     <section className={styles.mapBoard} aria-label="GIS-faithful Tompkins Square Park map">
-      <div className={styles.mapViewport} data-zoom-level={zoomLevel(transform.k)} onClick={() => setActiveTreeId(null)} ref={viewportRef}>
-        <svg className={styles.tompkinsSvg} role="img" aria-label="Tompkins Square Park boundary, paths, zones, landmarks, and tree canopy">
-          <defs>
-            <pattern id="map-paper-grid" width="42" height="42" patternUnits="userSpaceOnUse">
-              <path d="M 42 0 L 0 0 0 42" fill="none" stroke="rgba(27, 33, 24, 0.08)" strokeWidth="2" />
-            </pattern>
-            <filter id="ink-wobble">
-              <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" />
-            </filter>
-          </defs>
+      <div className={styles.mapViewport}>
+        <div className={styles.mapCanvas} ref={mapContainerRef} />
 
-          <rect className={styles.mapPaperFill} x="-5000" y="-5000" width="10000" height="10000" />
-          <rect className={styles.mapPaperGrid} x="-5000" y="-5000" width="10000" height="10000" />
-          <g transform={transform.toString()}>
-            <path className={styles.mapBoundaryShadow} d={pointsToPath(tompkinsMapData.boundary, true)} />
-            <path className={styles.mapBoundary} d={pointsToPath(tompkinsMapData.boundary, true)} />
-
-            {tompkinsMapData.zones.map((zone) => (
-              <path className={styles.mapZone} data-kind={zone.kind} d={pointsToPath(zone.points, true)} key={zone.id}>
-                <title>{zone.name}</title>
-              </path>
-            ))}
-
-            {tompkinsMapData.paths.map((path) => (
-              <path className={styles.realMapPath} data-kind={path.kind} d={pointsToPath(path.points)} key={path.id}>
-                <title>{path.name}</title>
-              </path>
-            ))}
-
-            <g className={styles.treeCanopyLayer}>
-              {tompkinsMapData.trees.map((tree) => (
-                <g key={tree.id}>
-                  <circle
-                    className={styles.treeDot}
-                    cx={tree.point.x}
-                    cy={tree.point.y}
-                    fill={treeColor(tree.commonName)}
-                    r={treeRadius(tree.dbh)}
-                  />
-                  <circle
-                    className={styles.treeHitArea}
-                    cx={tree.point.x}
-                    cy={tree.point.y}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setActiveTreeId((current) => (current === tree.id ? null : tree.id));
-                    }}
-                    r={Math.max(treeRadius(tree.dbh), 18 / transform.k)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        setActiveTreeId(tree.id);
-                      }
-                    }}
-                  >
-                    <title>{`${tree.commonName}${tree.dbh ? `, ${tree.dbh} inch DBH` : ""} / Tree ${tree.id}`}</title>
-                  </circle>
-                </g>
-              ))}
-            </g>
-
-            <g className={styles.mapLandmarks}>
-              {tompkinsMapData.landmarks.map((landmark) => (
-                <g data-kind={landmark.kind} key={landmark.id} transform={`translate(${landmark.point.x} ${landmark.point.y})`}>
-                  <circle r="7" />
-                  <text x="10" y="4">{landmark.name}</text>
-                  <title>{landmark.name}</title>
-                </g>
-              ))}
-            </g>
-
-            <text className={styles.mapStreetLabel} x="20" y="785" transform="rotate(-55 20 785)">Avenue A</text>
-            <text className={styles.mapStreetLabel} x="965" y="420" transform="rotate(-55 965 420)">Avenue B</text>
-            <text className={styles.mapStreetLabel} x="495" y="35" transform="rotate(23 495 35)">E 10 St</text>
-            <text className={styles.mapStreetLabel} x="510" y="1012" transform="rotate(23 510 1012)">E 7 St</text>
-          </g>
-        </svg>
-
-        {itemPoints.map(({ item, point }) => (
-          <Link
-            aria-label={`Open ${item.commonName}`}
-            className={styles.mapPin}
-            href={`/items/${item.slug}`}
-            key={item.slug}
-            style={{
-              left: transform.applyX(point.x),
-              top: transform.applyY(point.y),
-              "--sticker-color": item.color,
-              "--pin-scale": Math.max(0.34, Math.min(0.72, 0.72 / Math.sqrt(transform.k))),
-            } as CSSProperties}
-            title={item.commonName}
-          >
-            {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-            {!item.stickerImageUrl ? <span className={styles.mapPinDot} aria-hidden="true" /> : null}
-          </Link>
-        ))}
-
-        {activeTree && activeTreeSlug ? (
+        {activeCard && activePoint ? (
           <div
             className={styles.treePopover}
-            onClick={(event) => event.stopPropagation()}
-            onPointerDown={(event) => event.stopPropagation()}
             style={{
-              left: transform.applyX(activeTree.point.x),
-              top: transform.applyY(activeTree.point.y),
-            }}
+              left: activePoint.x,
+              top: activePoint.y,
+            } as CSSProperties}
           >
-            <p className={styles.treePopoverKicker}>Tree {activeTree.id}</p>
-            <h3>{activeTree.commonName}</h3>
-            {activeTree.latinName ? <p className={styles.treePopoverLatin}>{activeTree.latinName}</p> : null}
-            <dl>
-              {activeTree.dbh ? <><dt>DBH</dt><dd>{activeTree.dbh} in</dd></> : null}
-              {activeTree.condition ? <><dt>Condition</dt><dd>{activeTree.condition}</dd></> : null}
-            </dl>
-            <Link href={`/items/${activeTreeSlug}`}>Open species card</Link>
+            <p className={styles.treePopoverKicker}>{activeCard.kicker}</p>
+            <h3>{activeCard.title}</h3>
+            {activeCard.subtitle ? <p className={styles.treePopoverLatin}>{activeCard.subtitle}</p> : null}
+            {activeCard.details.length ? (
+              <dl>
+                {activeCard.details.map((detail) => (
+                  <div className={styles.treePopoverRow} key={detail.label}>
+                    <dt>{detail.label}</dt>
+                    <dd>{detail.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+            {activeCard.href ? <Link href={activeCard.href}>Open card</Link> : null}
           </div>
         ) : null}
       </div>
 
       <div className={styles.mapZoomControls} aria-label="Map zoom controls">
-        <button type="button" onClick={() => zoomBy(1.55)} aria-label="Zoom in">+</button>
-        <button type="button" onClick={() => zoomBy(0.65)} aria-label="Zoom out">-</button>
+        <button type="button" onClick={() => zoomBy(1)} aria-label="Zoom in">+</button>
+        <button type="button" onClick={() => zoomBy(-1)} aria-label="Zoom out">-</button>
         <button type="button" onClick={resetView}>Fit</button>
       </div>
 

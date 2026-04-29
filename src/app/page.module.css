@@ -175,11 +175,38 @@
   inset: 0;
   overflow: hidden;
   cursor: grab;
-  touch-action: none;
   user-select: none;
 }
 
 .mapViewport:active {
+  cursor: grabbing;
+}
+
+.mapCanvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.mapCanvas::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(rgba(40, 58, 34, 0.08) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(40, 58, 34, 0.08) 2px, transparent 2px);
+  background-size: 46px 46px;
+  content: "";
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.mapCanvas :global(.maplibregl-canvas) {
+  cursor: grab;
+  outline: none;
+}
+
+.mapCanvas :global(.maplibregl-canvas:active) {
   cursor: grabbing;
 }
 
@@ -386,6 +413,10 @@
   gap: 4px 10px;
   margin-block: 10px !important;
   font-size: 0.82rem;
+}
+
+.treePopoverRow {
+  display: contents;
 }
 
 .treePopover dt {
