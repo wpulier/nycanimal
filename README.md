@@ -29,8 +29,10 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Set production environment variables before running `next build`. Public `NEXT_PUBLIC_*` values are inlined into the browser bundle at build time, so changing them in the host requires a redeploy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developer docs live in [docs/dev](docs/dev/README.md).
+
+For the Google 3D map key, follow [docs/dev/google-3d-map-deployment.md](docs/dev/google-3d-map-deployment.md). Run `npm run env:check` before deploy; set `REQUIRE_GOOGLE_MAPS_API_KEY=true` in CI if production should fail when the Google key is missing.

@@ -26,6 +26,11 @@ export type CatalogItem = {
     label?: string;
     status?: string;
   };
+  mapPin?: {
+    enabled: boolean;
+    label?: string;
+    imageUrl?: string;
+  };
   geo?: {
     latitude: number;
     longitude: number;

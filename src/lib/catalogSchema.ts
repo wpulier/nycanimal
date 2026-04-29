@@ -14,6 +14,7 @@ export const pageModeSchema = z.enum(["field-card", "scroll-story", "specimen"])
 
 export const mediaRoleSchema = z.enum([
   "sticker",
+  "model",
   "photo",
   "video",
   "gif",
@@ -39,6 +40,17 @@ export const stickerLayoutSchema = z.object({
   featured: z.boolean().optional(),
   label: z.string().min(1).max(80).optional(),
   status: z.string().min(1).max(48).optional(),
+});
+
+const stickerImageSrcSchema = z.union([
+  z.string().url(),
+  z.string().regex(/^\/(?!\/)[^\s]*$/),
+]);
+
+export const mapPinSchema = z.object({
+  enabled: z.boolean(),
+  label: z.string().min(1).max(80).optional(),
+  imageUrl: stickerImageSrcSchema.optional(),
 });
 
 export const geoPointSchema = z.object({
@@ -70,11 +82,6 @@ export const mediaAssetSchema = z.object({
   tags: z.array(z.string().min(1).max(48)).default([]),
 });
 
-const stickerImageSrcSchema = z.union([
-  z.string().url(),
-  z.string().regex(/^\/(?!\/)[^\s]*$/),
-]);
-
 export const catalogItemSchema = z.object({
   slug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   commonName: z.string().min(2),
@@ -85,6 +92,7 @@ export const catalogItemSchema = z.object({
   angle: z.number().min(-30).max(30),
   position: catalogPositionSchema,
   stickerLayout: stickerLayoutSchema.optional(),
+  mapPin: mapPinSchema.optional(),
   coordinates: geoPointSchema.optional(),
   geo: geoPointSchema.optional(),
   treeRefs: z.array(z.string().min(1)).default([]),

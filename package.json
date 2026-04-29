@@ -15,24 +15,27 @@
     "list:media": "tsx scripts/list-media.ts",
     "import:tompkins-map": "tsx scripts/import-tompkins-map.ts",
     "map:check": "tsx scripts/check-tompkins-map.ts",
+    "env:check": "tsx scripts/check-public-env.ts",
     "seed:trees": "tsx scripts/seed-tree-points.ts",
     "list:trees": "tsx scripts/list-tree-points.ts",
     "seed:tompkins": "npm run seed:catalog && npm run seed:trees",
-    "upload:sticker": "tsx scripts/upload-sticker-asset.ts"
+    "upload:sticker": "tsx scripts/upload-sticker-asset.ts",
+    "upload:media": "tsx scripts/upload-media-asset.ts"
   },
   "dependencies": {
     "firebase": "^12.12.1",
     "firebase-admin": "^13.8.0",
-    "maplibre-gl": "^5.24.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "three": "^0.184.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.184.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "tsx": "^4.21.0",

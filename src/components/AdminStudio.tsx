@@ -33,6 +33,20 @@ function toSlug(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
+function defaultMapPinEnabled(item: CatalogItem) {
+  return item.mapPin?.enabled ?? !item.slug.startsWith("tree-");
+}
+
+function normalizeMapPin(item: CatalogItem) {
+  if (!item.mapPin) return undefined;
+
+  return {
+    enabled: Boolean(item.mapPin.enabled),
+    label: item.mapPin.label?.trim() || undefined,
+    imageUrl: item.mapPin.imageUrl?.trim() || undefined,
+  };
+}
+
 export function AdminStudio() {
   const initialToken = typeof window === "undefined" ? "" : window.sessionStorage.getItem("tompkins-admin-token") ?? "";
   const [token, setToken] = useState(initialToken);
@@ -96,6 +110,7 @@ export function AdminStudio() {
         mapX: Number(item.position.mapX),
         mapY: Number(item.position.mapY),
       },
+      mapPin: normalizeMapPin(item),
       geo:
         item.geo?.latitude && item.geo?.longitude
           ? {
@@ -223,6 +238,9 @@ export function AdminStudio() {
             <label>Latitude<input type="number" step="0.00000001" value={item.coordinates?.latitude ?? item.geo?.latitude ?? ""} onChange={(event) => setItem({ ...item, coordinates: { latitude: Number(event.target.value), longitude: item.coordinates?.longitude ?? item.geo?.longitude ?? -73.9818 } })} /></label>
             <label>Longitude<input type="number" step="0.00000001" value={item.coordinates?.longitude ?? item.geo?.longitude ?? ""} onChange={(event) => setItem({ ...item, coordinates: { latitude: item.coordinates?.latitude ?? item.geo?.latitude ?? 40.7265, longitude: Number(event.target.value) } })} /></label>
           </div>
+          <label><input type="checkbox" checked={defaultMapPinEnabled(item)} onChange={(event) => setItem({ ...item, mapPin: { ...item.mapPin, enabled: event.target.checked } })} /> Show on 3D map</label>
+          <label>3D pin label<input value={item.mapPin?.label ?? ""} onChange={(event) => setItem({ ...item, mapPin: { enabled: defaultMapPinEnabled(item), ...item.mapPin, label: event.target.value || undefined } })} placeholder={item.sticker} /></label>
+          <label>3D pin image<input value={item.mapPin?.imageUrl ?? ""} onChange={(event) => setItem({ ...item, mapPin: { enabled: defaultMapPinEnabled(item), ...item.mapPin, imageUrl: event.target.value || undefined } })} placeholder={item.stickerImageUrl ?? "/stickers/example.png"} /></label>
           <button disabled={busy || !activeToken} type="submit">Save / publish item</button>
         </form>
 
@@ -234,7 +252,7 @@ export function AdminStudio() {
           <h2>{item.commonName || "New field card"}</h2>
           <p>{item.summary || "Write a summary, upload a sticker, and publish it into the catalog."}</p>
           <form onSubmit={uploadMedia}>
-            <label>Media role<select value={mediaRole} onChange={(event) => setMediaRole(event.target.value as MediaAsset["role"])}><option value="sticker">sticker</option><option value="photo">photo</option><option value="video">video</option><option value="gif">gif</option><option value="texture">texture</option><option value="diagram">diagram</option><option value="audio">audio</option><option value="reference">reference</option></select></label>
+            <label>Media role<select value={mediaRole} onChange={(event) => setMediaRole(event.target.value as MediaAsset["role"])}><option value="sticker">sticker</option><option value="model">model</option><option value="photo">photo</option><option value="video">video</option><option value="gif">gif</option><option value="texture">texture</option><option value="diagram">diagram</option><option value="audio">audio</option><option value="reference">reference</option></select></label>
             <input accept="image/*,video/*,audio/*,.pdf" type="file" onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
             <input value={mediaCaption} onChange={(event) => setMediaCaption(event.target.value)} placeholder="Caption" />
             <input value={mediaAlt} onChange={(event) => setMediaAlt(event.target.value)} placeholder="Alt text" />

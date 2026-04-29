@@ -25,7 +25,7 @@ The `secrets/*.json` path is gitignored.
 
 ## Admin studio
 
-Run the app locally, open `/admin`, and paste the `ADMIN_API_TOKEN` from `.env.local`. The admin page can publish catalog items and upload media to Firebase Storage. Supported media roles are `sticker`, `photo`, `video`, `gif`, `texture`, `diagram`, `audio`, and `reference`; sticker uploads also update `catalogItems/<slug>.stickerImageUrl`.
+Run the app locally, open `/admin`, and paste the `ADMIN_API_TOKEN` from `.env.local`. The admin page can publish catalog items and upload media to Firebase Storage. Supported media roles are `sticker`, `model`, `photo`, `video`, `gif`, `texture`, `diagram`, `audio`, and `reference`; sticker uploads also update `catalogItems/<slug>.stickerImageUrl`. Use `npm run upload:media -- <slug> <role> <file-path>` for local trusted uploads.
 
 ## Remote LLM write flow
 

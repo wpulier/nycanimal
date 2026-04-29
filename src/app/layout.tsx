@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Space_Grotesk } from "next/font/google";
-import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
 
 const display = Fraunces({
@@ -30,6 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+        <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com" />
+      </head>
       <body>{children}</body>
     </html>
   );

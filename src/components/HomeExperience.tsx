@@ -2,11 +2,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { TompkinsMap } from "@/components/TompkinsMap";
-import { getPublishedCatalogItemsClient } from "@/lib/catalogClient";
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { CatalogItem } from "@/lib/catalogSchema";
-import { getFirebaseAnalytics } from "@/lib/firebase";
 import styles from "@/app/page.module.css";
 
 type StickerLayout = NonNullable<CatalogItem["stickerLayout"]>;
@@ -25,6 +23,52 @@ const primaryOrder = [
   "london-plane",
   "cobblestone-edge",
 ];
+const MAP_WARM_MOUNT_TIMEOUT_MS = 1800;
+const TompkinsMap = dynamic(() => import("@/components/TompkinsMap").then((module) => module.TompkinsMap), {
+  ssr: false,
+  loading: () => (
+    <section className={styles.mapBoard} aria-label="Loading Tompkins Square Park map">
+      <div className={styles.mapViewport}>
+        <div className={styles.googleMapCanvas}>
+          <div className={styles.googleMapLoading}>Loading map...</div>
+        </div>
+      </div>
+    </section>
+  ),
+});
+
+function preloadTompkinsMapInBackground() {
+  void import("@/components/TompkinsMap").then((module) => module.preloadTompkinsMap());
+}
+
+function afterVisibleStickerImagesLoad(root: HTMLElement) {
+  const images = Array.from(root.querySelectorAll("img[data-warmup='true']")).filter(
+    (image): image is HTMLImageElement => image instanceof HTMLImageElement,
+  );
+
+  if (!images.length) {
+    return Promise.resolve();
+  }
+
+  return Promise.all(
+    images.map(
+      (image) =>
+        new Promise<void>((resolve) => {
+          if (image.complete) {
+            if (image.decode) {
+              image.decode().then(resolve).catch(resolve);
+            } else {
+              resolve();
+            }
+            return;
+          }
+
+          image.addEventListener("load", () => resolve(), { once: true });
+          image.addEventListener("error", () => resolve(), { once: true });
+        }),
+    ),
+  ).then(() => undefined);
+}
 
 function hashSlug(slug: string) {
   return [...slug].reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) >>> 0, 7);
@@ -112,68 +156,141 @@ function PlaceholderSticker({ item }: { item: CatalogItem }) {
 
 export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
-  const [items, setItems] = useState(initialItems);
-  const sortedItems = useMemo(() => [...items].sort((a, b) => a.commonName.localeCompare(b.commonName)), [items]);
-  const stickerViews = useMemo(() => buildStickerViews(items), [items]);
+  const [isMapMounted, setIsMapMounted] = useState(false);
+  const stickerPaperRef = useRef<HTMLDivElement>(null);
+  const sortedItems = useMemo(() => [...initialItems].sort((a, b) => a.commonName.localeCompare(b.commonName)), [initialItems]);
+  const stickerViews = useMemo(() => buildStickerViews(initialItems), [initialItems]);
   const paperHeight = useMemo(() => boardHeight(stickerViews), [stickerViews]);
 
   useEffect(() => {
-    void getFirebaseAnalytics();
-    getPublishedCatalogItemsClient()
-      .then(setItems)
-      .catch(() => setItems(initialItems));
-  }, [initialItems]);
+    const root = stickerPaperRef.current;
+
+    if (!root) return;
+
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: IdleRequestCallback, options?: IdleRequestOptions) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    let cancelled = false;
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+
+    const warmMap = () => {
+      if (cancelled) return;
+      preloadTompkinsMapInBackground();
+      setIsMapMounted(true);
+    };
+
+    afterVisibleStickerImagesLoad(root).then(() => {
+      if (cancelled) return;
+
+      if (idleWindow.requestIdleCallback) {
+        idleId = idleWindow.requestIdleCallback(warmMap, { timeout: MAP_WARM_MOUNT_TIMEOUT_MS });
+        return;
+      }
+
+      timeoutId = window.setTimeout(warmMap, 250);
+    });
+
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined) idleWindow.cancelIdleCallback?.(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  const showCatalog = () => {
+    setView("catalog");
+  };
+
+  const showMap = () => {
+    setIsMapMounted(true);
+    preloadTompkinsMapInBackground();
+    setView("map");
+  };
 
   return (
     <main className={styles.shell}>
       <div className={styles.tabs} aria-label="View switcher">
-        <button className={view === "catalog" ? styles.activeTab : ""} onClick={() => setView("catalog")} type="button">
+        <button className={view === "catalog" ? styles.activeTab : ""} onClick={showCatalog} type="button">
           Catalog
         </button>
-        <button className={view === "map" ? styles.activeTab : ""} onClick={() => setView("map")} type="button">
+        <button className={view === "map" ? styles.activeTab : ""} onClick={showMap} type="button">
           Map
         </button>
       </div>
 
-      {view === "catalog" ? (
-        <section className={styles.stickerBoard} aria-label="Catalog view">
-          <div className={styles.stickerPaper} style={{ "--paper-height": `${paperHeight}px` } as CSSProperties}>
-            <header className={styles.catalogHeader}>
-              <h1>Tompkins Square Park</h1>
-              <p className={styles.tapCue}>Tap a sticker</p>
-            </header>
+      <div className={styles.viewStack}>
+        <section
+          aria-hidden={view !== "catalog"}
+          className={styles.viewLayer}
+          data-active={view === "catalog"}
+          data-view="catalog"
+        >
+          <section className={styles.stickerBoard} aria-label="Catalog view">
+            <div
+              className={styles.stickerPaper}
+              ref={stickerPaperRef}
+              style={{ "--paper-height": `${paperHeight}px` } as CSSProperties}
+            >
+              <header className={styles.catalogHeader}>
+                <h1>Tompkins Square Park</h1>
+                <p className={styles.tapCue}>Tap a sticker</p>
+              </header>
 
-            <span className={styles.paperDoodle} aria-hidden="true" />
+              <span className={styles.paperDoodle} aria-hidden="true" />
 
-            {stickerViews.map(({ item, layout, index }) => (
-              <Link
-                aria-label={`Open ${item.commonName}`}
-                className={styles.sticker}
-                data-featured={layout.featured ? "true" : undefined}
-                data-has-asset={item.stickerImageUrl ? "true" : "false"}
-                href={`/items/${item.slug}`}
-                key={item.slug}
-                style={{
-                  "--sticker-x": `${layout.x}%`,
-                  "--sticker-y": `${layout.y}px`,
-                  "--sticker-w": `${layout.width}px`,
-                  "--angle": `${layout.rotate}deg`,
-                  "--sticker-color": item.color,
-                  "--z": layout.zIndex ?? index + 1,
-                  "--delay": `${Math.min(index, 18) * 34}ms`,
-                } as CSSProperties}
-              >
-                <span className={styles.stickerAsset}>
-                  {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : <PlaceholderSticker item={item} />}
-                </span>
-                <span className={styles.stickerId}>{item.sticker}</span>
-              </Link>
-            ))}
-          </div>
+              {stickerViews.map(({ item, layout, index }) => (
+                <Link
+                  aria-label={`Open ${item.commonName}`}
+                  className={styles.sticker}
+                  data-featured={layout.featured ? "true" : undefined}
+                  data-has-asset={item.stickerImageUrl ? "true" : "false"}
+                  href={`/items/${item.slug}`}
+                  key={item.slug}
+                  style={{
+                    "--sticker-x": `${layout.x}%`,
+                    "--sticker-y": `${layout.y}px`,
+                    "--sticker-w": `${layout.width}px`,
+                    "--angle": `${layout.rotate}deg`,
+                    "--sticker-color": item.color,
+                    "--z": layout.zIndex ?? index + 1,
+                    "--delay": `${Math.min(index, 18) * 34}ms`,
+                  } as CSSProperties}
+                >
+                  <span className={styles.stickerAsset}>
+                    {item.stickerImageUrl ? (
+                      <img
+	                        src={item.stickerImageUrl}
+	                        alt=""
+                        data-warmup={index < 4 ? "true" : undefined}
+	                        decoding="async"
+                        fetchPriority={index < 2 ? "high" : "auto"}
+                        loading={index < 4 ? "eager" : "lazy"}
+                      />
+                    ) : (
+                      <PlaceholderSticker item={item} />
+                    )}
+                  </span>
+                  <span className={styles.stickerId}>{item.sticker}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
         </section>
-      ) : (
-        <TompkinsMap items={sortedItems} />
-      )}
+
+        {isMapMounted ? (
+          <section
+            aria-hidden={view !== "map"}
+            className={`${styles.viewLayer} ${styles.mapViewLayer}`}
+            data-active={view === "map"}
+            data-view="map"
+          >
+            <TompkinsMap items={sortedItems} />
+          </section>
+        ) : null}
+      </div>
     </main>
   );
 }
