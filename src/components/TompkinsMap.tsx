@@ -99,13 +99,19 @@ const GOOGLE_MAPS_VERSION = "weekly";
 const TOMPKINS_CAMERA: GoogleCamera = {
   center: { lat: 40.72645, lng: -73.98172, altitude: 0 },
   heading: 0,
-  range: 620,
+  range: 520,
   tilt: 0,
+};
+const TOMPKINS_OBLIQUE_CAMERA: GoogleCamera = {
+  center: { lat: 40.7255, lng: -73.98172, altitude: 0 },
+  heading: TOMPKINS_CAMERA.heading,
+  range: 540,
+  tilt: 48,
 };
 const TOMPKINS_CONTEXT_PAD_LNG = 0.00062;
 const TOMPKINS_CONTEXT_PAD_LAT = 0.0005;
 const TOMPKINS_MIN_ALTITUDE = 280;
-const TOMPKINS_MAX_ALTITUDE = 720;
+const TOMPKINS_MAX_ALTITUDE = 680;
 const GOOGLE_ZOOMED_OUT_PIN_SCALE = 0.5;
 const GOOGLE_ZOOMED_OUT_RANGE_DELTA = 24;
 const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
@@ -384,6 +390,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
   const onErrorRef = useRef(onError);
   const onReadyRef = useRef(onReady);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [isObliqueView, setIsObliqueView] = useState(false);
   const mapPins = useMemo(() => buildGoogleMapPins(items), [items]);
 
   useEffect(() => {
@@ -443,7 +450,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
           heading: TOMPKINS_CAMERA.heading,
           maxAltitude: TOMPKINS_MAX_ALTITUDE,
           maxHeading: TOMPKINS_CAMERA.heading,
-          maxTilt: TOMPKINS_CAMERA.tilt,
+          maxTilt: TOMPKINS_OBLIQUE_CAMERA.tilt,
           minAltitude: TOMPKINS_MIN_ALTITUDE,
           minHeading: TOMPKINS_CAMERA.heading,
           minTilt: TOMPKINS_CAMERA.tilt,
@@ -536,8 +543,17 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
   const resetView = useCallback(() => {
     const map = mapRef.current;
     if (!map) return;
-    setGoogleCamera(map, TOMPKINS_CAMERA, 620);
-  }, []);
+    setGoogleCamera(map, isObliqueView ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA, 620);
+  }, [isObliqueView]);
+
+  const toggleObliqueView = useCallback(() => {
+    const map = mapRef.current;
+    const nextIsObliqueView = !isObliqueView;
+    setIsObliqueView(nextIsObliqueView);
+
+    if (!map) return;
+    setGoogleCamera(map, nextIsObliqueView ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA, 620);
+  }, [isObliqueView]);
 
   if (loadFailed) {
     return <GoogleMapUnavailable reason="load-error" />;
@@ -553,6 +569,14 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
 
       <div className={styles.mapZoomControls} aria-label="Map controls">
         <button type="button" onClick={resetView}>Fit</button>
+        <button
+          aria-pressed={isObliqueView}
+          data-active={isObliqueView ? "true" : undefined}
+          type="button"
+          onClick={toggleObliqueView}
+        >
+          3D
+        </button>
       </div>
     </section>
   );
