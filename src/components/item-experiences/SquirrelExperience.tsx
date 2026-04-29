@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { mediaByRole, stickerImage } from "@/components/item-experiences/media";
 import type { ItemPageData } from "@/lib/itemPageData";
@@ -12,10 +11,6 @@ export function SquirrelExperience({ data }: { data: ItemPageData }) {
 
   return (
     <main className={`${styles.bespokeShell} ${styles.squirrelWorld}`} style={{ "--sticker-color": item.color } as CSSProperties}>
-      <Link className={styles.backLink} href="/">
-        Back to stickers
-      </Link>
-
       <article className={styles.squirrelCanopy}>
         <div>
           <p className={styles.eyebrow}>route behavior</p>

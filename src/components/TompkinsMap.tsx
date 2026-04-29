@@ -554,10 +554,6 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
       <div className={styles.mapZoomControls} aria-label="Map controls">
         <button type="button" onClick={resetView}>Fit</button>
       </div>
-
-      <div className={styles.mapCredit}>
-        Google Maps Platform 3D imagery + NYC Parks/Open Data. Showing {mapPins.length} collection pins.
-      </div>
     </section>
   );
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { CatalogItem } from "@/lib/catalogSchema";
+import { orderCatalogItems } from "@/lib/catalogOrder";
 import styles from "@/app/page.module.css";
 
 type StickerLayout = NonNullable<CatalogItem["stickerLayout"]>;
@@ -17,16 +18,9 @@ type StickerView = {
 
 type MapWarmupState = "idle" | "warming" | "ready" | "failed";
 
-const primaryOrder = [
-  "rock-pigeon",
-  "eastern-gray-squirrel",
-  "house-sparrow",
-  "american-elm",
-  "london-plane",
-  "cobblestone-edge",
-];
 const INITIAL_EAGER_STICKER_COUNT = 4;
 const HIGH_PRIORITY_STICKER_COUNT = 2;
+const INITIAL_ANIMATED_STICKER_COUNT = 8;
 const MAP_WARM_IDLE_TIMEOUT_MS = 250;
 const TompkinsMap = dynamic(() => import("@/components/TompkinsMap").then((module) => module.TompkinsMap), {
   ssr: false,
@@ -76,9 +70,13 @@ function waitForStickerImage(image: HTMLImageElement) {
 }
 
 async function afterCriticalStickerImagesPaint(root: HTMLElement) {
-  const images = Array.from(root.querySelectorAll("img")).filter(
+  const criticalImages = Array.from(root.querySelectorAll('img[data-critical-sticker-image="true"]')).filter(
+    (image): image is HTMLImageElement => image instanceof HTMLImageElement,
+  );
+  const visibleImages = Array.from(root.querySelectorAll("img")).filter(
     (image): image is HTMLImageElement => image instanceof HTMLImageElement && isInInitialViewport(image),
   );
+  const images = criticalImages.length ? criticalImages : visibleImages;
 
   if (!images.length) {
     await nextFrame();
@@ -95,15 +93,6 @@ function hashSlug(slug: string) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
-}
-
-function orderCatalogItems(items: CatalogItem[]) {
-  const rank = new Map(primaryOrder.map((slug, index) => [slug, index]));
-  return [...items].sort((a, b) => {
-    const aRank = rank.get(a.slug) ?? 999;
-    const bRank = rank.get(b.slug) ?? 999;
-    return aRank - bRank || a.commonName.localeCompare(b.commonName);
-  });
 }
 
 function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): StickerLayout {
@@ -289,6 +278,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
                   className={styles.sticker}
                   data-featured={layout.featured ? "true" : undefined}
                   data-has-asset={item.stickerImageUrl ? "true" : "false"}
+                  data-enter={index < INITIAL_ANIMATED_STICKER_COUNT ? "true" : undefined}
                   href={`/items/${item.slug}`}
                   key={item.slug}
                   style={{
@@ -306,6 +296,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
                       <img
                         src={item.stickerImageUrl}
                         alt=""
+                        data-critical-sticker-image={index < HIGH_PRIORITY_STICKER_COUNT ? "true" : undefined}
                         decoding="async"
                         fetchPriority={index < HIGH_PRIORITY_STICKER_COUNT ? "high" : "auto"}
                         loading={index < INITIAL_EAGER_STICKER_COUNT ? "eager" : "lazy"}

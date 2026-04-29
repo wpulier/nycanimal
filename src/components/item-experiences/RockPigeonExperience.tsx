@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { mediaByRole, stickerImage } from "@/components/item-experiences/media";
 import type { ItemPageData } from "@/lib/itemPageData";
@@ -13,10 +12,6 @@ export function RockPigeonExperience({ data }: { data: ItemPageData }) {
 
   return (
     <main className={`${styles.bespokeShell} ${styles.pigeonWorld}`} style={{ "--sticker-color": item.color } as CSSProperties}>
-      <Link className={styles.backLink} href="/">
-        Back to stickers
-      </Link>
-
       <article className={styles.pigeonHero}>
         <div className={styles.pigeonSkyline} aria-hidden="true">
           <i />

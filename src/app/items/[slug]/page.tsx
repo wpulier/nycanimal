@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import { ItemPageChrome } from "@/components/ItemPageChrome";
 import { ItemExperience } from "@/components/item-experiences/registry";
 import { localCatalogFallback } from "@/lib/catalogFallback";
-import { getCatalogItemAdmin, getItemPageDataAdmin } from "@/lib/catalogServer";
+import { orderCatalogItems } from "@/lib/catalogOrder";
+import { getCatalogItemAdmin, getItemPageDataAdmin, getPublishedCatalogItemsAdmin } from "@/lib/catalogServer";
 
 export const revalidate = 60;
 
@@ -25,11 +27,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ItemPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await getItemPageDataAdmin(slug);
+  const [data, publishedItems] = await Promise.all([getItemPageDataAdmin(slug), getPublishedCatalogItemsAdmin()]);
 
   if (!data) {
     notFound();
   }
 
-  return <ItemExperience data={data} />;
+  const navItems = orderCatalogItems(publishedItems).map((item) => ({
+    slug: item.slug,
+    commonName: item.commonName,
+  }));
+
+  return (
+    <ItemPageChrome currentSlug={slug} items={navItems}>
+      <ItemExperience data={data} />
+    </ItemPageChrome>
+  );
 }
