@@ -99,9 +99,13 @@ const GOOGLE_MAPS_VERSION = "weekly";
 const TOMPKINS_CAMERA: GoogleCamera = {
   center: { lat: 40.72645, lng: -73.98172, altitude: 0 },
   heading: 0,
-  range: 760,
+  range: 620,
   tilt: 0,
 };
+const TOMPKINS_CONTEXT_PAD_LNG = 0.00062;
+const TOMPKINS_CONTEXT_PAD_LAT = 0.0005;
+const TOMPKINS_MIN_ALTITUDE = 280;
+const TOMPKINS_MAX_ALTITUDE = 720;
 const GOOGLE_ZOOMED_OUT_PIN_SCALE = 0.5;
 const GOOGLE_ZOOMED_OUT_RANGE_DELTA = 24;
 const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
@@ -156,14 +160,12 @@ function buildGoogleMapPins(items: CatalogItem[]) {
 function buildTompkinsGoogleBounds() {
   const lngs = tompkinsMapData.boundary.map((point) => point.lng);
   const lats = tompkinsMapData.boundary.map((point) => point.lat);
-  const padLng = 0.00125;
-  const padLat = 0.00095;
 
   return {
-    north: Math.max(...lats) + padLat,
-    south: Math.min(...lats) - padLat,
-    east: Math.max(...lngs) + padLng,
-    west: Math.min(...lngs) - padLng,
+    north: Math.max(...lats) + TOMPKINS_CONTEXT_PAD_LAT,
+    south: Math.min(...lats) - TOMPKINS_CONTEXT_PAD_LAT,
+    east: Math.max(...lngs) + TOMPKINS_CONTEXT_PAD_LNG,
+    west: Math.min(...lngs) - TOMPKINS_CONTEXT_PAD_LNG,
   };
 }
 
@@ -439,10 +441,10 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
           fov: 38,
           gestureHandling: maps3d.GestureHandling?.GREEDY ?? "GREEDY",
           heading: TOMPKINS_CAMERA.heading,
-          maxAltitude: 900,
+          maxAltitude: TOMPKINS_MAX_ALTITUDE,
           maxHeading: TOMPKINS_CAMERA.heading,
           maxTilt: TOMPKINS_CAMERA.tilt,
-          minAltitude: 320,
+          minAltitude: TOMPKINS_MIN_ALTITUDE,
           minHeading: TOMPKINS_CAMERA.heading,
           minTilt: TOMPKINS_CAMERA.tilt,
           mode: maps3d.MapMode?.SATELLITE ?? "SATELLITE",
