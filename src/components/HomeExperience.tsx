@@ -126,7 +126,7 @@ function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): Sticke
 
   return {
     x: clamp(columnCenters[remaining] + xJitter, 16, 84),
-    y: 1470 + row * 184 + yJitter,
+    y: 1040 + row * 188 + yJitter,
     width: widthByKind[item.kind] + (hash % 15) - 7,
     rotate: ((hash % 29) - 14) * 0.82,
     zIndex: 2 + (hash % 8),

@@ -6,6 +6,8 @@ The public Map tab uses Google Maps JavaScript API 3D Maps to render a live phot
 
 - `HomeExperience` owns the Catalog/Map tab state and the background warmup lifecycle.
 - `TompkinsMap` owns Google Maps script loading, `maps3d` library loading, `Map3DElement` creation, pins, boundary, popovers, and ready/error callbacks.
+- Camera control is park-centered by design. Top-down and 3D both target the Tompkins boundary centroid; zoom changes range only and then reapplies that target.
+- Top-down uses tight park-context bounds. 3D uses expanded camera-position bounds because Google 3D `bounds` constrain where the camera sits, not just the point the camera looks at.
 - The old illustrated/MapLibre map is not used as a browser fallback. If Google cannot load, the Map tab shows a Google setup/error state.
 - Google imagery is always loaded live from Google. Do not store Google imagery, screenshots, tiles, or derived raster map backgrounds in the repo.
 
@@ -73,6 +75,15 @@ Marker image precedence:
 
 Pin taps open one anchored Google 3D popover with common name, optional Latin name, kind, and an `Open card` link.
 
+## Camera and zoom rules
+
+The map intentionally avoids raw Google gesture zoom as the main interaction. Wheel and two-finger pinch are intercepted and converted into controlled range updates around the Tompkins target. This keeps zooming from drifting toward surrounding buildings in tilted 3D mode.
+
+- `Fit` snaps to the active preset.
+- `3D` toggles the oblique testing preset without changing the park target.
+- Range changes are clamped separately for top-down and 3D.
+- Do not add camera-correcting writes inside Google `gmp-*change` listeners; that can create visible jitter. Range-change listeners should remain read-only except for pin scale styling.
+
 ## Google Cloud setup
 
 Use one browser-restricted public key:
@@ -138,9 +149,11 @@ Fresh browser or cache-busted URL:
 2. Confirm the app does not switch to Map or show a black map while warming.
 3. Wait briefly after stickers appear, then tap Map.
 4. Confirm the 3D map is already rendered with Tompkins boundary and curated pins.
-5. Go back to Catalog and then Map; the map should remain instant.
-6. Reload and tap Map immediately; Catalog should stay visible until the map is ready, then reveal cleanly.
-7. Open a pin popover and verify `Open card` navigates to the correct item page.
+5. Wheel/pinch in top-down and 3D; zoom should stay centered on Tompkins, not move forward into the city.
+6. Toggle `3D`, zoom in, and confirm the lower/front park area remains reachable instead of being pushed offscreen by camera bounds.
+7. Go back to Catalog and then Map; the map should remain instant.
+8. Reload and tap Map immediately; Catalog should stay visible until the map is ready, then reveal cleanly.
+9. Open a pin popover and verify `Open card` navigates to the correct item page.
 
 Useful production smoke test:
 

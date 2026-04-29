@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import styles from "@/app/page.module.css";
 import { tompkinsMapData } from "@/data/tompkinsMap";
 import type { CatalogItem } from "@/lib/catalogSchema";
@@ -29,13 +29,18 @@ type GoogleMapsWindow = Window & {
   __tompkinsGoogleMapsReady?: () => void;
 };
 
+type GoogleBounds = { north: number; south: number; east: number; west: number };
+type GoogleMapMode = "top-down" | "oblique";
+
 type GoogleMap3DElement = HTMLElement & {
-  bounds?: { north: number; south: number; east: number; west: number };
+  bounds?: GoogleBounds;
+  cameraPosition?: { lat: number; lng: number; altitude?: number };
   center?: { lat: number; lng: number; altitude?: number };
   heading?: number;
   isSteady?: boolean;
   range?: number;
   tilt?: number;
+  stopCameraAnimation?: () => void;
   flyCameraTo?: (options: {
     endCamera: {
       center: { lat: number; lng: number; altitude?: number };
@@ -49,6 +54,7 @@ type GoogleMap3DElement = HTMLElement & {
 
 type GoogleMaps3DLibrary = {
   AltitudeMode?: Record<string, string>;
+  AutofitsCameraAnimation?: Record<string, string>;
   GestureHandling?: Record<string, string>;
   MapMode?: Record<string, string>;
   Map3DElement: new (options: Record<string, unknown>) => GoogleMap3DElement;
@@ -96,23 +102,28 @@ type TompkinsMapProps = {
 };
 
 const GOOGLE_MAPS_VERSION = "weekly";
-const TOMPKINS_CENTER = { lat: 40.72645, lng: -73.98172, altitude: 0 };
+const TOMPKINS_CENTER = buildTompkinsCenter();
 const TOMPKINS_CAMERA: GoogleCamera = {
   center: TOMPKINS_CENTER,
   heading: 0,
-  range: 520,
+  range: 480,
   tilt: 0,
 };
 const TOMPKINS_OBLIQUE_CAMERA: GoogleCamera = {
   center: TOMPKINS_CENTER,
   heading: TOMPKINS_CAMERA.heading,
-  range: 560,
-  tilt: 35,
+  range: 420,
+  tilt: 32,
 };
 const TOMPKINS_CONTEXT_PAD_LNG = 0.00062;
 const TOMPKINS_CONTEXT_PAD_LAT = 0.0005;
-const TOMPKINS_MIN_ALTITUDE = 280;
+const TOMPKINS_MIN_ALTITUDE = 180;
 const TOMPKINS_MAX_ALTITUDE = 680;
+const TOMPKINS_TOP_DOWN_MIN_RANGE = 330;
+const TOMPKINS_TOP_DOWN_MAX_RANGE = 620;
+const TOMPKINS_OBLIQUE_MIN_RANGE = 250;
+const TOMPKINS_OBLIQUE_MAX_RANGE = 560;
+const TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS = 80;
 const GOOGLE_ZOOMED_OUT_PIN_SCALE = 0.5;
 const GOOGLE_ZOOMED_OUT_RANGE_DELTA = 24;
 const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
@@ -125,6 +136,58 @@ const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
 ]);
 let googleMapsLoadPromise: Promise<GoogleMapsRoot> | null = null;
 let google3DLoadPromise: Promise<{ maps3d: GoogleMaps3DLibrary; marker: GoogleMarkerLibrary }> | null = null;
+
+function buildTompkinsCenter() {
+  const points = tompkinsMapData.boundary;
+  let area = 0;
+  let lng = 0;
+  let lat = 0;
+
+  for (let index = 0; index < points.length; index += 1) {
+    const point = points[index];
+    const nextPoint = points[(index + 1) % points.length];
+    const cross = point.lng * nextPoint.lat - nextPoint.lng * point.lat;
+
+    area += cross;
+    lng += (point.lng + nextPoint.lng) * cross;
+    lat += (point.lat + nextPoint.lat) * cross;
+  }
+
+  area *= 0.5;
+  if (Math.abs(area) < Number.EPSILON) {
+    const lngs = points.map((point) => point.lng);
+    const lats = points.map((point) => point.lat);
+
+    return {
+      lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+      lng: (Math.min(...lngs) + Math.max(...lngs)) / 2,
+      altitude: 0,
+    };
+  }
+
+  return {
+    lat: lat / (6 * area),
+    lng: lng / (6 * area),
+    altitude: 0,
+  };
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function degreesToRadians(degrees: number) {
+  return (degrees * Math.PI) / 180;
+}
+
+function metersToLatitudeDegrees(meters: number) {
+  return meters / 111_320;
+}
+
+function metersToLongitudeDegrees(meters: number, latitude: number) {
+  const latitudeScale = Math.max(Math.cos(degreesToRadians(latitude)), 0.01);
+  return meters / (111_320 * latitudeScale);
+}
 
 function pointToLngLat(point: { x: number; y: number }) {
   const geo = projectTompkinsMapToGeo(point);
@@ -164,7 +227,7 @@ function buildGoogleMapPins(items: CatalogItem[]) {
   return items.map(googleMapPinFromItem).filter((pin): pin is GoogleMapPin => Boolean(pin));
 }
 
-function buildTompkinsGoogleBounds() {
+function buildTompkinsBaseBounds(): GoogleBounds {
   const lngs = tompkinsMapData.boundary.map((point) => point.lng);
   const lats = tompkinsMapData.boundary.map((point) => point.lat);
 
@@ -173,6 +236,25 @@ function buildTompkinsGoogleBounds() {
     south: Math.min(...lats) - TOMPKINS_CONTEXT_PAD_LAT,
     east: Math.max(...lngs) + TOMPKINS_CONTEXT_PAD_LNG,
     west: Math.min(...lngs) - TOMPKINS_CONTEXT_PAD_LNG,
+  };
+}
+
+function buildTompkinsGoogleBounds(mode: GoogleMapMode): GoogleBounds {
+  const bounds = buildTompkinsBaseBounds();
+
+  if (mode === "top-down") {
+    return bounds;
+  }
+
+  const maxTiltedCameraOffset =
+    TOMPKINS_OBLIQUE_MAX_RANGE * Math.sin(degreesToRadians(TOMPKINS_OBLIQUE_CAMERA.tilt)) +
+    TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS;
+
+  return {
+    ...bounds,
+    south: Math.min(bounds.south, TOMPKINS_CENTER.lat - metersToLatitudeDegrees(maxTiltedCameraOffset)),
+    west: bounds.west - metersToLongitudeDegrees(TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS, TOMPKINS_CENTER.lat),
+    east: bounds.east + metersToLongitudeDegrees(TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS, TOMPKINS_CENTER.lat),
   };
 }
 
@@ -248,22 +330,159 @@ export function preloadTompkinsMap() {
   });
 }
 
-function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, durationMillis = 420) {
-  if (map.flyCameraTo) {
-    map.flyCameraTo({ endCamera: camera, durationMillis });
-    return;
+function rangeBoundsForMode(mode: GoogleMapMode) {
+  if (mode === "oblique") {
+    return { min: TOMPKINS_OBLIQUE_MIN_RANGE, max: TOMPKINS_OBLIQUE_MAX_RANGE };
   }
 
-  map.center = camera.center;
-  map.heading = camera.heading;
-  map.range = camera.range;
-  map.tilt = camera.tilt;
+  return { min: TOMPKINS_TOP_DOWN_MIN_RANGE, max: TOMPKINS_TOP_DOWN_MAX_RANGE };
+}
+
+function cameraForMode(mode: GoogleMapMode, range?: number): GoogleCamera {
+  const camera = mode === "oblique" ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA;
+  const rangeBounds = rangeBoundsForMode(mode);
+
+  return {
+    ...camera,
+    center: TOMPKINS_CENTER,
+    range: clamp(range ?? camera.range, rangeBounds.min, rangeBounds.max),
+  };
 }
 
 function syncGooglePinScale(map: GoogleMap3DElement) {
   const range = typeof map.range === "number" ? map.range : TOMPKINS_CAMERA.range;
   const scale = range > TOMPKINS_CAMERA.range + GOOGLE_ZOOMED_OUT_RANGE_DELTA ? GOOGLE_ZOOMED_OUT_PIN_SCALE : 1;
   map.style.setProperty("--google-pin-scale", scale.toString());
+}
+
+function writeGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera) {
+  map.stopCameraAnimation?.();
+  map.center = camera.center;
+  map.heading = camera.heading;
+  map.range = camera.range;
+  map.tilt = camera.tilt;
+  syncGooglePinScale(map);
+}
+
+function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, durationMillis = 0) {
+  map.stopCameraAnimation?.();
+
+  if (durationMillis > 0 && map.flyCameraTo) {
+    map.flyCameraTo({ endCamera: camera, durationMillis });
+    return;
+  }
+
+  writeGoogleCamera(map, camera);
+}
+
+function setGoogleMapMode(map: GoogleMap3DElement, mode: GoogleMapMode, range?: number) {
+  if (mode === "oblique") {
+    map.bounds = buildTompkinsGoogleBounds("oblique");
+    setGoogleCamera(map, cameraForMode("oblique", range));
+    return;
+  }
+
+  setGoogleCamera(map, cameraForMode("top-down", range));
+  map.bounds = buildTompkinsGoogleBounds("top-down");
+}
+
+function normalizeWheelDelta(event: WheelEvent) {
+  if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+    return event.deltaY * 16;
+  }
+
+  if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+    return event.deltaY * window.innerHeight;
+  }
+
+  return event.deltaY;
+}
+
+function touchDistance(firstTouch: Touch, secondTouch: Touch) {
+  return Math.hypot(firstTouch.clientX - secondTouch.clientX, firstTouch.clientY - secondTouch.clientY);
+}
+
+function attachGoogleCameraZoom(map: GoogleMap3DElement, modeRef: MutableRefObject<GoogleMapMode>) {
+  let queuedFrame: number | undefined;
+  let queuedRange: number | undefined;
+  let pinchStartDistance = 0;
+  let pinchStartRange = 0;
+
+  const currentMode = () => modeRef.current;
+  const currentRange = () => queuedRange ?? map.range ?? cameraForMode(currentMode()).range;
+
+  const queueRangeWrite = (range: number) => {
+    queuedRange = range;
+
+    if (queuedFrame !== undefined) {
+      return;
+    }
+
+    queuedFrame = window.requestAnimationFrame(() => {
+      const mode = currentMode();
+      const rangeToWrite = queuedRange;
+
+      queuedFrame = undefined;
+      queuedRange = undefined;
+
+      if (rangeToWrite === undefined) return;
+      writeGoogleCamera(map, cameraForMode(mode, rangeToWrite));
+    });
+  };
+
+  const zoomByRangeFactor = (factor: number) => {
+    const mode = currentMode();
+    const rangeBounds = rangeBoundsForMode(mode);
+    queueRangeWrite(clamp(currentRange() * factor, rangeBounds.min, rangeBounds.max));
+  };
+
+  const handleWheel = (event: WheelEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    zoomByRangeFactor(Math.exp(normalizeWheelDelta(event) * 0.00125));
+  };
+
+  const handleTouchStart = (event: TouchEvent) => {
+    if (event.touches.length !== 2) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    pinchStartDistance = touchDistance(event.touches[0], event.touches[1]);
+    pinchStartRange = currentRange();
+  };
+
+  const handleTouchMove = (event: TouchEvent) => {
+    if (event.touches.length !== 2 || pinchStartDistance <= 0) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    const nextDistance = Math.max(touchDistance(event.touches[0], event.touches[1]), 1);
+    const mode = currentMode();
+    const rangeBounds = rangeBoundsForMode(mode);
+
+    queueRangeWrite(clamp(pinchStartRange * (pinchStartDistance / nextDistance), rangeBounds.min, rangeBounds.max));
+  };
+
+  const handleTouchEnd = () => {
+    if (pinchStartDistance <= 0) return;
+    pinchStartDistance = 0;
+    pinchStartRange = 0;
+  };
+
+  map.addEventListener("wheel", handleWheel, { capture: true, passive: false });
+  map.addEventListener("touchstart", handleTouchStart, { capture: true, passive: false });
+  map.addEventListener("touchmove", handleTouchMove, { capture: true, passive: false });
+  map.addEventListener("touchend", handleTouchEnd, { capture: true });
+  map.addEventListener("touchcancel", handleTouchEnd, { capture: true });
+
+  return () => {
+    if (queuedFrame !== undefined) window.cancelAnimationFrame(queuedFrame);
+    map.removeEventListener("wheel", handleWheel, { capture: true });
+    map.removeEventListener("touchstart", handleTouchStart, { capture: true });
+    map.removeEventListener("touchmove", handleTouchMove, { capture: true });
+    map.removeEventListener("touchend", handleTouchEnd, { capture: true });
+    map.removeEventListener("touchcancel", handleTouchEnd, { capture: true });
+  };
 }
 
 function attachGooglePinScaling(map: GoogleMap3DElement) {
@@ -388,6 +607,7 @@ function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error"
 function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps & { apiKey: string }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<GoogleMap3DElement | null>(null);
+  const mapModeRef = useRef<GoogleMapMode>("top-down");
   const onErrorRef = useRef(onError);
   const onReadyRef = useRef(onReady);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -408,6 +628,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
     let ready = false;
     let sceneBuilt = false;
     let steadyBeforeSceneBuilt = false;
+    let detachCameraZoom: (() => void) | undefined;
     let detachPinScaling: (() => void) | undefined;
     let detachSteadyListener: (() => void) | undefined;
     let detachMapErrorListener: (() => void) | undefined;
@@ -441,14 +662,17 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
       .then(({ maps3d, marker }) => {
         if (cancelled) return;
 
+        const initialMode = mapModeRef.current;
+        const initialCamera = cameraForMode(initialMode);
         const map = new maps3d.Map3DElement({
-          bounds: buildTompkinsGoogleBounds(),
-          center: TOMPKINS_CAMERA.center,
+          autofitsCameraAnimation: maps3d.AutofitsCameraAnimation?.NONE ?? "NONE",
+          bounds: buildTompkinsGoogleBounds(initialMode),
+          center: initialCamera.center,
           defaultUIHidden: true,
           description: "Photorealistic 3D map of Tompkins Square Park",
           fov: 38,
           gestureHandling: maps3d.GestureHandling?.GREEDY ?? "GREEDY",
-          heading: TOMPKINS_CAMERA.heading,
+          heading: initialCamera.heading,
           maxAltitude: TOMPKINS_MAX_ALTITUDE,
           maxHeading: TOMPKINS_CAMERA.heading,
           maxTilt: TOMPKINS_OBLIQUE_CAMERA.tilt,
@@ -456,8 +680,8 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
           minHeading: TOMPKINS_CAMERA.heading,
           minTilt: TOMPKINS_CAMERA.tilt,
           mode: maps3d.MapMode?.SATELLITE ?? "SATELLITE",
-          range: TOMPKINS_CAMERA.range,
-          tilt: TOMPKINS_CAMERA.tilt,
+          range: initialCamera.range,
+          tilt: initialCamera.tilt,
         });
         const handleMapError = () => failMapLoad();
         const handleSteadyChange = (event: Event) => {
@@ -474,6 +698,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
         map.className = styles.googleMapElement;
         mapRef.current = map;
         container.append(map);
+        detachCameraZoom = attachGoogleCameraZoom(map, mapModeRef);
         detachPinScaling = attachGooglePinScaling(map);
         appendGoogleBoundary(map, maps3d);
 
@@ -533,6 +758,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
     return () => {
       cancelled = true;
       if (readyFrameId !== undefined) window.cancelAnimationFrame(readyFrameId);
+      detachCameraZoom?.();
       detachPinScaling?.();
       detachSteadyListener?.();
       detachMapErrorListener?.();
@@ -544,17 +770,19 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
   const resetView = useCallback(() => {
     const map = mapRef.current;
     if (!map) return;
-    setGoogleCamera(map, isObliqueView ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA, 620);
-  }, [isObliqueView]);
+    setGoogleMapMode(map, mapModeRef.current);
+  }, []);
 
   const toggleObliqueView = useCallback(() => {
     const map = mapRef.current;
-    const nextIsObliqueView = !isObliqueView;
+    const nextIsObliqueView = mapModeRef.current !== "oblique";
+
+    mapModeRef.current = nextIsObliqueView ? "oblique" : "top-down";
     setIsObliqueView(nextIsObliqueView);
 
     if (!map) return;
-    setGoogleCamera(map, nextIsObliqueView ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA, 620);
-  }, [isObliqueView]);
+    setGoogleMapMode(map, mapModeRef.current);
+  }, []);
 
   if (loadFailed) {
     return <GoogleMapUnavailable reason="load-error" />;
