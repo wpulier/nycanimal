@@ -96,17 +96,18 @@ type TompkinsMapProps = {
 };
 
 const GOOGLE_MAPS_VERSION = "weekly";
+const TOMPKINS_CENTER = { lat: 40.72645, lng: -73.98172, altitude: 0 };
 const TOMPKINS_CAMERA: GoogleCamera = {
-  center: { lat: 40.72645, lng: -73.98172, altitude: 0 },
+  center: TOMPKINS_CENTER,
   heading: 0,
   range: 520,
   tilt: 0,
 };
 const TOMPKINS_OBLIQUE_CAMERA: GoogleCamera = {
-  center: { lat: 40.72482, lng: -73.98172, altitude: 0 },
+  center: TOMPKINS_CENTER,
   heading: TOMPKINS_CAMERA.heading,
-  range: 460,
-  tilt: 38,
+  range: 560,
+  tilt: 35,
 };
 const TOMPKINS_CONTEXT_PAD_LNG = 0.00062;
 const TOMPKINS_CONTEXT_PAD_LAT = 0.0005;
