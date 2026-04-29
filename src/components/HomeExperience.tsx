@@ -140,9 +140,9 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
           <div className={styles.stickerPaper} style={{ "--paper-height": `${paperHeight}px` } as CSSProperties}>
             <header className={styles.catalogHeader}>
               <h1>Tompkins Square Park</h1>
+              <p className={styles.tapCue}>Tap a sticker</p>
             </header>
 
-            <span className={styles.tapCue}>Tap a sticker</span>
             <span className={styles.paperDoodle} aria-hidden="true" />
 
             {stickerViews.map(({ item, layout, index }) => (

@@ -140,9 +140,11 @@
   position: relative;
   z-index: 40;
   display: grid;
+  gap: 12px;
   justify-items: center;
-  min-height: 240px;
-  padding: 78px 24px 24px;
+  align-content: start;
+  min-height: 250px;
+  padding: 78px 24px 28px;
   text-align: center;
 }
 
@@ -166,11 +168,10 @@
 }
 
 .tapCue {
-  position: absolute;
-  top: 292px;
-  left: 50%;
+  position: relative;
   z-index: 28;
-  transform: translateX(-50%) rotate(-2deg);
+  margin: 2px 0 0;
+  transform: rotate(-1.5deg);
   background: rgba(241, 218, 171, 0.66);
   box-shadow: 0 5px 10px rgba(86, 66, 35, 0.12);
   color: rgba(27, 33, 24, 0.7);
