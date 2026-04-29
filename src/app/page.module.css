@@ -499,17 +499,20 @@
 .google3dPin {
   display: inline-grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
+  width: 46px;
+  height: 46px;
   overflow: hidden;
-  border: 3px solid rgba(255, 247, 221, 0.95);
+  border: 2px solid rgba(255, 247, 221, 0.96);
   border-radius: 999px;
-  background: var(--pin-color, #f2c078);
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.4), transparent 38%),
+    var(--pin-color, #f2c078);
   box-shadow:
-    0 0 0 2px rgba(27, 33, 24, 0.82),
-    0 8px 18px rgba(0, 0, 0, 0.28);
+    0 0 0 2px rgba(27, 33, 24, 0.72),
+    0 0 0 6px rgba(255, 247, 221, 0.22),
+    0 10px 20px rgba(0, 0, 0, 0.22);
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 950;
   line-height: 1;
   text-transform: uppercase;
@@ -519,9 +522,12 @@
 
 .google3dPin img {
   display: block;
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
+  width: calc(100% - 7px);
+  height: calc(100% - 7px);
   object-fit: contain;
+  filter:
+    drop-shadow(0 0 1px rgba(255, 247, 221, 0.92))
+    drop-shadow(0 5px 6px rgba(27, 33, 24, 0.14));
 }
 
 .google3dPopover {

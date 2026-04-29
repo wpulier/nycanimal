@@ -22,6 +22,14 @@ const INITIAL_EAGER_STICKER_COUNT = 4;
 const HIGH_PRIORITY_STICKER_COUNT = 2;
 const INITIAL_ANIMATED_STICKER_COUNT = 8;
 const MAP_WARM_IDLE_TIMEOUT_MS = 250;
+const curatedStickerLayouts: Record<string, StickerLayout> = {
+  "rock-pigeon": { x: 34, y: 360, width: 226, rotate: -7, zIndex: 30, featured: true },
+  "eastern-gray-squirrel": { x: 72, y: 338, width: 132, rotate: 9, zIndex: 24 },
+  "house-sparrow": { x: 78, y: 590, width: 136, rotate: -8, zIndex: 18 },
+  "american-elm": { x: 42, y: 650, width: 138, rotate: 10, zIndex: 17 },
+  "london-plane": { x: 72, y: 835, width: 138, rotate: -12, zIndex: 13 },
+  "cobblestone-edge": { x: 25, y: 850, width: 132, rotate: 5, zIndex: 14 },
+};
 const TompkinsMap = dynamic(() => import("@/components/TompkinsMap").then((module) => module.TompkinsMap), {
   ssr: false,
   loading: () => (
@@ -98,10 +106,11 @@ function clamp(value: number, min: number, max: number) {
 function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): StickerLayout {
   const hash = hashSlug(item.slug);
   const rowPatterns = [
-    [24, 72],
-    [17, 50, 82],
-    [34, 68],
-    [22, 54, 78],
+    [50],
+    [22, 75],
+    [36, 68],
+    [18, 51, 82],
+    [29, 72],
   ];
   let row = 0;
   let remaining = fallbackIndex;
@@ -126,17 +135,38 @@ function fallbackStickerLayout(item: CatalogItem, fallbackIndex: number): Sticke
 
   return {
     x: clamp(columnCenters[remaining] + xJitter, 16, 84),
-    y: 1040 + row * 188 + yJitter,
+    y: 740 + row * 178 + yJitter,
     width: widthByKind[item.kind] + (hash % 15) - 7,
     rotate: ((hash % 29) - 14) * 0.82,
     zIndex: 2 + (hash % 8),
   };
 }
 
+function stickerLayoutForItem(item: CatalogItem, fallbackIndex: number) {
+  const curatedLayout = curatedStickerLayouts[item.slug];
+
+  if (curatedLayout) {
+    return curatedLayout;
+  }
+
+  if (item.stickerImageUrl && item.stickerLayout) {
+    return item.stickerLayout;
+  }
+
+  return fallbackStickerLayout(item, fallbackIndex);
+}
+
 function buildStickerViews(items: CatalogItem[]) {
   let fallbackIndex = 0;
   return orderCatalogItems(items).map((item, index): StickerView => {
-    const layout = item.stickerLayout ?? fallbackStickerLayout(item, fallbackIndex++);
+    const hasCuratedLayout = Boolean(curatedStickerLayouts[item.slug]);
+    const usesUploadedLayout = Boolean(!hasCuratedLayout && item.stickerImageUrl && item.stickerLayout);
+    const layout = stickerLayoutForItem(item, fallbackIndex);
+
+    if (!hasCuratedLayout && !usesUploadedLayout) {
+      fallbackIndex += 1;
+    }
+
     return { item, layout, index };
   });
 }
