@@ -274,6 +274,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
         </button>
         <button
           aria-busy={pendingMapReveal ? "true" : undefined}
+          aria-label={pendingMapReveal ? "Map loading" : undefined}
           className={view === "map" ? styles.activeTab : ""}
           data-pending={pendingMapReveal ? "true" : undefined}
           onClick={showMap}

@@ -90,6 +90,12 @@
 }
 
 .tabs button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 96px;
   border: 0;
   border-radius: 999px;
   background: transparent;
@@ -99,9 +105,30 @@
   padding: 12px 18px;
 }
 
+.tabs button[data-pending="true"] {
+  background: rgba(40, 58, 34, 0.08);
+}
+
+.tabs button[data-pending="true"]::after {
+  width: 0.72em;
+  height: 0.72em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 999px;
+  animation: mapTabPendingSpin 740ms linear infinite;
+  content: "";
+  opacity: 0.78;
+}
+
 .tabs .activeTab {
   background: var(--moss);
   color: #fff7dd;
+}
+
+@keyframes mapTabPendingSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .viewStack {
@@ -355,6 +382,12 @@
   .sticker {
     animation: none;
     transition: none;
+  }
+
+  .tabs button[data-pending="true"]::after {
+    animation: none;
+    border-top-color: currentColor;
+    opacity: 0.5;
   }
 }
 
