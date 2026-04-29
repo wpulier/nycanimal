@@ -99,6 +99,7 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
         [-width * 0.45, -height * 0.45],
         [width * 1.45, height * 1.45],
       ])
+      .filter((event) => !(event.target instanceof Element && Boolean(event.target.closest("a,button"))))
       .wheelDelta((event) => -event.deltaY * (event.deltaMode === 1 ? 0.04 : 0.002))
       .on("zoom", (event) => setTransform(event.transform));
 
@@ -119,27 +120,20 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
   return (
     <section className={styles.mapBoard} aria-label="GIS-faithful Tompkins Square Park map">
       <div className={styles.mapViewport} data-zoom-level={zoomLevel(transform.k)} ref={viewportRef}>
-        <div
-          className={styles.mapWorld}
-          style={{
-            width,
-            height,
-            transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.k})`,
-          }}
-        >
-          <svg className={styles.tompkinsSvg} viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Tompkins Square Park boundary, paths, zones, landmarks, and tree canopy">
-            <defs>
-              <pattern id="map-paper-grid" width="42" height="42" patternUnits="userSpaceOnUse">
-                <path d="M 42 0 L 0 0 0 42" fill="none" stroke="rgba(27, 33, 24, 0.08)" strokeWidth="2" />
-              </pattern>
-              <filter id="ink-wobble">
-                <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" />
-              </filter>
-            </defs>
+        <svg className={styles.tompkinsSvg} role="img" aria-label="Tompkins Square Park boundary, paths, zones, landmarks, and tree canopy">
+          <defs>
+            <pattern id="map-paper-grid" width="42" height="42" patternUnits="userSpaceOnUse">
+              <path d="M 42 0 L 0 0 0 42" fill="none" stroke="rgba(27, 33, 24, 0.08)" strokeWidth="2" />
+            </pattern>
+            <filter id="ink-wobble">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" />
+            </filter>
+          </defs>
 
-            <rect width={width} height={height} fill="#fff7dd" />
-            <rect width={width} height={height} fill="url(#map-paper-grid)" />
+          <rect className={styles.mapPaperFill} x="-5000" y="-5000" width="10000" height="10000" />
+          <rect className={styles.mapPaperGrid} x="-5000" y="-5000" width="10000" height="10000" />
+          <g transform={transform.toString()}>
             <path className={styles.mapBoundaryShadow} d={pointsToPath(tompkinsMapData.boundary, true)} />
             <path className={styles.mapBoundary} d={pointsToPath(tompkinsMapData.boundary, true)} />
 
@@ -191,25 +185,25 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
             <text className={styles.mapStreetLabel} x="495" y="90" transform="rotate(23 495 90)">E 10 St</text>
             <text className={styles.mapStreetLabel} x="510" y="940" transform="rotate(23 510 940)">E 7 St</text>
             <text className={styles.mapTitleLabel} x="500" y="515">Tompkins Square Park</text>
-          </svg>
+          </g>
+        </svg>
 
-          {itemPoints.map(({ item, point }) => (
-            <Link
-              className={styles.mapPin}
-              href={`/items/${item.slug}`}
-              key={item.slug}
-              style={{
-                left: point.x,
-                top: point.y,
-                "--sticker-color": item.color,
-                "--pin-scale": Math.max(0.58, Math.min(1.18, 1 / Math.sqrt(transform.k))),
-              } as CSSProperties}
-            >
-              {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-              <span>{item.sticker}</span>
-            </Link>
-          ))}
-        </div>
+        {itemPoints.map(({ item, point }) => (
+          <Link
+            className={styles.mapPin}
+            href={`/items/${item.slug}`}
+            key={item.slug}
+            style={{
+              left: transform.applyX(point.x),
+              top: transform.applyY(point.y),
+              "--sticker-color": item.color,
+              "--pin-scale": Math.max(0.58, Math.min(1.18, 1 / Math.sqrt(transform.k))),
+            } as CSSProperties}
+          >
+            {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
+            <span>{item.sticker}</span>
+          </Link>
+        ))}
       </div>
 
       <div className={styles.mapZoomControls} aria-label="Map zoom controls">
