@@ -212,6 +212,7 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
 
         {itemPoints.map(({ item, point }) => (
           <Link
+            aria-label={`Open ${item.commonName}`}
             className={styles.mapPin}
             href={`/items/${item.slug}`}
             key={item.slug}
@@ -221,9 +222,10 @@ export function TompkinsMap({ items }: { items: CatalogItem[] }) {
               "--sticker-color": item.color,
               "--pin-scale": Math.max(0.34, Math.min(0.72, 0.72 / Math.sqrt(transform.k))),
             } as CSSProperties}
+            title={item.commonName}
           >
             {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : null}
-            <span>{item.sticker}</span>
+            {!item.stickerImageUrl ? <span className={styles.mapPinDot} aria-hidden="true" /> : null}
           </Link>
         ))}
 

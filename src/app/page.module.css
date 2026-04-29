@@ -482,13 +482,47 @@
 .mapPin {
   position: absolute;
   z-index: 9;
-  min-width: 58px;
-  min-height: 36px;
+  width: 24px;
+  height: 24px;
+  min-width: 0;
+  min-height: 0;
   transform: translate(-50%, -50%) scale(var(--pin-scale, 1));
-  border-radius: 999px;
-  padding: 6px 9px;
-  font-size: 0.74rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
   transform-origin: center;
+}
+
+.mapPin:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 6px;
+}
+
+.mapPinDot,
+.mapPin img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 3px solid rgba(27, 33, 24, 0.92);
+  border-radius: 50%;
+  background: var(--sticker-color);
+  box-shadow: 5px 6px 0 rgba(27, 33, 24, 0.18);
+}
+
+.mapPin img {
+  object-fit: cover;
+}
+
+.mapViewport[data-zoom-level="far"] .mapPin {
+  width: 18px;
+  height: 18px;
+}
+
+.mapViewport[data-zoom-level="near"] .mapPin {
+  width: 30px;
+  height: 30px;
 }
 
 .detailShell {
