@@ -23,6 +23,34 @@ https://firebasestorage.googleapis.com/v0/b/<bucket>/o/<encoded-storage-path>?al
 
 The browser should use `mediaAssets.downloadUrl` exactly as stored. Do not derive URLs in page code.
 
+## Runtime data flow
+
+The deployed app reads Firestore as the primary source of truth. Local catalog files are not the live database.
+
+Fast path:
+
+```txt
+homepage -> catalogItems -> stickerImageUrl
+item page -> catalogItems + mediaRefs -> mediaAssets by role -> Storage downloadUrl
+map -> catalogItems + treePoints
+```
+
+Do not scan Firebase Storage at runtime. Do not query all `mediaAssets` for the homepage. Firestore should act like a small index and Storage should serve the heavy bytes.
+
+If a local edit is not visible on the deployed site, check the Firestore document first. Common examples:
+
+- `src/data/catalog.ts` changed, but `catalogItems/<slug>` was not reseeded.
+- A new sticker was uploaded, but the role was not `sticker`, so `stickerImageUrl` was not updated.
+- A document has old `stickerLayout` values in Firestore. Curated first-screen sticker placement is app-owned in `HomeExperience`; non-curated uploaded layouts can still come from Firestore.
+
+Use scripts intentionally:
+
+```bash
+npm run list:catalog
+npm run list:media
+npm run upload:media -- <slug> sticker /absolute/path/to/sticker.png
+```
+
 ## Security rules
 
 The default Storage rules can deny client reads and writes. That is fine for this architecture because:
@@ -168,6 +196,7 @@ Example:
 Code:
   src/catalog/eastern-gray-squirrel/Experience.tsx
   src/catalog/eastern-gray-squirrel/SquirrelModelStage.tsx
+  src/catalog/eastern-gray-squirrel/SquirrelThreeScene.ts
 
 Storage:
   media/eastern-gray-squirrel/sticker/...
@@ -200,6 +229,7 @@ Speed is a product feature. Follow these defaults:
 - Keep stickers reasonably sized. Do not upload 4000px art unless needed.
 - Use MP4/WebM for video; avoid large GIFs except tiny loops.
 - Use GLB for 3D. Keep GLBs compressed where possible; large models should lazy-load inside client-only components.
+- Keep Three.js, OrbitControls, canvas, and model loaders inside the owning item folder so they only load on that item route.
 - Use `public, max-age=31536000, immutable` cache headers for content-addressed uploaded assets.
 - Never put large media in Git/Vercel unless it is tiny, permanent, and intentionally part of the app shell.
 

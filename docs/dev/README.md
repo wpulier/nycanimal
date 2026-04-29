@@ -48,7 +48,8 @@ npm run check
 
 ## Source of truth
 
-- Data lives in Firestore.
+- Runtime data lives in Firestore. Local seed files do not update the deployed app until a seed/upload script writes Firestore.
 - Heavy media lives in Firebase Storage.
 - Bespoke page code lives in `src/catalog/<slug>/`.
 - The homepage reads `catalogItems` and `stickerImageUrl` for speed.
+- Item-specific 3D/canvas/video code stays inside `src/catalog/<slug>/` so it does not affect homepage or map loading.

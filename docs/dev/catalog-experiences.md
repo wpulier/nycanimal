@@ -18,6 +18,7 @@ src/catalog/
   eastern-gray-squirrel/
     Experience.tsx
     SquirrelModelStage.tsx
+    SquirrelThreeScene.ts
     index.ts
   rock-pigeon/
     index.ts
@@ -78,6 +79,30 @@ This keeps pigeon, squirrel, trees, and future plants creatively independent whi
 6. Set `catalogItems/<slug>.experienceKey` to the config key.
 
 Route-level mistakes are confined to that item page at runtime. Build-time TypeScript errors still block deploy, so keep shared modules minimal and item folders self-contained.
+
+## Client-heavy experiences
+
+Heavy browser-only work belongs in the item folder, not in shared app chrome.
+
+For the squirrel proof:
+
+- `Experience.tsx` is the item page composition.
+- `SquirrelModelStage.tsx` is the small client component that mounts the scene.
+- `SquirrelThreeScene.ts` owns Three.js, `GLTFLoader`, touch `OrbitControls`, animation, and cleanup.
+
+This structure lets a developer redesign squirrel, add a new 3D experiment, or break a local scene without changing homepage loading, map loading, pigeon, or generic species pages. The shared registry knows about item experiences at build time, but the browser-heavy scene mounts only when that item page renders.
+
+If you build another 3D/canvas page, copy this shape:
+
+```txt
+src/catalog/<slug>/
+  Experience.tsx
+  <Slug>Stage.tsx
+  <Slug>Scene.ts
+  index.ts
+```
+
+Keep model/audio/video/image files in Firebase Storage under `media/<slug>/<role>/...`, not in the repo.
 
 ## Firebase media operations
 

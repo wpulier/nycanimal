@@ -21,12 +21,28 @@ src/catalog/eastern-gray-squirrel/
   index.ts
   Experience.tsx
   SquirrelModelStage.tsx
+  SquirrelThreeScene.ts
   other-local-components.tsx
 ```
 
 Use that folder for item-specific components, sketches, animation helpers, Three.js stages, canvas code, SVG diagrams, scroll scenes, and page-only logic.
 
 Do not put large binary assets in this folder. Large media belongs in Firebase Storage and is referenced through Firestore `mediaAssets`.
+
+## Runtime source of truth
+
+Production data comes from Firestore first. Local files such as `src/data/catalog.ts` are useful for seed data and local development, but once a document exists in Firestore, the deployed app renders that Firestore document.
+
+This matters for layout and assets:
+
+- Editing `src/data/catalog.ts` does not automatically change `catalogItems` in Firebase.
+- Run the seed/upload scripts intentionally when Firestore should change.
+- `stickerImageUrl` on `catalogItems/<slug>` is the fast homepage image path.
+- `mediaRefs` points detail pages to the richer `mediaAssets` records.
+- The app owns a few curated first-screen sticker layouts in `HomeExperience` so stale Firestore layout data cannot break the opening composition.
+- Uploaded/non-curated items can still use `catalogItems.<slug>.stickerLayout` for art direction.
+
+Firebase is not changing values by itself. It is a remote database. If the live site does not match a local file edit, the live Firestore document is probably still winning.
 
 ## Data model
 
@@ -211,6 +227,27 @@ Inside your item folder, you can build almost anything browser-native React supp
 
 Keep shared app code small. If an idea is unique to squirrel, put it in `src/catalog/eastern-gray-squirrel/`. If it becomes useful to many pages, then extract it carefully into a shared component.
 
+## Item-owned 3D and heavy interaction
+
+Interactive work should stay inside the assigned item folder. For example, the squirrel page owns:
+
+```txt
+src/catalog/eastern-gray-squirrel/
+  Experience.tsx
+  SquirrelModelStage.tsx      // React mount/unmount wrapper
+  SquirrelThreeScene.ts       // Three.js, GLTFLoader, OrbitControls
+```
+
+That means squirrel can have touch OrbitControls, GLB loading, custom lights, and scene cleanup without importing Three.js into the homepage, map, pigeon page, or shared shell.
+
+Rules:
+
+- Put page-specific Three.js/canvas/WebGL code in `src/catalog/<slug>/`.
+- Use a tiny client wrapper when browser APIs are needed.
+- Dispose controls, renderers, geometries, materials, and event listeners on unmount.
+- Do not import item-owned 3D code from shared components.
+- If a required asset is missing, fix Firebase. Do not add visible production fallback badges that mask bad data.
+
 ## Asset lookup rules
 
 Use role helpers:
@@ -237,6 +274,13 @@ Fix missing required media in Firebase. Do not hide broken required media behind
 ## Sticker homepage rules
 
 The homepage is the sticker catalog. It should load immediately and stay tactile.
+
+Speed rules:
+
+- Homepage reads `catalogItems` only.
+- Homepage uses `stickerImageUrl`; it should not resolve every `mediaAssets` document.
+- The first visible sticker images are prioritized; map warm-up runs only after sticker load has started.
+- Keep the first screen visually dense, but avoid horizontal overflow and large offscreen animation work.
 
 For each item:
 

@@ -124,8 +124,8 @@ const TOMPKINS_TOP_DOWN_MAX_RANGE = 600;
 const TOMPKINS_OBLIQUE_MIN_RANGE = 150;
 const TOMPKINS_OBLIQUE_MAX_RANGE = 560;
 const TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS = 80;
+const GOOGLE_ZOOMED_IN_PIN_SCALE = 1;
 const GOOGLE_ZOOMED_OUT_PIN_SCALE = 0.5;
-const GOOGLE_ZOOMED_OUT_RANGE_DELTA = 24;
 const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
   "rock-pigeon",
   "eastern-gray-squirrel",
@@ -174,6 +174,14 @@ function buildTompkinsCenter() {
 
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
+}
+
+function mix(from: number, to: number, progress: number) {
+  return from + (to - from) * progress;
+}
+
+function smoothstep(progress: number) {
+  return progress * progress * (3 - 2 * progress);
 }
 
 function degreesToRadians(degrees: number) {
@@ -349,22 +357,26 @@ function cameraForMode(mode: GoogleMapMode, range?: number): GoogleCamera {
   };
 }
 
-function syncGooglePinScale(map: GoogleMap3DElement) {
-  const range = typeof map.range === "number" ? map.range : TOMPKINS_CAMERA.range;
-  const scale = range > TOMPKINS_CAMERA.range + GOOGLE_ZOOMED_OUT_RANGE_DELTA ? GOOGLE_ZOOMED_OUT_PIN_SCALE : 1;
+function syncGooglePinScale(map: GoogleMap3DElement, mode: GoogleMapMode) {
+  const rangeBounds = rangeBoundsForMode(mode);
+  const fallbackCamera = cameraForMode(mode);
+  const range = clamp(typeof map.range === "number" ? map.range : fallbackCamera.range, rangeBounds.min, rangeBounds.max);
+  const rangeProgress = (range - rangeBounds.min) / (rangeBounds.max - rangeBounds.min);
+  const scale = mix(GOOGLE_ZOOMED_IN_PIN_SCALE, GOOGLE_ZOOMED_OUT_PIN_SCALE, smoothstep(rangeProgress));
+
   map.style.setProperty("--google-pin-scale", scale.toString());
 }
 
-function writeGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera) {
+function writeGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, mode: GoogleMapMode) {
   map.stopCameraAnimation?.();
   map.center = camera.center;
   map.heading = camera.heading;
   map.range = camera.range;
   map.tilt = camera.tilt;
-  syncGooglePinScale(map);
+  syncGooglePinScale(map, mode);
 }
 
-function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, durationMillis = 0) {
+function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, mode: GoogleMapMode, durationMillis = 0) {
   map.stopCameraAnimation?.();
 
   if (durationMillis > 0 && map.flyCameraTo) {
@@ -372,17 +384,17 @@ function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, duration
     return;
   }
 
-  writeGoogleCamera(map, camera);
+  writeGoogleCamera(map, camera, mode);
 }
 
 function setGoogleMapMode(map: GoogleMap3DElement, mode: GoogleMapMode, range?: number) {
   if (mode === "oblique") {
     map.bounds = buildTompkinsGoogleBounds("oblique");
-    setGoogleCamera(map, cameraForMode("oblique", range));
+    setGoogleCamera(map, cameraForMode("oblique", range), "oblique");
     return;
   }
 
-  setGoogleCamera(map, cameraForMode("top-down", range));
+  setGoogleCamera(map, cameraForMode("top-down", range), "top-down");
   map.bounds = buildTompkinsGoogleBounds("top-down");
 }
 
@@ -426,7 +438,7 @@ function attachGoogleCameraZoom(map: GoogleMap3DElement, modeRef: MutableRefObje
       queuedRange = undefined;
 
       if (rangeToWrite === undefined) return;
-      writeGoogleCamera(map, cameraForMode(mode, rangeToWrite));
+      writeGoogleCamera(map, cameraForMode(mode, rangeToWrite), mode);
     });
   };
 
@@ -485,8 +497,8 @@ function attachGoogleCameraZoom(map: GoogleMap3DElement, modeRef: MutableRefObje
   };
 }
 
-function attachGooglePinScaling(map: GoogleMap3DElement) {
-  const sync = () => syncGooglePinScale(map);
+function attachGooglePinScaling(map: GoogleMap3DElement, modeRef: MutableRefObject<GoogleMapMode>) {
+  const sync = () => syncGooglePinScale(map, modeRef.current);
   map.addEventListener("gmp-rangechange", sync);
   sync();
 
@@ -699,7 +711,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
         mapRef.current = map;
         container.append(map);
         detachCameraZoom = attachGoogleCameraZoom(map, mapModeRef);
-        detachPinScaling = attachGooglePinScaling(map);
+        detachPinScaling = attachGooglePinScaling(map, mapModeRef);
         appendGoogleBoundary(map, maps3d);
 
         const popover = new maps3d.PopoverElement({
