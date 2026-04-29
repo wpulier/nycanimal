@@ -139,12 +139,10 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
         <section className={styles.stickerBoard} aria-label="Catalog view">
           <div className={styles.stickerPaper} style={{ "--paper-height": `${paperHeight}px` } as CSSProperties}>
             <header className={styles.catalogHeader}>
-              <p>What&apos;s alive in the park today?</p>
               <h1>Tompkins Square Park</h1>
-              <span>Field Guide Catalog</span>
             </header>
 
-            <span className={`${styles.paperNote} ${styles.paperNoteLeft}`}>Seen today</span>
+            <span className={styles.tapCue}>Tap a sticker</span>
             <span className={styles.paperDoodle} aria-hidden="true" />
 
             {stickerViews.map(({ item, layout, index }) => (
@@ -168,8 +166,7 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
                 <span className={styles.stickerAsset}>
                   {item.stickerImageUrl ? <img src={item.stickerImageUrl} alt="" /> : <PlaceholderSticker item={item} />}
                 </span>
-                {layout.status ? <span className={styles.stickerStatus}>{layout.status}</span> : null}
-                {layout.label ? <span className={styles.stickerCaption}>{layout.label}</span> : null}
+                <span className={styles.stickerId}>{item.sticker}</span>
               </Link>
             ))}
           </div>

@@ -141,9 +141,8 @@
   z-index: 40;
   display: grid;
   justify-items: center;
-  gap: 6px;
-  min-height: 270px;
-  padding: 46px 24px 24px;
+  min-height: 240px;
+  padding: 78px 24px 24px;
   text-align: center;
 }
 
@@ -157,58 +156,33 @@
   content: "";
 }
 
-.catalogHeader p {
-  margin: 0;
-  border-bottom: 1px solid rgba(27, 33, 24, 0.48);
-  color: rgba(27, 33, 24, 0.72);
-  font-family: cursive;
-  font-size: 0.98rem;
-  line-height: 1.1;
-}
-
 .catalogHeader h1 {
   margin: 0;
   color: #20431f;
   font-family: var(--font-display), serif;
   font-size: clamp(2.25rem, 8vw, 2.95rem);
-  letter-spacing: -0.045em;
+  letter-spacing: 0;
   line-height: 0.9;
 }
 
-.catalogHeader span {
-  color: #20431f;
-  font-size: 0.82rem;
-  font-weight: 900;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-}
-
-.paperNote {
+.tapCue {
   position: absolute;
-  z-index: 16;
-  background: rgba(241, 218, 171, 0.72);
+  top: 292px;
+  left: 50%;
+  z-index: 28;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(241, 218, 171, 0.66);
   box-shadow: 0 5px 10px rgba(86, 66, 35, 0.12);
   color: rgba(27, 33, 24, 0.7);
   font-family: cursive;
-  font-size: 0.9rem;
-  padding: 8px 17px;
-}
-
-.paperNoteLeft {
-  top: 390px;
-  left: 32px;
-  transform: rotate(-5deg);
-}
-
-.paperNoteRight {
-  top: 230px;
-  right: 31px;
-  transform: rotate(7deg);
+  font-size: 0.86rem;
+  padding: 7px 16px;
+  white-space: nowrap;
 }
 
 .paperDoodle {
   position: absolute;
-  top: 340px;
+  top: 330px;
   right: 56px;
   z-index: 3;
   width: 60px;
@@ -314,33 +288,24 @@
   stroke-width: 2;
 }
 
-.stickerStatus,
-.stickerCaption {
+.stickerId {
   position: absolute;
   left: 50%;
-  z-index: 2;
-  background: rgba(239, 211, 161, 0.78);
-  box-shadow: 0 6px 10px rgba(86, 66, 35, 0.12);
-  color: rgba(27, 33, 24, 0.75);
-  font-family: cursive;
+  bottom: -16px;
+  z-index: 1;
+  transform: translateX(-50%) rotate(1deg);
+  max-width: 92%;
+  color: rgba(27, 33, 24, 0.5);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
   pointer-events: none;
   text-align: center;
+  text-transform: uppercase;
   white-space: nowrap;
-}
-
-.stickerStatus {
-  top: -20px;
-  transform: translateX(-50%) rotate(-4deg);
-  font-size: 0.78rem;
-  padding: 5px 12px;
-}
-
-.stickerCaption {
-  bottom: -24px;
-  transform: translateX(-50%) rotate(2deg);
-  min-width: 132px;
-  font-size: 0.95rem;
-  padding: 7px 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @keyframes stickerSettle {
