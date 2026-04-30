@@ -619,11 +619,11 @@ function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error"
 function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps & { apiKey: string }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<GoogleMap3DElement | null>(null);
-  const mapModeRef = useRef<GoogleMapMode>("top-down");
+  const mapModeRef = useRef<GoogleMapMode>("oblique");
   const onErrorRef = useRef(onError);
   const onReadyRef = useRef(onReady);
   const [loadFailed, setLoadFailed] = useState(false);
-  const [isObliqueView, setIsObliqueView] = useState(false);
+  const [isObliqueView, setIsObliqueView] = useState(true);
   const mapPins = useMemo(() => buildGoogleMapPins(items), [items]);
 
   useEffect(() => {
