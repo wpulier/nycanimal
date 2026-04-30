@@ -138,7 +138,7 @@ The map supports native drag/pan. Wheel and two-finger pinch are intercepted and
 - `Fit` snaps to the active preset.
 - `3D` toggles the oblique testing preset while preserving the current map center.
 - `Active` / `All` toggles launched-only versus all mapped entry scope without changing the camera.
-- Range changes are clamped separately for top-down and 3D.
+- Range changes are clamped separately for top-down and 3D, with close inspection allowed down to object-level ranges.
 - Do not add camera-correcting writes inside Google `gmp-*change` listeners; that can create visible jitter. Range-change listeners should remain read-only except for pin scale styling.
 
 ## Google Cloud setup
