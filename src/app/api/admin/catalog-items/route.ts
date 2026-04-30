@@ -1,7 +1,7 @@
 import { FieldValue } from "firebase-admin/firestore";
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthorized } from "@/lib/adminAuth";
-import { catalogItemSchema } from "@/lib/catalogSchema";
+import { catalogItemSchema, withCatalogItemDefaults } from "@/lib/catalogSchema";
 import { getAdminDb } from "@/lib/firebaseAdmin";
 
 export const runtime = "nodejs";
@@ -12,7 +12,10 @@ export async function GET(request: NextRequest) {
   }
 
   const snapshot = await getAdminDb().collection("catalogItems").orderBy("commonName").get();
-  const items = snapshot.docs.map((catalogDoc) => ({ id: catalogDoc.id, ...catalogDoc.data() }));
+  const items = snapshot.docs.map((catalogDoc) => ({
+    id: catalogDoc.id,
+    ...catalogItemSchema.parse(withCatalogItemDefaults(catalogDoc.data())),
+  }));
 
   return NextResponse.json({ items });
 }
@@ -23,7 +26,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const parsed = catalogItemSchema.safeParse(body);
+  const parsed = catalogItemSchema.safeParse(withCatalogItemDefaults(body));
 
   if (!parsed.success) {
     return NextResponse.json(

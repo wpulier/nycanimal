@@ -46,6 +46,7 @@ export type CatalogItem = {
   summary: string;
   seasonalNote: string;
   pageMode: "field-card" | "scroll-story" | "specimen";
+  pageStatus?: "ready" | "coming-soon";
   experienceKey?: string;
   facts: string[];
 };

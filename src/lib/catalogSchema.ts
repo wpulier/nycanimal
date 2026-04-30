@@ -11,6 +11,10 @@ export const catalogKindSchema = z.enum([
 ]);
 
 export const pageModeSchema = z.enum(["field-card", "scroll-story", "specimen"]);
+export const pageStatusSchema = z.enum(["ready", "coming-soon"]);
+export const locationTypeSchema = z.enum(["individual-tree", "plant-patch", "sighting", "specimen"]);
+export const catalogLocationStatusSchema = z.enum(["active", "hidden", "archived"]);
+export const catalogLocationVisibilitySchema = z.enum(["public", "admin"]);
 
 export const mediaRoleSchema = z.enum([
   "sticker",
@@ -99,6 +103,7 @@ export const catalogItemSchema = z.object({
   summary: z.string().min(20),
   seasonalNote: z.string().min(10),
   pageMode: pageModeSchema,
+  pageStatus: pageStatusSchema.default("ready"),
   experienceKey: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
   facts: z.array(z.string().min(4)).min(1).max(8),
   mediaRefs: z.array(z.string()).default([]),
@@ -107,6 +112,20 @@ export const catalogItemSchema = z.object({
   searchNames: z.array(z.string()).default([]),
   status: z.enum(["draft", "published"]).default("published"),
 });
+
+export function defaultPageStatusForSlug(slug: string) {
+  return slug.startsWith("tree-") ? "coming-soon" : "ready";
+}
+
+export function withCatalogItemDefaults(raw: unknown) {
+  if (!raw || typeof raw !== "object") return raw;
+
+  const item = raw as Record<string, unknown>;
+  const slug = item.slug;
+
+  if (typeof slug !== "string" || item.pageStatus) return raw;
+  return { ...item, pageStatus: defaultPageStatusForSlug(slug) };
+}
 
 export const llmCatalogDraftSchema = z.object({
   suggestedItem: catalogItemSchema.extend({
@@ -148,7 +167,38 @@ export const treePointSchema = z.object({
   source: z.literal("nyc-parks-forestry-tree-points").default("nyc-parks-forestry-tree-points"),
 });
 
+export const catalogLocationTreeSchema = z.object({
+  nycTreeId: z.string().min(1).optional(),
+  dbh: z.number().optional(),
+  condition: z.string().optional(),
+  structure: z.string().optional(),
+  riskRating: z.string().optional(),
+  updatedDate: z.string().optional(),
+});
+
+export const catalogLocationSourceSchema = z.object({
+  name: z.string().min(1),
+  sourceId: z.string().min(1).optional(),
+  url: z.string().url().optional(),
+  retrievedAt: z.string().datetime().optional(),
+  importedAt: z.string().datetime(),
+});
+
+export const catalogLocationSchema = z.object({
+  id: z.string().min(1),
+  catalogItemSlug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  locationType: locationTypeSchema,
+  coordinates: geoPointSchema,
+  mapPoint: mapPointSchema.optional(),
+  label: z.string().min(1).max(120).optional(),
+  status: catalogLocationStatusSchema.default("active"),
+  visibility: catalogLocationVisibilitySchema.default("public"),
+  tree: catalogLocationTreeSchema.optional(),
+  source: catalogLocationSourceSchema,
+});
+
 export type CatalogItem = z.infer<typeof catalogItemSchema>;
 export type LlmCatalogDraft = z.infer<typeof llmCatalogDraftSchema>;
 export type MediaAsset = z.infer<typeof mediaAssetSchema>;
 export type TreePoint = z.infer<typeof treePointSchema>;
+export type CatalogLocation = z.infer<typeof catalogLocationSchema>;

@@ -1,9 +1,13 @@
 import { HomeExperience } from "@/components/HomeExperience";
-import { getPublishedCatalogItemsAdmin } from "@/lib/catalogServer";
+import { getPublicCatalogLocationsAdmin, getPublishedCatalogItemsAdmin } from "@/lib/catalogServer";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const initialItems = await getPublishedCatalogItemsAdmin();
-  return <HomeExperience initialItems={initialItems} />;
+  const [initialItems, initialLocations] = await Promise.all([
+    getPublishedCatalogItemsAdmin(),
+    getPublicCatalogLocationsAdmin(),
+  ]);
+
+  return <HomeExperience initialItems={initialItems} initialLocations={initialLocations} />;
 }

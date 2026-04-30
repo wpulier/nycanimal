@@ -1,10 +1,10 @@
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import { catalogItemSchema, type CatalogItem } from "@/lib/catalogSchema";
+import { catalogItemSchema, withCatalogItemDefaults, type CatalogItem } from "@/lib/catalogSchema";
 import { localCatalogFallback } from "@/lib/catalogFallback";
 import { db } from "@/lib/firebase";
 
 function normalizeItem(raw: unknown): CatalogItem | null {
-  const parsed = catalogItemSchema.safeParse(raw);
+  const parsed = catalogItemSchema.safeParse(withCatalogItemDefaults(raw));
   return parsed.success ? parsed.data : null;
 }
 

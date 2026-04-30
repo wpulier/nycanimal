@@ -118,6 +118,7 @@ export function getTreeSpeciesCatalogItems(curatedItems: CatalogItem[] = []) {
       summary: `${commonName} appears in ${count} mapped NYC Parks tree ${count === 1 ? "record" : "records"} inside Tompkins Square Park. This generated species card links the map dots to a shared field-guide page.`,
       seasonalNote: "Use this page as a starting point for seasonal photos, bark notes, leaf details, and field observations collected in the park.",
       pageMode: "specimen",
+      pageStatus: "coming-soon",
       facts: [
         `${count} mapped ${count === 1 ? "tree" : "trees"} in the current Tompkins snapshot.`,
         first.latinName ? `Scientific name: ${first.latinName}.` : "Scientific name needs review.",

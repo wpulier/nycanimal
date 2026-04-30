@@ -12,16 +12,24 @@ function withoutUndefined<T extends Record<string, unknown>>(value: T) {
   return Object.fromEntries(Object.entries(value).filter(([, fieldValue]) => fieldValue !== undefined));
 }
 
+function treeLatinName(rawTree: (typeof tompkinsMapData.trees)[number]) {
+  return "latinName" in rawTree ? rawTree.latinName : undefined;
+}
+
 async function main() {
   const db = getAdminDb();
   const batch = db.batch();
+  let seededTreePoints = 0;
 
   for (const rawTree of tompkinsMapData.trees) {
+    if ("active" in rawTree && !rawTree.active) continue;
+
+    const latinName = treeLatinName(rawTree);
     const treePoint = treePointSchema.parse({
       id: rawTree.id,
-      catalogItemSlug: catalogItemSlugForTreeSpecies(rawTree.commonName, rawTree.latinName, catalogItems),
+      catalogItemSlug: catalogItemSlugForTreeSpecies(rawTree.commonName, latinName, catalogItems),
       commonName: rawTree.commonName,
-      latinName: rawTree.latinName,
+      latinName,
       dbh: rawTree.dbh,
       condition: rawTree.condition,
       structure: rawTree.structure,
@@ -48,6 +56,7 @@ async function main() {
       },
       { merge: true },
     );
+    seededTreePoints += 1;
   }
 
   batch.set(
@@ -61,7 +70,7 @@ async function main() {
   );
 
   await batch.commit();
-  console.log(`Seeded ${tompkinsMapData.trees.length} treePoints and mapMetadata/tompkins-square-park.`);
+  console.log(`Seeded ${seededTreePoints} active treePoints and mapMetadata/tompkins-square-park.`);
 }
 
 main().catch((error) => {

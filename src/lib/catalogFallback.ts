@@ -1,13 +1,15 @@
 import { allCatalogItems as localCatalogItems } from "@/data/catalog";
-import { catalogItemSchema, type CatalogItem } from "@/lib/catalogSchema";
+import { catalogItemSchema, withCatalogItemDefaults, type CatalogItem } from "@/lib/catalogSchema";
 
 export const localCatalogFallback: CatalogItem[] = localCatalogItems.map((item) =>
-  catalogItemSchema.parse({
-    ...item,
-    mediaRefs: [],
-    searchNames: [item.commonName, item.sticker, item.latinName]
-      .filter(Boolean)
-      .map((name) => String(name).toLowerCase()),
-    status: "published",
-  }),
+  catalogItemSchema.parse(
+    withCatalogItemDefaults({
+      ...item,
+      mediaRefs: [],
+      searchNames: [item.commonName, item.sticker, item.latinName]
+        .filter(Boolean)
+        .map((name) => String(name).toLowerCase()),
+      status: "published",
+    }),
+  ),
 );

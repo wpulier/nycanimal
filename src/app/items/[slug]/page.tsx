@@ -9,7 +9,7 @@ import { getCatalogItemAdmin, getItemPageDataAdmin, getPublishedCatalogItemsAdmi
 export const revalidate = 60;
 
 export function generateStaticParams() {
-  return localCatalogFallback.map((item) => ({ slug: item.slug }));
+  return localCatalogFallback.filter(isCatalogItemLaunched).map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

@@ -4,7 +4,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import type { CatalogItem } from "@/lib/catalogSchema";
+import type { CatalogItem, CatalogLocation } from "@/lib/catalogSchema";
 import { isCatalogItemLaunched } from "@/lib/catalogLifecycle";
 import { orderCatalogItems } from "@/lib/catalogOrder";
 import styles from "@/app/page.module.css";
@@ -230,7 +230,13 @@ function StickerContent({ item, index }: { item: CatalogItem; index: number }) {
   );
 }
 
-export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
+export function HomeExperience({
+  initialItems,
+  initialLocations,
+}: {
+  initialItems: CatalogItem[];
+  initialLocations: CatalogLocation[];
+}) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
   const [mapWarmupState, setMapWarmupState] = useState<MapWarmupState>("idle");
   const stickerPaperRef = useRef<HTMLDivElement>(null);
@@ -381,7 +387,12 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
             data-active={view === "map"}
             data-view="map"
           >
-            <TompkinsMap items={sortedItems} onError={handleMapError} onReady={handleMapReady} />
+            <TompkinsMap
+              items={sortedItems}
+              locations={initialLocations}
+              onError={handleMapError}
+              onReady={handleMapReady}
+            />
           </section>
         ) : null}
       </div>

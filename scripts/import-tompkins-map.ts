@@ -77,6 +77,7 @@ type MapLandmark = {
 
 type MapTree = {
   id: string;
+  active: boolean;
   commonName: string;
   latinName?: string;
   dbh?: number;
@@ -245,10 +246,12 @@ async function fetchTrees(boundary: LonLat[], project: (point: LonLat) => Projec
     fetchedCount: rows.length,
     insideParkCount: insideRows.length,
     activeInsideParkCount: activeRows.length,
-    trees: activeRows.map((row): MapTree => {
+    trees: insideRows.map((row): MapTree => {
       const species = parseSpecies(row.genusspecies);
+      const active = row.tpstructure === "Full" && row.tpcondition !== "Dead";
       return {
         id: row.objectid,
+        active,
         ...species,
         dbh: row.dbh ? Number(row.dbh) : undefined,
         condition: row.tpcondition,

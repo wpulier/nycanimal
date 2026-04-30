@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import styles from "@/app/page.module.css";
 import { tompkinsMapData } from "@/data/tompkinsMap";
-import type { CatalogItem } from "@/lib/catalogSchema";
+import type { CatalogItem, CatalogLocation } from "@/lib/catalogSchema";
 import { isCatalogItemLaunched } from "@/lib/catalogLifecycle";
 import { hasGoogleMapsApiKey, publicEnv } from "@/lib/publicEnv";
 import { projectTompkinsMapToGeo } from "@/lib/tompkinsProjection";
@@ -20,6 +20,18 @@ type GoogleMapPin = {
   position: { lat: number; lng: number };
 };
 
+type GoogleTreeLocationPin = {
+  id: string;
+  catalogItemSlug: string;
+  commonName: string;
+  latinName?: string;
+  color: string;
+  launched: boolean;
+  position: { lat: number; lng: number };
+  status: CatalogLocation["status"];
+  tree?: CatalogLocation["tree"];
+};
+
 type GoogleMapsRoot = {
   importLibrary: (library: string) => Promise<Record<string, unknown>>;
 };
@@ -33,6 +45,7 @@ type GoogleMapsWindow = Window & {
 
 type GoogleBounds = { north: number; south: number; east: number; west: number };
 type GoogleMapMode = "top-down" | "oblique";
+type TreeLocationMode = "active" | "all";
 
 type GoogleMap3DElement = HTMLElement & {
   bounds?: GoogleBounds;
@@ -99,6 +112,7 @@ type GoogleSteadyChangeEvent = Event & {
 
 type TompkinsMapProps = {
   items: CatalogItem[];
+  locations?: CatalogLocation[];
   onError?: () => void;
   onReady?: () => void;
 };
@@ -238,6 +252,34 @@ function googleMapPinFromItem(item: CatalogItem): GoogleMapPin | null {
 
 function buildGoogleMapPins(items: CatalogItem[]) {
   return items.map(googleMapPinFromItem).filter((pin): pin is GoogleMapPin => Boolean(pin));
+}
+
+function isPublicTreeLocation(location: CatalogLocation) {
+  return location.locationType === "individual-tree" && location.visibility === "public";
+}
+
+function buildGoogleTreeLocationPins(items: CatalogItem[], locations: CatalogLocation[], mode: TreeLocationMode) {
+  const itemsBySlug = new Map(items.map((item) => [item.slug, item]));
+
+  return locations
+    .filter((location) => isPublicTreeLocation(location) && (mode === "all" || location.status === "active"))
+    .map((location): GoogleTreeLocationPin | null => {
+      const item = itemsBySlug.get(location.catalogItemSlug);
+      if (!item) return null;
+
+      return {
+        id: location.id,
+        catalogItemSlug: location.catalogItemSlug,
+        commonName: item.commonName,
+        latinName: item.latinName,
+        color: item.color,
+        launched: isCatalogItemLaunched(item),
+        position: { lat: location.coordinates.latitude, lng: location.coordinates.longitude },
+        status: location.status,
+        tree: location.tree,
+      };
+    })
+    .filter((pin): pin is GoogleTreeLocationPin => Boolean(pin));
 }
 
 function buildTompkinsBaseBounds(): GoogleBounds {
@@ -556,6 +598,28 @@ function createGooglePinElement(marker: GoogleMarkerLibrary, pin: GoogleMapPin) 
   });
 }
 
+function createGoogleTreeNode(pin: GoogleTreeLocationPin) {
+  const element = document.createElement("span");
+  element.className = styles.googleTreeLocationDot;
+  element.style.setProperty("--tree-dot-color", pin.color);
+  element.dataset.launched = pin.launched ? "true" : "false";
+  element.dataset.status = pin.status;
+
+  return element;
+}
+
+function createGoogleTreePinElement(marker: GoogleMarkerLibrary, pin: GoogleTreeLocationPin) {
+  if (!marker.PinElement) return null;
+
+  return new marker.PinElement({
+    background: pin.launched ? pin.color : "#8d8f86",
+    borderColor: "#fff7dd",
+    glyphColor: "#1b2118",
+    glyphText: "",
+    scale: 0.52,
+  });
+}
+
 function buildGooglePopoverContent(pin: GoogleMapPin) {
   const wrapper = document.createElement("div");
   const kicker = document.createElement("p");
@@ -577,6 +641,53 @@ function buildGooglePopoverContent(pin: GoogleMapPin) {
   if (pin.launched) {
     const link = document.createElement("a");
     link.href = `/items/${pin.slug}`;
+    link.textContent = "Open card";
+    wrapper.append(link);
+  } else {
+    const status = document.createElement("p");
+    status.className = styles.google3dPopoverStatus;
+    status.textContent = "Coming soon";
+    wrapper.append(status);
+  }
+
+  return wrapper;
+}
+
+function buildGoogleTreeLocationPopoverContent(pin: GoogleTreeLocationPin) {
+  const wrapper = document.createElement("div");
+  const kicker = document.createElement("p");
+  const title = document.createElement("h3");
+
+  wrapper.className = styles.google3dPopover;
+  kicker.className = styles.treePopoverKicker;
+  kicker.textContent = "tree";
+  title.textContent = pin.commonName;
+  wrapper.append(kicker, title);
+
+  if (pin.latinName) {
+    const latin = document.createElement("p");
+    latin.className = styles.treePopoverLatin;
+    latin.textContent = pin.latinName;
+    wrapper.append(latin);
+  }
+
+  if (pin.tree?.dbh || pin.tree?.condition) {
+    const details = document.createElement("p");
+    details.className = styles.treeLocationDetails;
+    details.textContent = [pin.tree.dbh ? `${pin.tree.dbh}" DBH` : undefined, pin.tree.condition].filter(Boolean).join(" / ");
+    wrapper.append(details);
+  }
+
+  if (pin.status !== "active") {
+    const status = document.createElement("p");
+    status.className = styles.treeLocationDetails;
+    status.textContent = "NYC record outside active default";
+    wrapper.append(status);
+  }
+
+  if (pin.launched) {
+    const link = document.createElement("a");
+    link.href = `/items/${pin.catalogItemSlug}`;
     link.textContent = "Open card";
     wrapper.append(link);
   } else {
@@ -630,15 +741,29 @@ function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error"
   );
 }
 
-function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps & { apiKey: string }) {
+function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: TompkinsMapProps & { apiKey: string }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<GoogleMap3DElement | null>(null);
   const mapModeRef = useRef<GoogleMapMode>("oblique");
+  const treeLayerRef = useRef<{
+    maps3d: GoogleMaps3DLibrary;
+    marker: GoogleMarkerLibrary;
+    popover: InstanceType<GoogleMaps3DLibrary["PopoverElement"]>;
+    MarkerClass: new (options: Record<string, unknown>) => HTMLElement;
+    supportsHtmlMarkers: boolean;
+  } | null>(null);
   const onErrorRef = useRef(onError);
   const onReadyRef = useRef(onReady);
   const [loadFailed, setLoadFailed] = useState(false);
   const [isObliqueView, setIsObliqueView] = useState(true);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const [showTreeLayer, setShowTreeLayer] = useState(false);
+  const [treeLocationMode, setTreeLocationMode] = useState<TreeLocationMode>("active");
   const mapPins = useMemo(() => buildGoogleMapPins(items), [items]);
+  const treeLocationPins = useMemo(
+    () => buildGoogleTreeLocationPins(items, locations, treeLocationMode),
+    [items, locations, treeLocationMode],
+  );
 
   useEffect(() => {
     onErrorRef.current = onError;
@@ -677,11 +802,16 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
 
       ready = true;
       readyFrameId = waitForNextPaint(() => {
-        if (!cancelled) onReadyRef.current?.();
+        if (!cancelled) {
+          setIsMapReady(true);
+          onReadyRef.current?.();
+        }
       });
     };
 
     container.replaceChildren();
+    treeLayerRef.current = null;
+    setIsMapReady(false);
     setLoadFailed(false);
 
     loadGoogle3DLibraries(apiKey)
@@ -739,6 +869,7 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
         if (!MarkerClass) {
           throw new Error("Google Maps 3D marker library is unavailable.");
         }
+        treeLayerRef.current = { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers };
 
         for (const pin of mapPins) {
           const interactiveMarker = new MarkerClass({
@@ -789,9 +920,60 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
       detachSteadyListener?.();
       detachMapErrorListener?.();
       mapRef.current = null;
+      treeLayerRef.current = null;
+      setIsMapReady(false);
       container.replaceChildren();
     };
   }, [apiKey, mapPins]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const treeLayer = treeLayerRef.current;
+    if (!map || !treeLayer || !isMapReady || !showTreeLayer) return;
+
+    const { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers } = treeLayer;
+    const treeMarkers = treeLocationPins.map((pin) => {
+      const interactiveMarker = new MarkerClass({
+        altitudeMode: maps3d.AltitudeMode?.CLAMP_TO_GROUND ?? "CLAMP_TO_GROUND",
+        ...(supportsHtmlMarkers
+          ? {
+              anchorLeft: "-50%",
+              anchorTop: "-50%",
+              collisionPriority: 100,
+            }
+          : {
+              label: "",
+              sizePreserved: true,
+          }),
+        position: { ...pin.position, altitude: supportsHtmlMarkers ? 6 : 18 },
+        title: pin.commonName,
+      });
+      (interactiveMarker as HTMLElement & { sizePreserved?: boolean }).sizePreserved = false;
+
+      if (supportsHtmlMarkers) {
+        interactiveMarker.append(createGoogleTreeNode(pin));
+      } else {
+        const fallbackPin = createGoogleTreePinElement(marker, pin);
+        if (fallbackPin) interactiveMarker.append(fallbackPin);
+      }
+
+      interactiveMarker.addEventListener("gmp-click", () => {
+        popover.open = false;
+        popover.positionAnchor = interactiveMarker;
+        popover.replaceChildren(buildGoogleTreeLocationPopoverContent(pin));
+        popover.open = true;
+      });
+      map.append(interactiveMarker);
+      return interactiveMarker;
+    });
+
+    return () => {
+      popover.open = false;
+      for (const markerElement of treeMarkers) {
+        markerElement.remove();
+      }
+    };
+  }, [isMapReady, showTreeLayer, treeLocationPins]);
 
   const resetView = useCallback(() => {
     const map = mapRef.current;
@@ -808,6 +990,15 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
 
     if (!map) return;
     setGoogleMapMode(map, mapModeRef.current);
+  }, []);
+
+  const toggleTreeLayer = useCallback(() => {
+    setShowTreeLayer((current) => !current);
+  }, []);
+
+  const toggleTreeLocationMode = useCallback(() => {
+    setShowTreeLayer(true);
+    setTreeLocationMode((current) => (current === "active" ? "all" : "active"));
   }, []);
 
   if (loadFailed) {
@@ -832,12 +1023,30 @@ function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps
         >
           3D
         </button>
+        <button
+          aria-pressed={showTreeLayer}
+          data-active={showTreeLayer ? "true" : undefined}
+          disabled={!isMapReady || treeLocationPins.length === 0}
+          type="button"
+          onClick={toggleTreeLayer}
+        >
+          Trees
+        </button>
+        <button
+          aria-pressed={treeLocationMode === "all"}
+          data-active={treeLocationMode === "all" ? "true" : undefined}
+          disabled={!isMapReady || locations.length === 0}
+          type="button"
+          onClick={toggleTreeLocationMode}
+        >
+          {treeLocationMode === "active" ? "Active" : "All"}
+        </button>
       </div>
     </section>
   );
 }
 
-export function TompkinsMap({ items, onError, onReady }: TompkinsMapProps) {
+export function TompkinsMap({ items, locations = [], onError, onReady }: TompkinsMapProps) {
   const hasApiKey = hasGoogleMapsApiKey();
 
   useEffect(() => {
@@ -848,5 +1057,13 @@ export function TompkinsMap({ items, onError, onReady }: TompkinsMapProps) {
     return <GoogleMapUnavailable reason="missing-key" />;
   }
 
-  return <GoogleTompkinsMap apiKey={publicEnv.googleMapsApiKey} items={items} onError={onError} onReady={onReady} />;
+  return (
+    <GoogleTompkinsMap
+      apiKey={publicEnv.googleMapsApiKey}
+      items={items}
+      locations={locations}
+      onError={onError}
+      onReady={onReady}
+    />
+  );
 }

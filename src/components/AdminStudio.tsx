@@ -17,6 +17,7 @@ const blankItem: CatalogItem = {
   summary: "",
   seasonalNote: "",
   pageMode: "field-card",
+  pageStatus: "ready",
   experienceKey: undefined,
   facts: [""],
   treeRefs: [],
@@ -222,6 +223,7 @@ export function AdminStudio() {
           <label>Latin name<input value={item.latinName ?? ""} onChange={(event) => setItem({ ...item, latinName: event.target.value || undefined })} /></label>
           <label>Kind<select value={item.kind} onChange={(event) => setItem({ ...item, kind: event.target.value as CatalogItem["kind"] })}><option>bird</option><option>plant</option><option>tree</option><option>mammal</option><option>insect</option><option>fungus</option><option>object</option></select></label>
           <label>Page mode<select value={item.pageMode} onChange={(event) => setItem({ ...item, pageMode: event.target.value as CatalogItem["pageMode"] })}><option value="field-card">field-card</option><option value="scroll-story">scroll-story</option><option value="specimen">specimen</option></select></label>
+          <label>Page status<select value={item.pageStatus} onChange={(event) => setItem({ ...item, pageStatus: event.target.value as CatalogItem["pageStatus"] })}><option value="ready">ready</option><option value="coming-soon">coming-soon</option></select></label>
           <label>Experience key<input value={item.experienceKey ?? ""} onChange={(event) => setItem({ ...item, experienceKey: toSlug(event.target.value) || undefined })} placeholder="rock-pigeon" /></label>
           <label>Sticker label<input value={item.sticker} onChange={(event) => setItem({ ...item, sticker: event.target.value })} /></label>
           <label>Color<input value={item.color} onChange={(event) => setItem({ ...item, color: event.target.value })} /></label>

@@ -1,7 +1,7 @@
 import { FieldValue } from "firebase-admin/firestore";
 import "./load-local-env";
 import { allCatalogItems as catalogItems } from "../src/data/catalog";
-import { catalogItemSchema } from "../src/lib/catalogSchema";
+import { catalogItemSchema, withCatalogItemDefaults } from "../src/lib/catalogSchema";
 import { getAdminDb } from "../src/lib/firebaseAdmin";
 
 process.env.FIREBASE_PROJECT_ID ??= "nyc-park-catalog";
@@ -21,17 +21,20 @@ async function main() {
     const ref = db.collection("catalogItems").doc(rawItem.slug);
     const existing = await ref.get();
     const existingData = existing.data() ?? {};
-    const item = catalogItemSchema.parse({
-      ...rawItem,
-      mediaRefs: "mediaRefs" in rawItem ? rawItem.mediaRefs : existingData.mediaRefs ?? [],
-      stickerAssetId: "stickerAssetId" in rawItem ? rawItem.stickerAssetId : existingData.stickerAssetId,
-      stickerImageUrl: "stickerImageUrl" in rawItem ? rawItem.stickerImageUrl : existingData.stickerImageUrl,
-      stickerLayout: "stickerLayout" in rawItem ? rawItem.stickerLayout : existingData.stickerLayout,
-      searchNames: [rawItem.commonName, rawItem.sticker, rawItem.latinName]
-        .filter(Boolean)
-        .map((name) => String(name).toLowerCase()),
-      status: "published",
-    });
+    const item = catalogItemSchema.parse(
+      withCatalogItemDefaults({
+        ...rawItem,
+        mediaRefs: "mediaRefs" in rawItem ? rawItem.mediaRefs : existingData.mediaRefs ?? [],
+        stickerAssetId: "stickerAssetId" in rawItem ? rawItem.stickerAssetId : existingData.stickerAssetId,
+        stickerImageUrl: "stickerImageUrl" in rawItem ? rawItem.stickerImageUrl : existingData.stickerImageUrl,
+        stickerLayout: "stickerLayout" in rawItem ? rawItem.stickerLayout : existingData.stickerLayout,
+        pageStatus: existingData.pageStatus ?? rawItem.pageStatus,
+        searchNames: [rawItem.commonName, rawItem.sticker, rawItem.latinName]
+          .filter(Boolean)
+          .map((name) => String(name).toLowerCase()),
+        status: "published",
+      }),
+    );
 
     batch.set(ref, {
       ...withoutUndefined(item),

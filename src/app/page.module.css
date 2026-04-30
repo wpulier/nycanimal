@@ -569,6 +569,31 @@
   opacity: 0.78;
 }
 
+.googleTreeLocationDot {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid rgba(255, 247, 221, 0.92);
+  border-radius: 999px;
+  background: var(--tree-dot-color, #8fbc6b);
+  box-shadow:
+    0 0 0 1px rgba(27, 33, 24, 0.72),
+    0 3px 8px rgba(0, 0, 0, 0.28);
+}
+
+.googleTreeLocationDot[data-launched="false"] {
+  filter: grayscale(0.75) saturate(0.62);
+  opacity: 0.74;
+}
+
+.googleTreeLocationDot[data-status="hidden"] {
+  width: 9px;
+  height: 9px;
+  border-color: rgba(255, 247, 221, 0.72);
+  filter: grayscale(0.42) saturate(0.78);
+  opacity: 0.64;
+}
+
 .google3dPopover {
   display: grid;
   gap: 8px;
@@ -631,6 +656,12 @@
   margin-top: 7px !important;
 }
 
+.treeLocationDetails {
+  color: rgba(255, 247, 221, 0.76);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .mapZoomControls {
   position: fixed;
   right: max(18px, env(safe-area-inset-right));
@@ -656,6 +687,11 @@
 .mapZoomControls button[data-active="true"] {
   background: var(--moss);
   color: #fff7dd;
+}
+
+.mapZoomControls button:disabled {
+  cursor: default;
+  opacity: 0.52;
 }
 
 .mapPathOne,

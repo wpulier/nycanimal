@@ -20,7 +20,7 @@ export const tompkinsMapData = {
       height: 1000,
       padding: 72
     },
-    retrievedAt: "2026-04-28T23:15:42.594Z",
+    retrievedAt: "2026-04-30T21:05:44.640Z",
     sourceCounts: {
       forestryBBoxTrees: 600,
       forestryTreesInsidePark: 396,
@@ -35,22 +35,22 @@ export const tompkinsMapData = {
     {
       label: "NYC Parks Properties",
       url: "https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve",
-      retrievedAt: "2026-04-28T23:15:42.594Z"
+      retrievedAt: "2026-04-30T21:05:44.640Z"
     },
     {
       label: "NYC Parks Forestry Tree Points",
       url: "https://data.cityofnewyork.us/Environment/Forestry-Tree-Points/hn5i-inap",
-      retrievedAt: "2026-04-28T23:15:42.594Z"
+      retrievedAt: "2026-04-30T21:05:44.640Z"
     },
     {
       label: "OpenStreetMap via Overpass API",
       url: "https://www.openstreetmap.org/way/25162896",
-      retrievedAt: "2026-04-28T23:15:42.594Z"
+      retrievedAt: "2026-04-30T21:05:44.640Z"
     },
     {
       label: "NYC Tree Map validation",
       url: "https://tree-map.nycgovparks.org/",
-      retrievedAt: "2026-04-28T23:15:42.594Z"
+      retrievedAt: "2026-04-30T21:05:44.640Z"
     }
   ],
   boundary: [
@@ -2930,7 +2930,177 @@ export const tompkinsMapData = {
   ],
   trees: [
     {
+      id: "5094978",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98308248,
+        lat: 40.72599882,
+        x: 150.72,
+        y: 652.92
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094978"
+    },
+    {
+      id: "5101823",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 13,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2018-12-05 14:22:21.0000000",
+      point: {
+        lng: -73.98305025,
+        lat: 40.72645444,
+        x: 158.95,
+        y: 499.46
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101823"
+    },
+    {
+      id: "5105828",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 35,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-09-19 15:26:00.0000000",
+      point: {
+        lng: -73.98305056,
+        lat: 40.7262314,
+        x: 158.87,
+        y: 574.59
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105828"
+    },
+    {
+      id: "5110316",
+      active: true,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98322785,
+        lat: 40.72617805,
+        x: 113.62,
+        y: 592.56
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110316"
+    },
+    {
+      id: "5108598",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 23,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98307221,
+        lat: 40.72628506,
+        x: 153.34,
+        y: 556.51
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108598"
+    },
+    {
+      id: "14177512",
+      active: false,
+      latinName: "Quercus macrocarpa 'Urban Pinnacle'",
+      commonName: "'Urban Pinnacle' bur oak",
+      dbh: 3,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2024-11-07 15:49:00.0000000",
+      point: {
+        lng: -73.98323507,
+        lat: 40.72603918,
+        x: 111.77,
+        y: 639.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14177512"
+    },
+    {
+      id: "14514578",
+      active: true,
+      latinName: "Acer miyabei 'State Street'",
+      commonName: "'State Street' Miyabe maple",
+      dbh: 2,
+      condition: "Excellent",
+      structure: "Full",
+      updatedDate: "2023-11-27 16:04:00.0000000",
+      point: {
+        lng: -73.98326205,
+        lat: 40.72614203,
+        x: 104.89,
+        y: 604.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514578"
+    },
+    {
+      id: "14514579",
+      active: true,
+      latinName: "Quercus muehlenbergii",
+      commonName: "chinkapin oak",
+      dbh: 2,
+      condition: "Excellent",
+      structure: "Full",
+      updatedDate: "2023-11-27 16:04:00.0000000",
+      point: {
+        lng: -73.98321749,
+        lat: 40.72620282,
+        x: 116.26,
+        y: 584.21
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514579"
+    },
+    {
+      id: "15763352",
+      active: true,
+      latinName: "Quercus bicolor",
+      commonName: "swamp white oak",
+      dbh: 4,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98323507,
+        lat: 40.72603918,
+        x: 111.77,
+        y: 639.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/15763352"
+    },
+    {
+      id: "5094750",
+      active: false,
+      latinName: "Syringa reticulata",
+      commonName: "Japanese tree lilac",
+      dbh: 11,
+      condition: "Critical",
+      structure: "Retired",
+      riskRating: "8",
+      updatedDate: "2022-12-01 18:32:00.0000000",
+      point: {
+        lng: -73.98031228,
+        lat: 40.72691493,
+        x: 857.79,
+        y: 344.37
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094750"
+    },
+    {
       id: "5096390",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 6,
@@ -2945,131 +3115,118 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096390"
     },
     {
-      id: "5096255",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 30,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2026-04-07 15:04:46.0000000",
-      point: {
-        lng: -73.98085548,
-        lat: 40.72596201,
-        x: 719.15,
-        y: 665.32
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096255"
-    },
-    {
-      id: "5096635",
-      latinName: "Carpinus caroliniana",
-      commonName: "American hornbeam",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98038481,
-        lat: 40.7264263,
-        x: 839.28,
-        y: 508.94
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096635"
-    },
-    {
-      id: "5095495",
-      latinName: "Morus",
-      commonName: "mulberry",
-      dbh: 5,
-      condition: "Fair",
-      structure: "Full",
-      point: {
-        lng: -73.98112954,
-        lat: 40.72626957,
-        x: 649.19,
-        y: 561.73
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095495"
-    },
-    {
-      id: "5100237",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 24,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2026-04-07 15:08:50.0000000",
-      point: {
-        lng: -73.98055383,
-        lat: 40.72622594,
-        x: 796.14,
-        y: 576.42
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100237"
-    },
-    {
-      id: "5108916",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98073402,
-        lat: 40.726149,
-        x: 750.15,
-        y: 602.34
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108916"
-    },
-    {
-      id: "5111314",
-      latinName: "Betula papyrifera",
-      commonName: "paper birch",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98078166,
-        lat: 40.72625086,
-        x: 737.99,
-        y: 568.03
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111314"
-    },
-    {
-      id: "5104908",
-      latinName: "Syringa reticulata",
-      commonName: "Japanese tree lilac",
+      id: "5095284",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
       dbh: 9,
-      condition: "Fair",
-      structure: "Full",
-      point: {
-        lng: -73.98013951,
-        lat: 40.72677048,
-        x: 901.89,
-        y: 393.02
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104908"
-    },
-    {
-      id: "5099977",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 3,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98105278,
-        lat: 40.72599933,
-        x: 668.79,
-        y: 652.75
+        lng: -73.98099257,
+        lat: 40.72702474,
+        x: 684.16,
+        y: 307.39
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099977"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095284"
+    },
+    {
+      id: "5094785",
+      active: true,
+      latinName: "Prunus virginiana",
+      commonName: "chokecherry",
+      dbh: 16,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98035266,
+        lat: 40.72692074,
+        x: 847.49,
+        y: 342.42
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094785"
+    },
+    {
+      id: "5096157",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.98097246,
+        lat: 40.72706437,
+        x: 689.29,
+        y: 294.04
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096157"
+    },
+    {
+      id: "5105553",
+      active: true,
+      latinName: "Cornus florida",
+      commonName: "flowering dogwood",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98079085,
+        lat: 40.72711035,
+        x: 735.64,
+        y: 278.55
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105553"
+    },
+    {
+      id: "5109920",
+      active: true,
+      latinName: "Cornus florida",
+      commonName: "flowering dogwood",
+      dbh: 8,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98081373,
+        lat: 40.72711741,
+        x: 729.8,
+        y: 276.17
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109920"
+    },
+    {
+      id: "5103987",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.9807457,
+        lat: 40.72706467,
+        x: 747.17,
+        y: 293.94
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103987"
+    },
+    {
+      id: "5104724",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 20,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98107169,
+        lat: 40.72667281,
+        x: 663.96,
+        y: 425.92
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104724"
     },
     {
       id: "5109116",
+      active: true,
       latinName: "Quercus",
       commonName: "Oak",
       dbh: 29,
@@ -3086,7 +3243,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109116"
     },
     {
+      id: "5104682",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 31,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2020-05-19 16:24:38.0000000",
+      point: {
+        lng: -73.98115878,
+        lat: 40.72699112,
+        x: 641.73,
+        y: 318.71
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104682"
+    },
+    {
       id: "5096823",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 40,
@@ -3104,6 +3280,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5106212",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 26,
@@ -3120,54 +3297,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106212"
     },
     {
-      id: "5099421",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 17,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "10",
-      updatedDate: "2025-07-18 17:12:13.0000000",
-      point: {
-        lng: -73.98086538,
-        lat: 40.72640175,
-        x: 716.62,
-        y: 517.21
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099421"
-    },
-    {
-      id: "5103132",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98101307,
-        lat: 40.72610609,
-        x: 678.92,
-        y: 616.79
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103132"
-    },
-    {
-      id: "5105056",
-      latinName: "Lagerstroemia",
-      commonName: "lagerstroemia",
-      dbh: 19,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98102188,
-        lat: 40.72629614,
-        x: 676.67,
-        y: 552.78
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105056"
-    },
-    {
       id: "5109582",
+      active: true,
       latinName: "Quercus rubra",
       commonName: "northern red oak",
       dbh: 18,
@@ -3182,39 +3313,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109582"
     },
     {
-      id: "5110857",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98093768,
-        lat: 40.72610266,
-        x: 698.17,
-        y: 617.95
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110857"
-    },
-    {
-      id: "5107982",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2019-08-07 12:53:34.0000000",
-      point: {
-        lng: -73.98015283,
-        lat: 40.72675362,
-        x: 898.49,
-        y: 398.7
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107982"
-    },
-    {
       id: "5110546",
+      active: true,
       latinName: "Acer campestre",
       commonName: "hedge maple",
       dbh: 12,
@@ -3231,7 +3331,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110546"
     },
     {
+      id: "5109002",
+      active: false,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 10,
+      condition: "Dead",
+      structure: "Stump",
+      riskRating: "7",
+      updatedDate: "2023-02-10 18:08:00.0000000",
+      point: {
+        lng: -73.9811004,
+        lat: 40.72688154,
+        x: 656.63,
+        y: 355.62
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109002"
+    },
+    {
       id: "5106249",
+      active: true,
       latinName: "Acer campestre",
       commonName: "hedge maple",
       dbh: 9,
@@ -3246,22 +3365,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106249"
     },
     {
-      id: "5098053",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
+      id: "5103539",
+      active: false,
+      latinName: "Syringa reticulata",
+      commonName: "Japanese tree lilac",
+      dbh: 7,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "6",
+      updatedDate: "2026-04-15 17:50:00.0000000",
       point: {
-        lng: -73.9807679,
-        lat: 40.72614048,
-        x: 741.5,
-        y: 605.21
+        lng: -73.9802293,
+        lat: 40.72667654,
+        x: 878.97,
+        y: 424.66
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098053"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103539"
     },
     {
       id: "5109014",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 16,
@@ -3276,84 +3399,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109014"
     },
     {
-      id: "5097854",
+      id: "5097587",
+      active: false,
       latinName: "Quercus",
       commonName: "Oak",
-      dbh: 14,
-      condition: "Good",
+      dbh: 19,
+      condition: "Dead",
       structure: "Full",
-      riskRating: "6",
-      updatedDate: "2022-09-19 14:51:24.0000000",
+      riskRating: "8",
+      updatedDate: "2026-02-19 15:10:19.0000000",
       point: {
-        lng: -73.98111623,
-        lat: 40.72627608,
-        x: 652.59,
-        y: 559.54
+        lng: -73.98108027,
+        lat: 40.72711927,
+        x: 661.77,
+        y: 275.55
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097854"
-    },
-    {
-      id: "5108326",
-      latinName: "Malus",
-      commonName: "apple",
-      dbh: 13,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98070159,
-        lat: 40.72599724,
-        x: 758.43,
-        y: 653.45
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108326"
-    },
-    {
-      id: "5106979",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98032067,
-        lat: 40.72650666,
-        x: 855.65,
-        y: 481.88
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106979"
-    },
-    {
-      id: "5109390",
-      latinName: "Lagerstroemia",
-      commonName: "lagerstroemia",
-      dbh: 6,
-      condition: "Fair",
-      structure: "Full",
-      point: {
-        lng: -73.98100348,
-        lat: 40.72652424,
-        x: 681.37,
-        y: 475.96
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109390"
-    },
-    {
-      id: "5105831",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98071715,
-        lat: 40.72618429,
-        x: 754.46,
-        y: 590.45
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105831"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097587"
     },
     {
       id: "5111856",
+      active: true,
       latinName: "Acer campestre",
       commonName: "hedge maple",
       dbh: 13,
@@ -3371,6 +3436,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5102769",
+      active: true,
       latinName: "Quercus rubra",
       commonName: "northern red oak",
       dbh: 25,
@@ -3385,22 +3451,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102769"
     },
     {
-      id: "5100937",
-      latinName: "Prunus virginiana",
-      commonName: "chokecherry",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98091047,
-        lat: 40.72608124,
-        x: 705.11,
-        y: 625.16
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100937"
-    },
-    {
       id: "5107613",
+      active: true,
       latinName: "Corylus colurna",
       commonName: "Turkish hazelnut",
       dbh: 11,
@@ -3415,58 +3467,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107613"
     },
     {
-      id: "5111358",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 36,
+      id: "5108577",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 14,
       condition: "Good",
       structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 15:06:12.0000000",
       point: {
-        lng: -73.98068689,
-        lat: 40.72604759,
-        x: 762.18,
-        y: 636.49
+        lng: -73.98099171,
+        lat: 40.72701742,
+        x: 684.37,
+        y: 309.85
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111358"
-    },
-    {
-      id: "5102003",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2022-01-09 14:38:37.0000000",
-      point: {
-        lng: -73.98112881,
-        lat: 40.72631499,
-        x: 649.38,
-        y: 546.43
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102003"
-    },
-    {
-      id: "5108502",
-      latinName: "Robinia pseudoacacia",
-      commonName: "black locust",
-      dbh: 13,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2022-01-09 15:23:50.0000000",
-      point: {
-        lng: -73.98099548,
-        lat: 40.7263148,
-        x: 683.41,
-        y: 546.5
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108502"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108577"
     },
     {
       id: "5099175",
+      active: true,
       latinName: "Acer campestre",
       commonName: "hedge maple",
       dbh: 8,
@@ -3481,24 +3499,78 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099175"
     },
     {
-      id: "5105023",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 17,
+      id: "5110733",
+      active: false,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 15,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "6",
+      updatedDate: "2022-10-07 17:22:00.0000000",
+      point: {
+        lng: -73.98113205,
+        lat: 40.72725273,
+        x: 648.55,
+        y: 230.6
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110733"
+    },
+    {
+      id: "5108424",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98096355,
+        lat: 40.72707332,
+        x: 691.56,
+        y: 291.02
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108424"
+    },
+    {
+      id: "5110514",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 14,
       condition: "Good",
       structure: "Full",
       riskRating: "6",
-      updatedDate: "2020-07-31 15:26:28.0000000",
+      updatedDate: "2024-08-14 16:39:08.0000000",
       point: {
-        lng: -73.9809645,
-        lat: 40.72661343,
-        x: 691.32,
-        y: 445.92
+        lng: -73.98095349,
+        lat: 40.72715914,
+        x: 694.13,
+        y: 262.12
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105023"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110514"
+    },
+    {
+      id: "5107272",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2026-04-07 14:24:10.0000000",
+      point: {
+        lng: -73.9806763,
+        lat: 40.72700491,
+        x: 764.88,
+        y: 314.06
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107272"
     },
     {
       id: "5102920",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 26,
@@ -3515,67 +3587,44 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102920"
     },
     {
-      id: "5102432",
-      latinName: "Quercus phellos",
-      commonName: "willow oak",
+      id: "5105565",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
       dbh: 11,
-      condition: "Good",
+      condition: "Fair",
       structure: "Full",
+      riskRating: "5",
+      updatedDate: "2020-05-19 16:44:10.0000000",
       point: {
-        lng: -73.98103165,
-        lat: 40.72606304,
-        x: 674.18,
-        y: 631.29
+        lng: -73.98113039,
+        lat: 40.72717803,
+        x: 648.98,
+        y: 255.76
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102432"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105565"
     },
     {
-      id: "5105888",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
+      id: "5110010",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 44,
+      condition: "Fair",
       structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:25:50.0000000",
       point: {
-        lng: -73.98104589,
-        lat: 40.72603768,
-        x: 670.55,
-        y: 639.83
+        lng: -73.98099878,
+        lat: 40.72720532,
+        x: 682.57,
+        y: 246.57
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105888"
-    },
-    {
-      id: "5104477",
-      latinName: "Ostrya virginiana",
-      commonName: "hophornbeam",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9808965,
-        lat: 40.72624987,
-        x: 708.68,
-        y: 568.37
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104477"
-    },
-    {
-      id: "5107524",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98067846,
-        lat: 40.7261908,
-        x: 764.33,
-        y: 588.26
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107524"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110010"
     },
     {
       id: "5102978",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 9,
@@ -3593,6 +3642,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5108838",
+      active: true,
       latinName: "Acer campestre",
       commonName: "hedge maple",
       dbh: 11,
@@ -3608,6 +3658,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5103431",
+      active: true,
       latinName: "Quercus palustris",
       commonName: "pin oak",
       dbh: 28,
@@ -3624,39 +3675,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103431"
     },
     {
-      id: "5112831",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 23,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-07-12 15:11:02.0000000",
-      point: {
-        lng: -73.98080239,
-        lat: 40.72654497,
-        x: 732.7,
-        y: 468.97
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112831"
-    },
-    {
-      id: "5115070",
+      id: "5113324",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
-      dbh: 11,
-      condition: "Good",
+      dbh: 21,
+      condition: "Poor",
       structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-02-19 16:43:46.0000000",
       point: {
-        lng: -73.98092366,
-        lat: 40.72634671,
-        x: 701.74,
-        y: 535.75
+        lng: -73.98059918,
+        lat: 40.72702123,
+        x: 784.56,
+        y: 308.57
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5115070"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113324"
     },
     {
       id: "5114334",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 24,
@@ -3673,39 +3711,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114334"
     },
     {
-      id: "5113674",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 8,
-      condition: "Fair",
-      structure: "Full",
-      point: {
-        lng: -73.98065119,
-        lat: 40.7265464,
-        x: 771.29,
-        y: 468.49
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113674"
-    },
-    {
-      id: "6017985",
-      latinName: "Tilia cordata",
-      commonName: "littleleaf linden",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2019-02-11 15:15:00.0000000",
-      point: {
-        lng: -73.98081718,
-        lat: 40.72628941,
-        x: 728.92,
-        y: 555.05
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/6017985"
-    },
-    {
       id: "6186321",
+      active: true,
       latinName: "Gleditsia triacanthos var. inermis",
       commonName: "Thornless honeylocust",
       dbh: 12,
@@ -3723,6 +3730,7 @@ export const tompkinsMapData = {
     },
     {
       id: "6082249",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 43,
@@ -3739,101 +3747,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/6082249"
     },
     {
-      id: "14514581",
-      latinName: "Amelanchier canadensis 'Robin Hill'",
-      commonName: "'Robin Hill' Canadian serviceberry",
-      dbh: 2,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98048488,
-        lat: 40.72627712,
-        x: 813.74,
-        y: 559.19
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514581"
-    },
-    {
-      id: "14516269",
-      latinName: "Taxodium distichum",
-      commonName: "bald cypress",
-      dbh: 2,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98067773,
-        lat: 40.72632002,
-        x: 764.52,
-        y: 544.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14516269"
-    },
-    {
-      id: "15207053",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2024-05-31 14:10:45.0000000",
-      point: {
-        lng: -73.98042118,
-        lat: 40.72664738,
-        x: 830,
-        y: 434.48
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/15207053"
-    },
-    {
-      id: "5112845",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98094538,
-        lat: 40.72564165,
-        x: 696.2,
-        y: 773.22
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112845"
-    },
-    {
-      id: "5097921",
-      latinName: "Ginkgo biloba",
-      commonName: "maidenhair tree",
-      dbh: 32,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98112902,
-        lat: 40.72586205,
-        x: 649.33,
-        y: 698.98
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097921"
-    },
-    {
-      id: "5011612",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 44,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2025-02-26 12:40:14.0000000",
-      point: {
-        lng: -73.98062668,
-        lat: 40.72610519,
-        x: 777.55,
-        y: 617.09
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5011612"
-    },
-    {
       id: "5095807",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
       dbh: 17,
@@ -3850,24 +3765,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095807"
     },
     {
-      id: "5095074",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 50,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-02-26 12:51:56.0000000",
-      point: {
-        lng: -73.98045571,
-        lat: 40.72645955,
-        x: 821.19,
-        y: 497.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095074"
-    },
-    {
       id: "5095569",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 2,
@@ -3883,6 +3782,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5096063",
+      active: true,
       latinName: "Quercus phellos",
       commonName: "willow oak",
       dbh: 28,
@@ -3897,2881 +3797,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096063"
     },
     {
-      id: "5096775",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 37,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:54:47.0000000",
-      point: {
-        lng: -73.98129373,
-        lat: 40.72619989,
-        x: 607.29,
-        y: 585.2
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096775"
-    },
-    {
-      id: "5096612",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98098961,
-        lat: 40.72614316,
-        x: 684.91,
-        y: 604.31
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096612"
-    },
-    {
-      id: "5101675",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9809159,
-        lat: 40.72580894,
-        x: 703.73,
-        y: 716.87
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101675"
-    },
-    {
-      id: "5110337",
-      latinName: "Carpinus caroliniana",
-      commonName: "American hornbeam",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98029073,
-        lat: 40.72659243,
-        x: 863.29,
-        y: 452.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110337"
-    },
-    {
-      id: "5107741",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 20,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2026-04-07 14:51:40.0000000",
-      point: {
-        lng: -73.98145083,
-        lat: 40.72587655,
-        x: 567.19,
-        y: 694.1
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107741"
-    },
-    {
-      id: "5110374",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98140364,
-        lat: 40.72647559,
-        x: 579.23,
-        y: 492.34
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110374"
-    },
-    {
-      id: "5110538",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98124097,
-        lat: 40.72610222,
-        x: 620.75,
-        y: 618.1
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110538"
-    },
-    {
-      id: "5108170",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 37,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2025-02-20 17:11:52.0000000",
-      point: {
-        lng: -73.98098201,
-        lat: 40.72596224,
-        x: 686.85,
-        y: 665.24
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108170"
-    },
-    {
-      id: "5100278",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-08-29 14:30:33.0000000",
-      point: {
-        lng: -73.9813779,
-        lat: 40.72574329,
-        x: 585.8,
-        y: 738.98
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100278"
-    },
-    {
-      id: "5111675",
-      latinName: "Robinia pseudoacacia",
-      commonName: "black locust",
-      dbh: 23,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98080516,
-        lat: 40.72619839,
-        x: 731.99,
-        y: 585.7
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111675"
-    },
-    {
-      id: "5109361",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 13,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98094283,
-        lat: 40.72569072,
-        x: 696.85,
-        y: 756.69
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109361"
-    },
-    {
-      id: "5103692",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 36,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:53:05.0000000",
-      point: {
-        lng: -73.9812249,
-        lat: 40.72597473,
-        x: 624.86,
-        y: 661.04
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103692"
-    },
-    {
-      id: "5105112",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98100284,
-        lat: 40.72604431,
-        x: 681.53,
-        y: 637.6
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105112"
-    },
-    {
-      id: "5110092",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 37,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2026-04-07 14:53:55.0000000",
-      point: {
-        lng: -73.98140426,
-        lat: 40.72616464,
-        x: 579.07,
-        y: 597.07
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110092"
-    },
-    {
-      id: "5096914",
-      latinName: "Pinus strobus",
-      commonName: "eastern white pine",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98065336,
-        lat: 40.72627354,
-        x: 770.74,
-        y: 560.4
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096914"
-    },
-    {
-      id: "5112059",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98095598,
-        lat: 40.72607139,
-        x: 693.49,
-        y: 628.48
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112059"
-    },
-    {
-      id: "5107803",
-      latinName: "Magnolia",
-      commonName: "magnolia",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98163856,
-        lat: 40.72586768,
-        x: 519.27,
-        y: 697.09
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107803"
-    },
-    {
-      id: "5098709",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98061096,
-        lat: 40.72629748,
-        x: 781.56,
-        y: 552.33
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098709"
-    },
-    {
-      id: "5100833",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 16,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98163368,
-        lat: 40.7256546,
-        x: 520.52,
-        y: 768.85
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100833"
-    },
-    {
-      id: "5112882",
-      latinName: "Chamaecyparis pisifera",
-      commonName: "sawara-cypress",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98172741,
-        lat: 40.72581176,
-        x: 496.59,
-        y: 715.92
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112882"
-    },
-    {
-      id: "5108250",
-      latinName: "Acer rubrum",
-      commonName: "red maple",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2019-02-11 15:14:54.0000000",
-      point: {
-        lng: -73.98076146,
-        lat: 40.7259329,
-        x: 743.14,
-        y: 675.12
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108250"
-    },
-    {
-      id: "5105351",
-      latinName: "Lagerstroemia",
-      commonName: "lagerstroemia",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98159516,
-        lat: 40.72581022,
-        x: 530.35,
-        y: 716.44
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105351"
-    },
-    {
-      id: "5103087",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98120606,
-        lat: 40.7264038,
-        x: 629.66,
-        y: 516.52
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103087"
-    },
-    {
-      id: "5106889",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 15,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98092712,
-        lat: 40.72658722,
-        x: 700.86,
-        y: 454.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106889"
-    },
-    {
-      id: "5110100",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 15,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98106885,
-        lat: 40.72576983,
-        x: 664.69,
-        y: 730.05
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110100"
-    },
-    {
-      id: "5104067",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 11,
-      condition: "Fair",
-      structure: "Full",
-      point: {
-        lng: -73.98056212,
-        lat: 40.72648712,
-        x: 794.02,
-        y: 488.46
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104067"
-    },
-    {
-      id: "5107743",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98083967,
-        lat: 40.72612988,
-        x: 723.18,
-        y: 608.78
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107743"
-    },
-    {
-      id: "5104417",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 18,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98098313,
-        lat: 40.72583083,
-        x: 686.56,
-        y: 709.5
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104417"
-    },
-    {
-      id: "5103247",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "3",
-      updatedDate: "2019-04-10 16:54:20.0000000",
-      point: {
-        lng: -73.98142532,
-        lat: 40.72649106,
-        x: 573.7,
-        y: 487.13
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103247"
-    },
-    {
-      id: "5110694",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98099999,
-        lat: 40.72611671,
-        x: 682.26,
-        y: 613.22
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110694"
-    },
-    {
-      id: "5112422",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98086964,
-        lat: 40.72611988,
-        x: 715.53,
-        y: 612.15
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112422"
-    },
-    {
-      id: "5101436",
-      latinName: "Acer palmatum",
-      commonName: "Japanese maple",
-      dbh: 1,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98094609,
-        lat: 40.72585878,
-        x: 696.02,
-        y: 700.09
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101436"
-    },
-    {
-      id: "5110750",
-      latinName: "Quercus ellipsoidalis",
-      commonName: "northern pin oak",
-      dbh: 24,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98144606,
-        lat: 40.7260055,
-        x: 568.41,
-        y: 650.67
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110750"
-    },
-    {
-      id: "5101393",
-      latinName: "Quercus phellos",
-      commonName: "willow oak",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-07-27 16:42:59.0000000",
-      point: {
-        lng: -73.9815357,
-        lat: 40.7259712,
-        x: 545.53,
-        y: 662.22
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101393"
-    },
-    {
-      id: "5099734",
-      latinName: "Cotinus coggygria",
-      commonName: "European smoketree",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98144729,
-        lat: 40.72582734,
-        x: 568.09,
-        y: 710.68
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099734"
-    },
-    {
-      id: "5110485",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 12,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-08-17 15:45:49.0000000",
-      point: {
-        lng: -73.98151217,
-        lat: 40.72610116,
-        x: 551.53,
-        y: 618.45
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110485"
-    },
-    {
-      id: "5109012",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-19 15:40:14.0000000",
-      point: {
-        lng: -73.98142737,
-        lat: 40.72566249,
-        x: 573.18,
-        y: 766.2
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109012"
-    },
-    {
-      id: "5104219",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 36,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:57:49.0000000",
-      point: {
-        lng: -73.9812462,
-        lat: 40.72632224,
-        x: 619.42,
-        y: 543.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104219"
-    },
-    {
-      id: "5104085",
-      latinName: "Liriodendron tulipifera",
-      commonName: "tuliptree",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98140944,
-        lat: 40.7264638,
-        x: 577.75,
-        y: 496.31
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104085"
-    },
-    {
-      id: "5107871",
-      latinName: "Pinus strobus",
-      commonName: "eastern white pine",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98074799,
-        lat: 40.72626112,
-        x: 746.58,
-        y: 564.58
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107871"
-    },
-    {
-      id: "5107484",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98131635,
-        lat: 40.72589481,
-        x: 601.51,
-        y: 687.95
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107484"
-    },
-    {
-      id: "5099131",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 32,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-08-29 14:21:25.0000000",
-      point: {
-        lng: -73.98171909,
-        lat: 40.7256247,
-        x: 498.72,
-        y: 778.93
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099131"
-    },
-    {
-      id: "5111502",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 11,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2022-09-19 14:56:01.0000000",
-      point: {
-        lng: -73.98095838,
-        lat: 40.72650601,
-        x: 692.88,
-        y: 482.1
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111502"
-    },
-    {
-      id: "5103531",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98101366,
-        lat: 40.72573429,
-        x: 678.77,
-        y: 742.02
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103531"
-    },
-    {
-      id: "5106105",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 42,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2026-04-13 15:31:00.0000000",
-      point: {
-        lng: -73.98135732,
-        lat: 40.72654622,
-        x: 591.06,
-        y: 468.55
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106105"
-    },
-    {
-      id: "5104377",
-      latinName: "Picea",
-      commonName: "spruce",
-      dbh: 11,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98168274,
-        lat: 40.7261199,
-        x: 508,
-        y: 612.14
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104377"
-    },
-    {
-      id: "5102236",
-      latinName: "Picea pungens",
-      commonName: "blue spruce",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      updatedDate: "2024-09-17 14:54:00.0000000",
-      point: {
-        lng: -73.98170117,
-        lat: 40.72624486,
-        x: 503.29,
-        y: 570.06
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102236"
-    },
-    {
-      id: "5099057",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98084225,
-        lat: 40.72607903,
-        x: 722.52,
-        y: 625.91
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099057"
-    },
-    {
-      id: "5112067",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 34,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2022-09-29 10:51:42.0000000",
-      point: {
-        lng: -73.98172885,
-        lat: 40.72654515,
-        x: 496.22,
-        y: 468.91
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112067"
-    },
-    {
-      id: "5099176",
-      latinName: "Magnolia",
-      commonName: "magnolia",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9809652,
-        lat: 40.7263338,
-        x: 691.14,
-        y: 540.1
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099176"
-    },
-    {
-      id: "5103188",
-      latinName: "Malus",
-      commonName: "apple",
-      dbh: 8,
-      condition: "Poor",
-      structure: "Full",
-      point: {
-        lng: -73.98129447,
-        lat: 40.72636111,
-        x: 607.1,
-        y: 530.9
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103188"
-    },
-    {
-      id: "5109288",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2018-03-12 14:03:49.0000000",
-      point: {
-        lng: -73.98085033,
-        lat: 40.7266248,
-        x: 720.46,
-        y: 442.09
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109288"
-    },
-    {
-      id: "5112131",
-      latinName: "Pseudotsuga menziesii",
-      commonName: "Douglas-fir",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98081759,
-        lat: 40.72624061,
-        x: 728.82,
-        y: 571.49
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112131"
-    },
-    {
-      id: "5111398",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98089045,
-        lat: 40.72614507,
-        x: 710.22,
-        y: 603.67
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111398"
-    },
-    {
-      id: "5100834",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 6,
-      condition: "Critical",
-      structure: "Full",
-      point: {
-        lng: -73.98095802,
-        lat: 40.72611952,
-        x: 692.97,
-        y: 612.27
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100834"
-    },
-    {
-      id: "5104178",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 28,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2022-08-24 18:24:30.0000000",
-      point: {
-        lng: -73.98161103,
-        lat: 40.72649349,
-        x: 526.3,
-        y: 486.31
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104178"
-    },
-    {
-      id: "5101700",
-      latinName: "Acer rubrum",
-      commonName: "red maple",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9811373,
-        lat: 40.72657421,
-        x: 647.21,
-        y: 459.13
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101700"
-    },
-    {
-      id: "5113824",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98072797,
-        lat: 40.72610859,
-        x: 751.69,
-        y: 615.95
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113824"
-    },
-    {
-      id: "5114988",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98091203,
-        lat: 40.72569388,
-        x: 704.71,
-        y: 755.63
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114988"
-    },
-    {
-      id: "5113381",
-      latinName: "Styrax japonicus",
-      commonName: "Japanese snowbell",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98093593,
-        lat: 40.72660326,
-        x: 698.61,
-        y: 449.34
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113381"
-    },
-    {
-      id: "5113996",
-      latinName: "Acer palmatum",
-      commonName: "Japanese maple",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98085607,
-        lat: 40.72640974,
-        x: 719,
-        y: 514.52
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113996"
-    },
-    {
-      id: "6082250",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 28,
-      condition: "Poor",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2026-04-07 14:14:08.0000000",
-      point: {
-        lng: -73.98035078,
-        lat: 40.72648931,
-        x: 847.97,
-        y: 487.72
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/6082250"
-    },
-    {
-      id: "13883746",
-      latinName: "Ulmus 'Patriot'",
-      commonName: "'Patriot' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98147464,
-        lat: 40.72646641,
-        x: 561.11,
-        y: 495.44
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13883746"
-    },
-    {
-      id: "13878288",
-      latinName: "Ulmus 'Patriot'",
-      commonName: "'Patriot' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98142394,
-        lat: 40.72625937,
-        x: 574.05,
-        y: 565.16
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878288"
-    },
-    {
-      id: "5096736",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 21,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98216424,
-        lat: 40.72759296,
-        x: 385.1,
-        y: 116
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096736"
-    },
-    {
-      id: "5104748",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:28:00.0000000",
-      point: {
-        lng: -73.98195368,
-        lat: 40.72759063,
-        x: 438.84,
-        y: 116.79
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104748"
-    },
-    {
-      id: "5109754",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:35:54.0000000",
-      point: {
-        lng: -73.98222957,
-        lat: 40.72755211,
-        x: 368.42,
-        y: 129.76
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109754"
-    },
-    {
-      id: "5103039",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 29,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-05-11 15:51:36.0000000",
-      point: {
-        lng: -73.98214835,
-        lat: 40.72768891,
-        x: 389.15,
-        y: 83.69
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103039"
-    },
-    {
-      id: "5098123",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98199656,
-        lat: 40.72763579,
-        x: 427.89,
-        y: 101.58
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098123"
-    },
-    {
-      id: "5104593",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98209884,
-        lat: 40.72766643,
-        x: 401.79,
-        y: 91.26
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104593"
-    },
-    {
-      id: "5115071",
-      latinName: "Platanus occidentalis",
-      commonName: "American sycamore",
-      dbh: 59,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2020-08-08 13:49:21.0000000",
-      point: {
-        lng: -73.98167553,
-        lat: 40.72750648,
-        x: 509.84,
-        y: 145.13
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5115071"
-    },
-    {
-      id: "5095670",
-      latinName: "Magnolia",
-      commonName: "magnolia",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98141369,
-        lat: 40.72668065,
-        x: 576.67,
-        y: 423.28
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095670"
-    },
-    {
-      id: "5095308",
-      latinName: "Quercus phellos",
-      commonName: "willow oak",
-      dbh: 28,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2021-06-21 14:52:48.0000000",
-      point: {
-        lng: -73.98170016,
-        lat: 40.72669687,
-        x: 503.55,
-        y: 417.81
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095308"
-    },
-    {
-      id: "5095284",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98099257,
-        lat: 40.72702474,
-        x: 684.16,
-        y: 307.39
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095284"
-    },
-    {
-      id: "5095372",
-      latinName: "Picea",
-      commonName: "spruce",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98127708,
-        lat: 40.7269618,
-        x: 611.54,
-        y: 328.58
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095372"
-    },
-    {
-      id: "5096604",
-      latinName: "Quercus ellipsoidalis",
-      commonName: "northern pin oak",
-      dbh: 16,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98146134,
-        lat: 40.72701739,
-        x: 564.51,
-        y: 309.86
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096604"
-    },
-    {
-      id: "5101002",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 29,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:24:48.0000000",
-      point: {
-        lng: -73.98181537,
-        lat: 40.72701605,
-        x: 474.14,
-        y: 310.31
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101002"
-    },
-    {
-      id: "5105553",
-      latinName: "Cornus florida",
-      commonName: "flowering dogwood",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98079085,
-        lat: 40.72711035,
-        x: 735.64,
-        y: 278.55
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105553"
-    },
-    {
-      id: "5099205",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 12,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98212722,
-        lat: 40.72685834,
-        x: 394.55,
-        y: 363.43
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099205"
-    },
-    {
-      id: "5100566",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9814268,
-        lat: 40.72692744,
-        x: 573.32,
-        y: 340.16
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100566"
-    },
-    {
-      id: "5107600",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 19,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-21 12:35:29.0000000",
-      point: {
-        lng: -73.98128069,
-        lat: 40.72733006,
-        x: 610.62,
-        y: 204.55
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107600"
-    },
-    {
-      id: "5102611",
-      latinName: "Acer platanoides",
-      commonName: "Norway maple",
-      dbh: 11,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-20 15:29:19.0000000",
-      point: {
-        lng: -73.98157,
-        lat: 40.7270916,
-        x: 536.77,
-        y: 284.87
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102611"
-    },
-    {
-      id: "5103554",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 23,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2018-09-10 13:36:17.0000000",
-      point: {
-        lng: -73.9818359,
-        lat: 40.72683682,
-        x: 468.9,
-        y: 370.68
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103554"
-    },
-    {
-      id: "5108156",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 8,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:28:02.0000000",
-      point: {
-        lng: -73.98150811,
-        lat: 40.72717283,
-        x: 552.57,
-        y: 257.51
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108156"
-    },
-    {
-      id: "5101438",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 17,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.9815505,
-        lat: 40.72712698,
-        x: 541.75,
-        y: 272.95
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101438"
-    },
-    {
-      id: "5101635",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 20,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98205202,
-        lat: 40.72685788,
-        x: 413.74,
-        y: 363.58
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101635"
-    },
-    {
-      id: "5109920",
-      latinName: "Cornus florida",
-      commonName: "flowering dogwood",
-      dbh: 8,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98081373,
-        lat: 40.72711741,
-        x: 729.8,
-        y: 276.17
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109920"
-    },
-    {
-      id: "5103742",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 23,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98143163,
-        lat: 40.72727426,
-        x: 572.09,
-        y: 223.35
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103742"
-    },
-    {
-      id: "5104724",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 20,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98107169,
-        lat: 40.72667281,
-        x: 663.96,
-        y: 425.92
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104724"
-    },
-    {
-      id: "5104682",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 31,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2020-05-19 16:24:38.0000000",
-      point: {
-        lng: -73.98115878,
-        lat: 40.72699112,
-        x: 641.73,
-        y: 318.71
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104682"
-    },
-    {
-      id: "5109272",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98133229,
-        lat: 40.72688935,
-        x: 597.45,
-        y: 352.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109272"
-    },
-    {
-      id: "5106985",
-      latinName: "Quercus bicolor",
-      commonName: "swamp white oak",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98222335,
-        lat: 40.72713357,
-        x: 370.01,
-        y: 270.73
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106985"
-    },
-    {
-      id: "5105514",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:29:06.0000000",
-      point: {
-        lng: -73.98144557,
-        lat: 40.7272068,
-        x: 568.53,
-        y: 246.07
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105514"
-    },
-    {
-      id: "5106340",
-      latinName: "Juniperus virginiana",
-      commonName: "eastern redcedar",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98213659,
-        lat: 40.7269096,
-        x: 392.15,
-        y: 346.16
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106340"
-    },
-    {
-      id: "5108392",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98130531,
-        lat: 40.72729578,
-        x: 604.33,
-        y: 216.1
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108392"
-    },
-    {
-      id: "5105494",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 17,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98156311,
-        lat: 40.7271062,
-        x: 538.53,
-        y: 279.95
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105494"
-    },
-    {
-      id: "5103318",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 44,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2026-04-07 14:35:40.0000000",
-      point: {
-        lng: -73.98183092,
-        lat: 40.72669402,
-        x: 470.17,
-        y: 418.77
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103318"
-    },
-    {
-      id: "5109195",
-      latinName: "Ulmus pumila",
-      commonName: "Siberian elm",
-      dbh: 23,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:33:10.0000000",
-      point: {
-        lng: -73.98162044,
-        lat: 40.72746991,
-        x: 523.9,
-        y: 157.45
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109195"
-    },
-    {
-      id: "5105758",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98206354,
-        lat: 40.72709721,
-        x: 410.8,
-        y: 282.98
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105758"
-    },
-    {
-      id: "5111097",
-      latinName: "Prunus serrulata 'Green leaf'",
-      commonName: "'Green leaf' Japanese flowering cherry",
-      dbh: 6,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98171952,
-        lat: 40.72680141,
-        x: 498.61,
-        y: 382.6
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111097"
-    },
-    {
-      id: "5105588",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 15,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2020-05-19 17:00:24.0000000",
-      point: {
-        lng: -73.98154745,
-        lat: 40.72709279,
-        x: 542.53,
-        y: 284.47
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105588"
-    },
-    {
-      id: "5106055",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9813238,
-        lat: 40.72733398,
-        x: 599.61,
-        y: 203.23
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106055"
-    },
-    {
-      id: "5108577",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98099171,
-        lat: 40.72701742,
-        x: 684.37,
-        y: 309.85
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108577"
-    },
-    {
-      id: "5099866",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98206747,
-        lat: 40.72670256,
-        x: 409.79,
-        y: 415.9
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099866"
-    },
-    {
-      id: "5108424",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98096355,
-        lat: 40.72707332,
-        x: 691.56,
-        y: 291.02
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108424"
-    },
-    {
-      id: "5099452",
-      latinName: "Syringa reticulata",
-      commonName: "Japanese tree lilac",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98124766,
-        lat: 40.72701163,
-        x: 619.05,
-        y: 311.8
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099452"
-    },
-    {
-      id: "5110514",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2024-08-14 16:39:08.0000000",
-      point: {
-        lng: -73.98095349,
-        lat: 40.72715914,
-        x: 694.13,
-        y: 262.12
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110514"
-    },
-    {
-      id: "5097041",
-      latinName: "Malus",
-      commonName: "apple",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98162174,
-        lat: 40.72703946,
-        x: 523.56,
-        y: 302.43
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097041"
-    },
-    {
-      id: "5103979",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 18,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2020-05-19 16:47:07.0000000",
-      point: {
-        lng: -73.98128661,
-        lat: 40.72724619,
-        x: 609.1,
-        y: 232.8
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103979"
-    },
-    {
-      id: "5101164",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:30:34.0000000",
-      point: {
-        lng: -73.98142839,
-        lat: 40.72732346,
-        x: 572.92,
-        y: 206.78
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101164"
-    },
-    {
-      id: "5103676",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 6,
-      condition: "Poor",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2020-05-19 16:57:45.0000000",
-      point: {
-        lng: -73.98145745,
-        lat: 40.72724115,
-        x: 565.5,
-        y: 234.5
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103676"
-    },
-    {
-      id: "5105565",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 11,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2020-05-19 16:44:10.0000000",
-      point: {
-        lng: -73.98113039,
-        lat: 40.72717803,
-        x: 648.98,
-        y: 255.76
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105565"
-    },
-    {
-      id: "5102977",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 7,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:31:41.0000000",
-      point: {
-        lng: -73.9814113,
-        lat: 40.72733268,
-        x: 577.28,
-        y: 203.67
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102977"
-    },
-    {
-      id: "5110010",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 44,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:25:50.0000000",
-      point: {
-        lng: -73.98099878,
-        lat: 40.72720532,
-        x: 682.57,
-        y: 246.57
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110010"
-    },
-    {
-      id: "5107261",
-      latinName: "Picea pungens 'Glauca'",
-      commonName: "'Glauca' blue spruce",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9813939,
-        lat: 40.72698795,
-        x: 581.72,
-        y: 319.78
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107261"
-    },
-    {
-      id: "5103864",
-      latinName: "Gleditsia triacanthos var. inermis",
-      commonName: "Thornless honeylocust",
-      dbh: 25,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2021-06-21 14:50:23.0000000",
-      point: {
-        lng: -73.98167738,
-        lat: 40.72674493,
-        x: 509.36,
-        y: 401.63
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103864"
-    },
-    {
-      id: "5099753",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 28,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2020-05-19 16:49:44.0000000",
-      point: {
-        lng: -73.98136773,
-        lat: 40.72716442,
-        x: 588.4,
-        y: 260.34
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099753"
-    },
-    {
-      id: "5107793",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 26,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2020-05-19 16:19:55.0000000",
-      point: {
-        lng: -73.98121016,
-        lat: 40.72691375,
-        x: 628.62,
-        y: 344.77
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107793"
-    },
-    {
-      id: "5105762",
-      latinName: "Crataegus",
-      commonName: "Hawthorn",
-      dbh: 4,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2022-01-11 18:28:26.0000000",
-      point: {
-        lng: -73.98163315,
-        lat: 40.72687226,
-        x: 520.65,
-        y: 358.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105762"
-    },
-    {
-      id: "5111941",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 8,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98125516,
-        lat: 40.72730268,
-        x: 617.13,
-        y: 213.77
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111941"
-    },
-    {
-      id: "5113700",
-      latinName: "Acer campestre",
-      commonName: "hedge maple",
-      dbh: 9,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2023-09-20 16:26:33.0000000",
-      point: {
-        lng: -73.98153636,
-        lat: 40.72714501,
-        x: 545.36,
-        y: 266.88
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113700"
-    },
-    {
-      id: "5114352",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98189757,
-        lat: 40.72704149,
-        x: 453.16,
-        y: 301.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114352"
-    },
-    {
-      id: "5114259",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9812183,
-        lat: 40.72721418,
-        x: 626.54,
-        y: 243.58
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114259"
-    },
-    {
-      id: "10462437",
-      latinName: "Ulmus 'Homestead'",
-      commonName: "'Homestead' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98198184,
-        lat: 40.72706473,
-        x: 431.65,
-        y: 293.92
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462437"
-    },
-    {
-      id: "10461521",
-      latinName: "Eucommia ulmoides",
-      commonName: "Hardy Rubber Tree",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98198502,
-        lat: 40.72691701,
-        x: 430.84,
-        y: 343.67
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10461521"
-    },
-    {
-      id: "10468599",
-      latinName: "Ulmus 'Homestead'",
-      commonName: "'Homestead' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.9819479,
-        lat: 40.72669483,
-        x: 440.31,
-        y: 418.5
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10468599"
-    },
-    {
-      id: "13878287",
-      latinName: "Prunus 'Snow Goose'",
-      commonName: "'Snow Goose' Cherry",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98082703,
-        lat: 40.72600973,
-        x: 726.41,
-        y: 649.25
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878287"
-    },
-    {
-      id: "13879450",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98213348,
-        lat: 40.72674643,
-        x: 392.95,
-        y: 401.12
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13879450"
-    },
-    {
-      id: "4872026",
-      latinName: "Morus",
-      commonName: "mulberry",
-      dbh: 35,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2024-08-29 14:27:01.0000000",
-      point: {
-        lng: -73.98180747,
-        lat: 40.72546943,
-        x: 476.16,
-        y: 831.22
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4872026"
-    },
-    {
-      id: "4973702",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 16,
-      condition: "Good",
-      structure: "Full",
-      updatedDate: "2017-06-19 08:15:22.0000000",
-      point: {
-        lng: -73.98222439,
-        lat: 40.72589715,
-        x: 369.74,
-        y: 687.17
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973702"
-    },
-    {
-      id: "5011744",
-      latinName: "Robinia pseudoacacia",
-      commonName: "black locust",
-      dbh: 28,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2017-11-21 04:11:11.0000000",
-      point: {
-        lng: -73.98241484,
-        lat: 40.72571132,
-        x: 321.13,
-        y: 749.75
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5011744"
-    },
-    {
-      id: "4973699",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 18,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2017-11-21 04:11:11.0000000",
-      point: {
-        lng: -73.98210905,
-        lat: 40.72619443,
-        x: 399.18,
-        y: 587.04
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973699"
-    },
-    {
-      id: "5096601",
-      latinName: "Larix laricina",
-      commonName: "tamarack",
-      dbh: 5,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98229377,
-        lat: 40.72571813,
-        x: 352.04,
-        y: 747.46
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096601"
-    },
-    {
-      id: "5094924",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 8,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98254301,
-        lat: 40.72600802,
-        x: 288.42,
-        y: 649.82
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094924"
-    },
-    {
-      id: "5096211",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 34,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-08-29 13:51:36.0000000",
-      point: {
-        lng: -73.98212257,
-        lat: 40.72639402,
-        x: 395.73,
-        y: 519.82
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096211"
-    },
-    {
-      id: "5095559",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98223,
-        lat: 40.72653895,
-        x: 368.31,
-        y: 471
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095559"
-    },
-    {
-      id: "5095230",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98249335,
-        lat: 40.72575724,
-        x: 301.09,
-        y: 734.29
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095230"
-    },
-    {
-      id: "5104410",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 20,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98228867,
-        lat: 40.72582819,
-        x: 353.33,
-        y: 710.39
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104410"
-    },
-    {
-      id: "5099283",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 11,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-05-14 20:51:55.0000000",
-      point: {
-        lng: -73.98193874,
-        lat: 40.72549692,
-        x: 442.65,
-        y: 821.96
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099283"
-    },
-    {
-      id: "5111052",
-      latinName: "Quercus phellos",
-      commonName: "willow oak",
-      dbh: 10,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98223086,
-        lat: 40.72632224,
-        x: 368.09,
-        y: 543.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111052"
-    },
-    {
-      id: "5102362",
-      latinName: "Robinia pseudoacacia",
-      commonName: "black locust",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9825246,
-        lat: 40.72575611,
-        x: 293.12,
-        y: 734.67
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102362"
-    },
-    {
-      id: "5101643",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 12,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-05-14 20:48:46.0000000",
-      point: {
-        lng: -73.9820489,
-        lat: 40.72554451,
-        x: 414.54,
-        y: 805.93
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101643"
-    },
-    {
-      id: "5110249",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 12,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-05-14 20:41:12.0000000",
-      point: {
-        lng: -73.98210288,
-        lat: 40.72556597,
-        x: 400.76,
-        y: 798.71
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110249"
-    },
-    {
-      id: "5105816",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 38,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2026-04-07 15:02:20.0000000",
-      point: {
-        lng: -73.98175702,
-        lat: 40.72638408,
-        x: 489.04,
-        y: 523.16
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105816"
-    },
-    {
-      id: "5104544",
-      latinName: "Juniperus virginiana",
-      commonName: "eastern redcedar",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98196822,
-        lat: 40.7258495,
-        x: 435.13,
-        y: 703.21
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104544"
-    },
-    {
-      id: "5097193",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 52,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-02-20 16:53:02.0000000",
-      point: {
-        lng: -73.98200696,
-        lat: 40.72612955,
-        x: 425.24,
-        y: 608.89
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097193"
-    },
-    {
-      id: "5103900",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 18,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9817926,
-        lat: 40.72585908,
-        x: 479.95,
-        y: 699.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103900"
-    },
-    {
-      id: "5103294",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9823371,
-        lat: 40.72567483,
-        x: 340.97,
-        y: 762.04
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103294"
-    },
-    {
-      id: "5112905",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 10,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2022-09-19 15:20:43.0000000",
-      point: {
-        lng: -73.98183021,
-        lat: 40.72579898,
-        x: 470.35,
-        y: 720.23
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112905"
-    },
-    {
-      id: "5101493",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 8,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98189363,
-        lat: 40.72648766,
-        x: 454.17,
-        y: 488.28
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101493"
-    },
-    {
-      id: "5110815",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 35,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.9824429,
-        lat: 40.72641095,
-        x: 313.97,
-        y: 514.11
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110815"
-    },
-    {
-      id: "5110067",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 12,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2025-05-14 20:49:28.0000000",
-      point: {
-        lng: -73.98199442,
-        lat: 40.72551801,
-        x: 428.44,
-        y: 814.86
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110067"
-    },
-    {
-      id: "5098604",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 11,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98256286,
-        lat: 40.72604197,
-        x: 283.35,
-        y: 638.39
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098604"
-    },
-    {
-      id: "5097303",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98241153,
-        lat: 40.72605528,
-        x: 321.98,
-        y: 633.91
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097303"
-    },
-    {
-      id: "5100111",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 27,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-08-29 13:47:28.0000000",
-      point: {
-        lng: -73.98194006,
-        lat: 40.72644118,
-        x: 442.32,
-        y: 503.93
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100111"
-    },
-    {
-      id: "5110004",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 16,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98267124,
-        lat: 40.72585387,
-        x: 255.69,
-        y: 701.74
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110004"
-    },
-    {
-      id: "5097273",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 3,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98234123,
-        lat: 40.72655268,
-        x: 339.92,
-        y: 466.38
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097273"
-    },
-    {
-      id: "5107384",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 33,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2022-08-04 13:34:23.0000000",
-      point: {
-        lng: -73.9820434,
-        lat: 40.72624645,
-        x: 415.94,
-        y: 569.52
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107384"
-    },
-    {
-      id: "5106242",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 38,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2026-04-07 14:43:29.0000000",
-      point: {
-        lng: -73.98223834,
-        lat: 40.72595336,
-        x: 366.18,
-        y: 668.23
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106242"
-    },
-    {
-      id: "5109792",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-20 16:38:48.0000000",
-      point: {
-        lng: -73.98255728,
-        lat: 40.72579537,
-        x: 284.77,
-        y: 721.44
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109792"
-    },
-    {
-      id: "5108626",
-      latinName: "Quercus bicolor",
-      commonName: "swamp white oak",
-      dbh: 5,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98232967,
-        lat: 40.72602826,
-        x: 342.87,
-        y: 643.01
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108626"
-    },
-    {
-      id: "5100287",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 27,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-20 15:59:37.0000000",
-      point: {
-        lng: -73.98260304,
-        lat: 40.72604769,
-        x: 273.1,
-        y: 636.46
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100287"
-    },
-    {
-      id: "5109166",
-      latinName: "Prunus",
-      commonName: "Cherry",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98224339,
-        lat: 40.7256324,
-        x: 364.89,
-        y: 776.33
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109166"
-    },
-    {
-      id: "5108455",
-      latinName: "Quercus phellos",
-      commonName: "willow oak",
-      dbh: 34,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98211822,
-        lat: 40.72650634,
-        x: 396.84,
-        y: 481.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108455"
-    },
-    {
-      id: "5109693",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 39,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.9824233,
-        lat: 40.72634039,
-        x: 318.97,
-        y: 537.88
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109693"
-    },
-    {
-      id: "5112427",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 9,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-08-17 15:42:47.0000000",
-      point: {
-        lng: -73.98181524,
-        lat: 40.72650673,
-        x: 474.17,
-        y: 481.85
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112427"
-    },
-    {
-      id: "5101010",
-      latinName: "Quercus rubra",
-      commonName: "northern red oak",
-      dbh: 27,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2025-05-13 18:11:33.0000000",
-      point: {
-        lng: -73.98246336,
-        lat: 40.72632817,
-        x: 308.75,
-        y: 541.99
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101010"
-    },
-    {
-      id: "5108007",
-      latinName: "Ilex",
-      commonName: "holly",
-      dbh: 2,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98204186,
-        lat: 40.72584225,
-        x: 416.33,
-        y: 705.65
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108007"
-    },
-    {
-      id: "5103842",
-      latinName: "Chamaecyparis thyoides",
-      commonName: "Atlantic white cedar",
-      dbh: 14,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-03-25 13:52:05.0000000",
-      point: {
-        lng: -73.98217529,
-        lat: 40.72573329,
-        x: 382.28,
-        y: 742.35
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103842"
-    },
-    {
-      id: "5101225",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2024-08-29 14:05:01.0000000",
-      point: {
-        lng: -73.98236568,
-        lat: 40.72596921,
-        x: 333.68,
-        y: 662.89
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101225"
-    },
-    {
-      id: "5103584",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2022-09-20 16:09:18.0000000",
-      point: {
-        lng: -73.98210655,
-        lat: 40.72630021,
-        x: 399.82,
-        y: 551.41
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103584"
-    },
-    {
-      id: "5113697",
-      latinName: "Metasequoia glyptostroboides",
-      commonName: "dawn redwood",
-      dbh: 4,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98206275,
-        lat: 40.72655548,
-        x: 411,
-        y: 465.44
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113697"
-    },
-    {
-      id: "5113283",
-      latinName: "Lagerstroemia",
-      commonName: "lagerstroemia",
-      dbh: 13,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98237638,
-        lat: 40.72573836,
-        x: 330.95,
-        y: 740.64
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113283"
-    },
-    {
-      id: "5114496",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2024-08-29 14:09:00.0000000",
-      point: {
-        lng: -73.98249977,
-        lat: 40.72596772,
-        x: 299.45,
-        y: 663.4
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114496"
-    },
-    {
-      id: "5113405",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 22,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "5",
-      updatedDate: "2026-04-07 14:40:44.0000000",
-      point: {
-        lng: -73.98255946,
-        lat: 40.72593572,
-        x: 284.22,
-        y: 674.17
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113405"
-    },
-    {
-      id: "5113692",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "8",
-      updatedDate: "2024-08-29 14:18:08.0000000",
-      point: {
-        lng: -73.98189531,
-        lat: 40.72566437,
-        x: 453.74,
-        y: 765.57
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113692"
-    },
-    {
-      id: "5113930",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 35,
-      condition: "Fair",
-      structure: "Full",
-      riskRating: "6",
-      updatedDate: "2026-04-07 14:45:15.0000000",
-      point: {
-        lng: -73.98198027,
-        lat: 40.72568533,
-        x: 432.05,
-        y: 758.51
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113930"
-    },
-    {
-      id: "10462433",
-      latinName: "Cladrastis kentukea",
-      commonName: "Kentucky yellowwood",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98258997,
-        lat: 40.72617469,
-        x: 276.43,
-        y: 593.69
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462433"
-    },
-    {
-      id: "10462435",
-      latinName: "Ulmus 'Homestead'",
-      commonName: "'Homestead' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98228326,
-        lat: 40.72609584,
-        x: 354.72,
-        y: 620.24
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462435"
-    },
-    {
-      id: "10462004",
-      latinName: "Liquidambar styraciflua",
-      commonName: "sweetgum",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98263853,
-        lat: 40.72613538,
-        x: 264.04,
-        y: 606.93
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462004"
-    },
-    {
-      id: "13878285",
-      latinName: "Ulmus parvifolia 'Allee'",
-      commonName: "'Allee' Chinese elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98217451,
-        lat: 40.72559472,
-        x: 382.47,
-        y: 789.02
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878285"
-    },
-    {
-      id: "13878737",
-      latinName: "Ulmus parvifolia 'Allee'",
-      commonName: "'Allee' Chinese elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98174675,
-        lat: 40.72542398,
-        x: 491.66,
-        y: 846.53
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878737"
-    },
-    {
       id: "5095124",
+      active: true,
       latinName: "Quercus rubra",
       commonName: "northern red oak",
       dbh: 17,
@@ -6789,6 +3816,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5109646",
+      active: true,
       latinName: "Quercus palustris",
       commonName: "pin oak",
       dbh: 23,
@@ -6805,7 +3833,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109646"
     },
     {
+      id: "5101675",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9809159,
+        lat: 40.72580894,
+        x: 703.73,
+        y: 716.87
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101675"
+    },
+    {
+      id: "5107741",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 20,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2026-04-07 14:51:40.0000000",
+      point: {
+        lng: -73.98145083,
+        lat: 40.72587655,
+        x: 567.19,
+        y: 694.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107741"
+    },
+    {
       id: "5111106",
+      active: true,
       latinName: "Ulmus parvifolia",
       commonName: "Chinese elm",
       dbh: 10,
@@ -6820,7 +3883,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111106"
     },
     {
+      id: "5112845",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98094538,
+        lat: 40.72564165,
+        x: 696.2,
+        y: 773.22
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112845"
+    },
+    {
       id: "5098890",
+      active: true,
       latinName: "Ginkgo biloba",
       commonName: "maidenhair tree",
       dbh: 30,
@@ -6835,7 +3915,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098890"
     },
     {
+      id: "5100278",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 31,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-08-29 14:30:33.0000000",
+      point: {
+        lng: -73.9813779,
+        lat: 40.72574329,
+        x: 585.8,
+        y: 738.98
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100278"
+    },
+    {
+      id: "5109361",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 13,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98094283,
+        lat: 40.72569072,
+        x: 696.85,
+        y: 756.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109361"
+    },
+    {
       id: "5102061",
+      active: true,
       latinName: "Robinia pseudoacacia",
       commonName: "black locust",
       dbh: 54,
@@ -6852,7 +3967,72 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102061"
     },
     {
+      id: "5107803",
+      active: true,
+      latinName: "Magnolia",
+      commonName: "magnolia",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98163856,
+        lat: 40.72586768,
+        x: 519.27,
+        y: 697.09
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107803"
+    },
+    {
+      id: "5100833",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 16,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98163368,
+        lat: 40.7256546,
+        x: 520.52,
+        y: 768.85
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100833"
+    },
+    {
+      id: "5112882",
+      active: true,
+      latinName: "Chamaecyparis pisifera",
+      commonName: "sawara-cypress",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98172741,
+        lat: 40.72581176,
+        x: 496.59,
+        y: 715.92
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112882"
+    },
+    {
+      id: "5097921",
+      active: true,
+      latinName: "Ginkgo biloba",
+      commonName: "maidenhair tree",
+      dbh: 32,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98112902,
+        lat: 40.72586205,
+        x: 649.33,
+        y: 698.98
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097921"
+    },
+    {
       id: "5103577",
+      active: true,
       latinName: "Crataegus",
       commonName: "Hawthorn",
       dbh: 5,
@@ -6867,7 +4047,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103577"
     },
     {
+      id: "5105351",
+      active: true,
+      latinName: "Lagerstroemia",
+      commonName: "lagerstroemia",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98159516,
+        lat: 40.72581022,
+        x: 530.35,
+        y: 716.44
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105351"
+    },
+    {
       id: "5106610",
+      active: true,
       latinName: "Cornus kousa",
       commonName: "kousa dogwood",
       dbh: 6,
@@ -6882,7 +4079,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106610"
     },
     {
+      id: "5102306",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 51,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "6",
+      updatedDate: "2023-03-20 14:24:00.0000000",
+      point: {
+        lng: -73.98139284,
+        lat: 40.72538298,
+        x: 581.99,
+        y: 860.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102306"
+    },
+    {
       id: "5109472",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 33,
@@ -6899,7 +4115,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109472"
     },
     {
+      id: "5110100",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 15,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98106885,
+        lat: 40.72576983,
+        x: 664.69,
+        y: 730.05
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110100"
+    },
+    {
       id: "5110809",
+      active: true,
       latinName: "Malus",
       commonName: "apple",
       dbh: 9,
@@ -6916,7 +4149,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110809"
     },
     {
+      id: "5104417",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 18,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98098313,
+        lat: 40.72583083,
+        x: 686.56,
+        y: 709.5
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104417"
+    },
+    {
       id: "5109401",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 2,
@@ -6931,7 +4181,40 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109401"
     },
     {
+      id: "5101436",
+      active: true,
+      latinName: "Acer palmatum",
+      commonName: "Japanese maple",
+      dbh: 1,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98094609,
+        lat: 40.72585878,
+        x: 696.02,
+        y: 700.09
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101436"
+    },
+    {
+      id: "5099734",
+      active: true,
+      latinName: "Cotinus coggygria",
+      commonName: "European smoketree",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98144729,
+        lat: 40.72582734,
+        x: 568.09,
+        y: 710.68
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099734"
+    },
+    {
       id: "5105540",
+      active: true,
       latinName: "Ulmus parvifolia",
       commonName: "Chinese elm",
       dbh: 6,
@@ -6946,7 +4229,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105540"
     },
     {
+      id: "5109012",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-19 15:40:14.0000000",
+      point: {
+        lng: -73.98142737,
+        lat: 40.72566249,
+        x: 573.18,
+        y: 766.2
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109012"
+    },
+    {
       id: "5105367",
+      active: true,
       latinName: "Ulmus minor 'Atinia'",
       commonName: "English elm",
       dbh: 26,
@@ -6963,7 +4265,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105367"
     },
     {
+      id: "5107484",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98131635,
+        lat: 40.72589481,
+        x: 601.51,
+        y: 687.95
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107484"
+    },
+    {
       id: "5111284",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
       dbh: 11,
@@ -6978,7 +4297,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111284"
     },
     {
+      id: "5099131",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 32,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-08-29 14:21:25.0000000",
+      point: {
+        lng: -73.98171909,
+        lat: 40.7256247,
+        x: 498.72,
+        y: 778.93
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099131"
+    },
+    {
+      id: "5103531",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98101366,
+        lat: 40.72573429,
+        x: 678.77,
+        y: 742.02
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103531"
+    },
+    {
       id: "5108485",
+      active: true,
       latinName: "Quercus palustris",
       commonName: "pin oak",
       dbh: 24,
@@ -6996,6 +4350,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5108509",
+      active: true,
       latinName: "Ulmus parvifolia",
       commonName: "Chinese elm",
       dbh: 11,
@@ -7010,7 +4365,59 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108509"
     },
     {
+      id: "5109450",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 36,
+      condition: "Poor",
+      structure: "Retired",
+      riskRating: "8",
+      updatedDate: "2024-12-11 20:46:00.0000000",
+      point: {
+        lng: -73.98127586,
+        lat: 40.72545361,
+        x: 611.85,
+        y: 836.55
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109450"
+    },
+    {
+      id: "5114988",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98091203,
+        lat: 40.72569388,
+        x: 704.71,
+        y: 755.63
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114988"
+    },
+    {
+      id: "5113168",
+      active: false,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 10,
+      condition: "Critical",
+      structure: "Stump",
+      updatedDate: "2025-12-19 19:13:00.0000000",
+      point: {
+        lng: -73.9808606,
+        lat: 40.7258036,
+        x: 717.84,
+        y: 718.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113168"
+    },
+    {
       id: "5113457",
+      active: true,
       latinName: "Ostrya virginiana",
       commonName: "hophornbeam",
       dbh: 22,
@@ -7026,6 +4433,7 @@ export const tompkinsMapData = {
     },
     {
       id: "10504267",
+      active: true,
       latinName: "Ulmus minor 'Atinia'",
       commonName: "English elm",
       dbh: 23,
@@ -7043,6 +4451,7 @@ export const tompkinsMapData = {
     },
     {
       id: "13878738",
+      active: true,
       latinName: "Prunus 'Snow Goose'",
       commonName: "'Snow Goose' Cherry",
       dbh: 3,
@@ -7058,6 +4467,7 @@ export const tompkinsMapData = {
     },
     {
       id: "13878286",
+      active: true,
       latinName: "Prunus 'Snow Goose'",
       commonName: "'Snow Goose' Cherry",
       dbh: 3,
@@ -7073,6 +4483,7 @@ export const tompkinsMapData = {
     },
     {
       id: "14514582",
+      active: true,
       latinName: "Acer miyabei 'State Street'",
       commonName: "'State Street' Miyabe maple",
       dbh: 2,
@@ -7087,24 +4498,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514582"
     },
     {
-      id: "4973700",
-      latinName: "Quercus",
-      commonName: "Oak",
-      dbh: 40,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2022-09-20 15:57:40.0000000",
+      id: "4612970",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Retired",
+      updatedDate: "2020-03-10 14:13:00.0000000",
       point: {
-        lng: -73.98241359,
-        lat: 40.72631659,
-        x: 321.45,
-        y: 545.9
+        lng: -73.98228326,
+        lat: 40.72609584,
+        x: 354.72,
+        y: 620.24
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973700"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4612970"
+    },
+    {
+      id: "4609124",
+      active: false,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Retired",
+      updatedDate: "2020-03-10 14:09:00.0000000",
+      point: {
+        lng: -73.98227228,
+        lat: 40.72616737,
+        x: 357.52,
+        y: 596.15
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4609124"
     },
     {
       id: "5095093",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
       dbh: 11,
@@ -7121,7 +4550,25 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095093"
     },
     {
+      id: "5095825",
+      active: false,
+      latinName: "Parrotia persica",
+      commonName: "Persian ironwood",
+      dbh: 3,
+      condition: "Good",
+      structure: "Retired",
+      updatedDate: "2023-05-24 15:24:00.0000000",
+      point: {
+        lng: -73.98246113,
+        lat: 40.72617712,
+        x: 309.32,
+        y: 592.87
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095825"
+    },
+    {
       id: "5095369",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 6,
@@ -7137,6 +4584,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5095190",
+      active: true,
       latinName: "Cornus kousa",
       commonName: "kousa dogwood",
       dbh: 10,
@@ -7151,24 +4599,44 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095190"
     },
     {
-      id: "5101823",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 13,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2018-12-05 14:22:21.0000000",
+      id: "5105810",
+      active: false,
+      latinName: "Gleditsia triacanthos var. inermis",
+      commonName: "Thornless honeylocust",
+      dbh: 22,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "4",
+      updatedDate: "2023-03-20 14:27:00.0000000",
       point: {
-        lng: -73.98305025,
-        lat: 40.72645444,
-        x: 158.95,
-        y: 499.46
+        lng: -73.98270704,
+        lat: 40.72638544,
+        x: 246.55,
+        y: 522.71
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101823"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105810"
+    },
+    {
+      id: "5107023",
+      active: false,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 3,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "6",
+      updatedDate: "2022-01-31 19:23:00.0000000",
+      point: {
+        lng: -73.98323507,
+        lat: 40.72603918,
+        x: 111.77,
+        y: 639.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107023"
     },
     {
       id: "5111025",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 5,
@@ -7184,6 +4652,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5097617",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 27,
@@ -7201,6 +4670,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5100595",
+      active: true,
       latinName: "Quercus palustris",
       commonName: "pin oak",
       dbh: 29,
@@ -7218,6 +4688,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5102802",
+      active: true,
       latinName: "Tilia cordata",
       commonName: "littleleaf linden",
       dbh: 14,
@@ -7234,7 +4705,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102802"
     },
     {
+      id: "5102423",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 48,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "3",
+      updatedDate: "2022-07-18 14:05:00.0000000",
+      point: {
+        lng: -73.98321749,
+        lat: 40.72620282,
+        x: 116.26,
+        y: 584.21
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102423"
+    },
+    {
       id: "5107915",
+      active: true,
       latinName: "Cornus kousa",
       commonName: "kousa dogwood",
       dbh: 7,
@@ -7250,6 +4740,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5111579",
+      active: true,
       latinName: "Malus",
       commonName: "apple",
       dbh: 12,
@@ -7265,6 +4756,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5109179",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 44,
@@ -7282,6 +4774,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5112585",
+      active: true,
       latinName: "Cornus kousa",
       commonName: "kousa dogwood",
       dbh: 11,
@@ -7296,7 +4789,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112585"
     },
     {
+      id: "5100091",
+      active: true,
+      latinName: "Fagus sylvatica",
+      commonName: "European beech",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98304778,
+        lat: 40.72639571,
+        x: 159.58,
+        y: 519.25
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100091"
+    },
+    {
       id: "5112705",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 7,
@@ -7312,6 +4822,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5111650",
+      active: true,
       latinName: "Ilex",
       commonName: "holly",
       dbh: 5,
@@ -7326,7 +4837,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111650"
     },
     {
+      id: "5109039",
+      active: false,
+      latinName: "Morus",
+      commonName: "mulberry",
+      dbh: 19,
+      condition: "Critical",
+      structure: "Stump",
+      riskRating: "11",
+      updatedDate: "2026-03-24 16:45:01.0000000",
+      point: {
+        lng: -73.98286476,
+        lat: 40.72634088,
+        x: 206.29,
+        y: 537.71
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109039"
+    },
+    {
       id: "5112967",
+      active: true,
       latinName: "Malus",
       commonName: "apple",
       dbh: 9,
@@ -7343,22 +4873,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112967"
     },
     {
-      id: "5110933",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 22,
-      condition: "Good",
-      structure: "Full",
-      point: {
-        lng: -73.98239105,
-        lat: 40.72602574,
-        x: 327.2,
-        y: 643.86
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110933"
-    },
-    {
       id: "5112502",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 23,
@@ -7374,6 +4890,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5097015",
+      active: true,
       latinName: "Amelanchier",
       commonName: "serviceberry",
       dbh: 9,
@@ -7389,6 +4906,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5107726",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 18,
@@ -7404,6 +4922,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5098069",
+      active: true,
       latinName: "Cornus florida",
       commonName: "flowering dogwood",
       dbh: 0,
@@ -7418,24 +4937,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098069"
     },
     {
-      id: "5105828",
-      latinName: "Quercus palustris",
-      commonName: "pin oak",
-      dbh: 35,
-      condition: "Good",
-      structure: "Full",
+      id: "5104118",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 25,
+      condition: "Fair",
+      structure: "Stump",
       riskRating: "8",
-      updatedDate: "2024-09-19 15:26:00.0000000",
+      updatedDate: "2020-10-07 13:20:00.0000000",
       point: {
-        lng: -73.98305056,
-        lat: 40.7262314,
-        x: 158.87,
-        y: 574.59
+        lng: -73.98286808,
+        lat: 40.72619676,
+        x: 205.44,
+        y: 586.25
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105828"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104118"
     },
     {
       id: "5109990",
+      active: true,
       latinName: "Ilex",
       commonName: "holly",
       dbh: 4,
@@ -7451,6 +4972,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5108769",
+      active: true,
       latinName: "Malus",
       commonName: "apple",
       dbh: 10,
@@ -7468,6 +4990,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5099183",
+      active: true,
       latinName: "Tilia cordata",
       commonName: "littleleaf linden",
       dbh: 15,
@@ -7484,7 +5007,40 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099183"
     },
     {
+      id: "5098604",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 11,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98256286,
+        lat: 40.72604197,
+        x: 283.35,
+        y: 638.39
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098604"
+    },
+    {
+      id: "5097303",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98241153,
+        lat: 40.72605528,
+        x: 321.98,
+        y: 633.91
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097303"
+    },
+    {
       id: "5102739",
+      active: true,
       latinName: "Tilia americana",
       commonName: "American basswood",
       dbh: 12,
@@ -7500,6 +5056,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5107031",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 5,
@@ -7515,6 +5072,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5109583",
+      active: true,
       latinName: "Cercis canadensis",
       commonName: "eastern redbud",
       dbh: 6,
@@ -7530,6 +5088,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5111852",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 28,
@@ -7547,6 +5106,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5109301",
+      active: true,
       latinName: "Gleditsia triacanthos var. inermis",
       commonName: "Thornless honeylocust",
       dbh: 23,
@@ -7562,6 +5122,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5108063",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
       dbh: 11,
@@ -7579,6 +5140,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5108952",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 18,
@@ -7595,7 +5157,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108952"
     },
     {
+      id: "5108875",
+      active: false,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 10,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "10",
+      updatedDate: "2021-11-09 15:42:00.0000000",
+      point: {
+        lng: -73.98301159,
+        lat: 40.72603023,
+        x: 168.82,
+        y: 642.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108875"
+    },
+    {
       id: "5098270",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 28,
@@ -7613,6 +5194,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5097712",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 7,
@@ -7628,6 +5210,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5100351",
+      active: true,
       latinName: "Quercus ellipsoidalis",
       commonName: "northern pin oak",
       dbh: 28,
@@ -7645,6 +5228,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5104485",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 29,
@@ -7661,24 +5245,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104485"
     },
     {
-      id: "5103733",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 26,
-      condition: "Good",
-      structure: "Full",
-      riskRating: "9",
-      updatedDate: "2018-12-05 14:22:17.0000000",
-      point: {
-        lng: -73.9829727,
-        lat: 40.72651725,
-        x: 178.74,
-        y: 478.31
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103733"
-    },
-    {
       id: "5099840",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 14,
@@ -7696,6 +5264,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5112295",
+      active: true,
       latinName: "Malus",
       commonName: "apple",
       dbh: 10,
@@ -7710,7 +5279,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112295"
     },
     {
+      id: "5109693",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 39,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.9824233,
+        lat: 40.72634039,
+        x: 318.97,
+        y: 537.88
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109693"
+    },
+    {
+      id: "5106716",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 54,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:38:38.0000000",
+      point: {
+        lng: -73.98287509,
+        lat: 40.72626608,
+        x: 203.66,
+        y: 562.91
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106716"
+    },
+    {
       id: "5102902",
+      active: true,
       latinName: "Quercus phellos",
       commonName: "willow oak",
       dbh: 26,
@@ -7728,6 +5332,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5104480",
+      active: true,
       latinName: "Cornus kousa",
       commonName: "kousa dogwood",
       dbh: 14,
@@ -7743,6 +5348,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5110045",
+      active: true,
       latinName: "Ginkgo biloba",
       commonName: "maidenhair tree",
       dbh: 26,
@@ -7758,6 +5364,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5100355",
+      active: true,
       latinName: "Styphnolobium japonicum",
       commonName: "Japanese pagoda tree",
       dbh: 24,
@@ -7775,6 +5382,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5114734",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 5,
@@ -7790,6 +5398,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5115026",
+      active: true,
       latinName: "Prunus",
       commonName: "Cherry",
       dbh: 7,
@@ -7805,6 +5414,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5113141",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 32,
@@ -7821,22 +5431,26 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113141"
     },
     {
-      id: "5114757",
-      latinName: "Cornus kousa",
-      commonName: "kousa dogwood",
-      dbh: 7,
-      condition: "Good",
-      structure: "Full",
+      id: "5114089",
+      active: false,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 8,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "7",
+      updatedDate: "2022-10-11 09:18:00.0000000",
       point: {
-        lng: -73.98237971,
-        lat: 40.72605635,
-        x: 330.1,
-        y: 633.54
+        lng: -73.98285286,
+        lat: 40.72665198,
+        x: 209.33,
+        y: 432.93
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114757"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114089"
     },
     {
       id: "10462436",
+      active: true,
       latinName: "Ulmus 'Homestead'",
       commonName: "'Homestead' Elm",
       dbh: 3,
@@ -7851,22 +5465,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462436"
     },
     {
-      id: "10462003",
-      latinName: "Ulmus 'Homestead'",
-      commonName: "'Homestead' Elm",
-      dbh: 3,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98227228,
-        lat: 40.72616737,
-        x: 357.52,
-        y: 596.15
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462003"
-    },
-    {
       id: "10340233",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 21,
@@ -7883,7 +5483,24 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10340233"
     },
     {
+      id: "10462433",
+      active: true,
+      latinName: "Cladrastis kentukea",
+      commonName: "Kentucky yellowwood",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98258997,
+        lat: 40.72617469,
+        x: 276.43,
+        y: 593.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462433"
+    },
+    {
       id: "10281051",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 50,
@@ -7900,52 +5517,1246 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10281051"
     },
     {
-      id: "13878284",
-      latinName: "Prunus 'Snow Goose'",
-      commonName: "'Snow Goose' Cherry",
+      id: "10461520",
+      active: true,
+      latinName: "Cladrastis kentukea",
+      commonName: "Kentucky yellowwood",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      updatedDate: "2020-03-10 14:12:00.0000000",
+      point: {
+        lng: -73.98272935,
+        lat: 40.72612825,
+        x: 240.86,
+        y: 609.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10461520"
+    },
+    {
+      id: "10462004",
+      active: true,
+      latinName: "Liquidambar styraciflua",
+      commonName: "sweetgum",
       dbh: 3,
       condition: "Excellent",
       structure: "Full",
       point: {
-        lng: -73.98246113,
-        lat: 40.72617712,
-        x: 309.32,
-        y: 592.87
+        lng: -73.98263853,
+        lat: 40.72613538,
+        x: 264.04,
+        y: 606.93
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878284"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462004"
     },
     {
-      id: "14516268",
-      latinName: "Cornus mas",
-      commonName: "Cornelian cherry",
-      dbh: 2,
+      id: "12382244",
+      active: false,
+      latinName: "Quercus macrocarpa",
+      commonName: "bur oak",
+      dbh: 3,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2023-08-03 15:24:00.0000000",
+      point: {
+        lng: -73.98323507,
+        lat: 40.72603918,
+        x: 111.77,
+        y: 639.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/12382244"
+    },
+    {
+      id: "13879449",
+      active: true,
+      latinName: "Cladrastis kentukea",
+      commonName: "Kentucky yellowwood",
+      dbh: 3,
       condition: "Excellent",
       structure: "Full",
       point: {
-        lng: -73.98301159,
-        lat: 40.72603023,
-        x: 168.82,
-        y: 642.34
+        lng: -73.98270704,
+        lat: 40.72638544,
+        x: 246.55,
+        y: 522.71
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14516268"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13879449"
     },
     {
-      id: "5094785",
-      latinName: "Prunus virginiana",
-      commonName: "chokecherry",
+      id: "4973698",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 40,
+      condition: "Good",
+      structure: "Retired",
+      riskRating: "5",
+      updatedDate: "2020-09-22 18:00:11.0000000",
+      point: {
+        lng: -73.98196561,
+        lat: 40.72676981,
+        x: 435.79,
+        y: 393.25
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973698"
+    },
+    {
+      id: "5095670",
+      active: true,
+      latinName: "Magnolia",
+      commonName: "magnolia",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98141369,
+        lat: 40.72668065,
+        x: 576.67,
+        y: 423.28
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095670"
+    },
+    {
+      id: "5096736",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 21,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98216424,
+        lat: 40.72759296,
+        x: 385.1,
+        y: 116
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096736"
+    },
+    {
+      id: "5095308",
+      active: true,
+      latinName: "Quercus phellos",
+      commonName: "willow oak",
+      dbh: 28,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2021-06-21 14:52:48.0000000",
+      point: {
+        lng: -73.98170016,
+        lat: 40.72669687,
+        x: 503.55,
+        y: 417.81
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095308"
+    },
+    {
+      id: "5095372",
+      active: true,
+      latinName: "Picea",
+      commonName: "spruce",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98127708,
+        lat: 40.7269618,
+        x: 611.54,
+        y: 328.58
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095372"
+    },
+    {
+      id: "5096604",
+      active: true,
+      latinName: "Quercus ellipsoidalis",
+      commonName: "northern pin oak",
       dbh: 16,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98035266,
-        lat: 40.72692074,
-        x: 847.49,
-        y: 342.42
+        lng: -73.98146134,
+        lat: 40.72701739,
+        x: 564.51,
+        y: 309.86
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094785"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096604"
+    },
+    {
+      id: "5101002",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 29,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:24:48.0000000",
+      point: {
+        lng: -73.98181537,
+        lat: 40.72701605,
+        x: 474.14,
+        y: 310.31
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101002"
+    },
+    {
+      id: "5111278",
+      active: false,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 16,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2023-02-16 14:56:00.0000000",
+      point: {
+        lng: -73.98175355,
+        lat: 40.72752263,
+        x: 489.92,
+        y: 139.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111278"
+    },
+    {
+      id: "5099205",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98212722,
+        lat: 40.72685834,
+        x: 394.55,
+        y: 363.43
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099205"
+    },
+    {
+      id: "5100566",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9814268,
+        lat: 40.72692744,
+        x: 573.32,
+        y: 340.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100566"
+    },
+    {
+      id: "5107600",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 19,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-21 12:35:29.0000000",
+      point: {
+        lng: -73.98128069,
+        lat: 40.72733006,
+        x: 610.62,
+        y: 204.55
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107600"
+    },
+    {
+      id: "5102611",
+      active: true,
+      latinName: "Acer platanoides",
+      commonName: "Norway maple",
+      dbh: 11,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-20 15:29:19.0000000",
+      point: {
+        lng: -73.98157,
+        lat: 40.7270916,
+        x: 536.77,
+        y: 284.87
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102611"
+    },
+    {
+      id: "5103554",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 23,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2018-09-10 13:36:17.0000000",
+      point: {
+        lng: -73.9818359,
+        lat: 40.72683682,
+        x: 468.9,
+        y: 370.68
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103554"
+    },
+    {
+      id: "5108156",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 8,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:28:02.0000000",
+      point: {
+        lng: -73.98150811,
+        lat: 40.72717283,
+        x: 552.57,
+        y: 257.51
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108156"
+    },
+    {
+      id: "5101438",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 17,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.9815505,
+        lat: 40.72712698,
+        x: 541.75,
+        y: 272.95
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101438"
+    },
+    {
+      id: "5101635",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 20,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98205202,
+        lat: 40.72685788,
+        x: 413.74,
+        y: 363.58
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101635"
+    },
+    {
+      id: "5103742",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 23,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98143163,
+        lat: 40.72727426,
+        x: 572.09,
+        y: 223.35
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103742"
+    },
+    {
+      id: "5104748",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 31,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:28:00.0000000",
+      point: {
+        lng: -73.98195368,
+        lat: 40.72759063,
+        x: 438.84,
+        y: 116.79
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104748"
+    },
+    {
+      id: "5109754",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:35:54.0000000",
+      point: {
+        lng: -73.98222957,
+        lat: 40.72755211,
+        x: 368.42,
+        y: 129.76
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109754"
+    },
+    {
+      id: "5108720",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 38,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "7",
+      updatedDate: "2024-05-03 14:41:00.0000000",
+      point: {
+        lng: -73.98140319,
+        lat: 40.72709098,
+        x: 579.35,
+        y: 285.07
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108720"
+    },
+    {
+      id: "5109272",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98133229,
+        lat: 40.72688935,
+        x: 597.45,
+        y: 352.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109272"
+    },
+    {
+      id: "5106985",
+      active: true,
+      latinName: "Quercus bicolor",
+      commonName: "swamp white oak",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98222335,
+        lat: 40.72713357,
+        x: 370.01,
+        y: 270.73
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106985"
+    },
+    {
+      id: "5098918",
+      active: false,
+      latinName: "Quercus coccinea",
+      commonName: "scarlet oak",
+      dbh: 22,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "10",
+      updatedDate: "2018-03-06 13:42:00.0000000",
+      point: {
+        lng: -73.98210469,
+        lat: 40.72712568,
+        x: 400.29,
+        y: 273.39
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098918"
+    },
+    {
+      id: "5103039",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 29,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-05-11 15:51:36.0000000",
+      point: {
+        lng: -73.98214835,
+        lat: 40.72768891,
+        x: 389.15,
+        y: 83.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103039"
+    },
+    {
+      id: "5105514",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:29:06.0000000",
+      point: {
+        lng: -73.98144557,
+        lat: 40.7272068,
+        x: 568.53,
+        y: 246.07
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105514"
+    },
+    {
+      id: "5106340",
+      active: true,
+      latinName: "Juniperus virginiana",
+      commonName: "eastern redcedar",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98213659,
+        lat: 40.7269096,
+        x: 392.15,
+        y: 346.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106340"
+    },
+    {
+      id: "5108392",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98130531,
+        lat: 40.72729578,
+        x: 604.33,
+        y: 216.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108392"
+    },
+    {
+      id: "5099806",
+      active: false,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 16,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "9",
+      updatedDate: "2023-02-16 14:55:00.0000000",
+      point: {
+        lng: -73.98144515,
+        lat: 40.72740621,
+        x: 568.64,
+        y: 178.9
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099806"
+    },
+    {
+      id: "5105494",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 17,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98156311,
+        lat: 40.7271062,
+        x: 538.53,
+        y: 279.95
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105494"
+    },
+    {
+      id: "5103318",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 44,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2026-04-07 14:35:40.0000000",
+      point: {
+        lng: -73.98183092,
+        lat: 40.72669402,
+        x: 470.17,
+        y: 418.77
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103318"
+    },
+    {
+      id: "5109195",
+      active: true,
+      latinName: "Ulmus pumila",
+      commonName: "Siberian elm",
+      dbh: 23,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:33:10.0000000",
+      point: {
+        lng: -73.98162044,
+        lat: 40.72746991,
+        x: 523.9,
+        y: 157.45
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109195"
+    },
+    {
+      id: "5105758",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98206354,
+        lat: 40.72709721,
+        x: 410.8,
+        y: 282.98
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105758"
+    },
+    {
+      id: "5098123",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98199656,
+        lat: 40.72763579,
+        x: 427.89,
+        y: 101.58
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098123"
+    },
+    {
+      id: "5111229",
+      active: false,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 13,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "7",
+      updatedDate: "2022-01-18 19:40:00.0000000",
+      point: {
+        lng: -73.98165523,
+        lat: 40.72694916,
+        x: 515.02,
+        y: 332.84
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111229"
+    },
+    {
+      id: "5111097",
+      active: true,
+      latinName: "Prunus serrulata 'Green leaf'",
+      commonName: "'Green leaf' Japanese flowering cherry",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98171952,
+        lat: 40.72680141,
+        x: 498.61,
+        y: 382.6
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111097"
+    },
+    {
+      id: "5105588",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 15,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2020-05-19 17:00:24.0000000",
+      point: {
+        lng: -73.98154745,
+        lat: 40.72709279,
+        x: 542.53,
+        y: 284.47
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105588"
+    },
+    {
+      id: "5106055",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9813238,
+        lat: 40.72733398,
+        x: 599.61,
+        y: 203.23
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106055"
+    },
+    {
+      id: "5099862",
+      active: false,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 13,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "8",
+      updatedDate: "2023-02-16 14:56:00.0000000",
+      point: {
+        lng: -73.98173059,
+        lat: 40.72751988,
+        x: 495.78,
+        y: 140.62
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099862"
+    },
+    {
+      id: "5108678",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Retired",
+      updatedDate: "2020-03-11 14:28:00.0000000",
+      point: {
+        lng: -73.9819479,
+        lat: 40.72669483,
+        x: 440.31,
+        y: 418.5
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108678"
+    },
+    {
+      id: "5098727",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 40,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "9",
+      updatedDate: "2023-03-15 17:23:00.0000000",
+      point: {
+        lng: -73.98213348,
+        lat: 40.72674643,
+        x: 392.95,
+        y: 401.12
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098727"
+    },
+    {
+      id: "5099866",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98206747,
+        lat: 40.72670256,
+        x: 409.79,
+        y: 415.9
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099866"
+    },
+    {
+      id: "5099452",
+      active: true,
+      latinName: "Syringa reticulata",
+      commonName: "Japanese tree lilac",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98124766,
+        lat: 40.72701163,
+        x: 619.05,
+        y: 311.8
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099452"
+    },
+    {
+      id: "5097041",
+      active: true,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98162174,
+        lat: 40.72703946,
+        x: 523.56,
+        y: 302.43
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097041"
+    },
+    {
+      id: "5103979",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 18,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2020-05-19 16:47:07.0000000",
+      point: {
+        lng: -73.98128661,
+        lat: 40.72724619,
+        x: 609.1,
+        y: 232.8
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103979"
+    },
+    {
+      id: "5109859",
+      active: false,
+      latinName: "Acer platanoides",
+      commonName: "Norway maple",
+      dbh: 16,
+      condition: "Critical",
+      structure: "Stump",
+      riskRating: "10",
+      updatedDate: "2025-11-07 16:37:49.0000000",
+      point: {
+        lng: -73.98145197,
+        lat: 40.72726299,
+        x: 566.9,
+        y: 227.14
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109859"
+    },
+    {
+      id: "5104593",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98209884,
+        lat: 40.72766643,
+        x: 401.79,
+        y: 91.26
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104593"
+    },
+    {
+      id: "5105965",
+      active: false,
+      commonName: "Unknown",
+      dbh: 14,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2023-02-16 14:54:00.0000000",
+      point: {
+        lng: -73.98132995,
+        lat: 40.72731389,
+        x: 598.04,
+        y: 210
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105965"
+    },
+    {
+      id: "5101164",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:30:34.0000000",
+      point: {
+        lng: -73.98142839,
+        lat: 40.72732346,
+        x: 572.92,
+        y: 206.78
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101164"
+    },
+    {
+      id: "5103676",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 6,
+      condition: "Poor",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2020-05-19 16:57:45.0000000",
+      point: {
+        lng: -73.98145745,
+        lat: 40.72724115,
+        x: 565.5,
+        y: 234.5
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103676"
+    },
+    {
+      id: "5102151",
+      active: false,
+      latinName: "Cornus florida",
+      commonName: "flowering dogwood",
+      dbh: 5,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2023-02-16 14:56:00.0000000",
+      point: {
+        lng: -73.98146644,
+        lat: 40.72741232,
+        x: 563.2,
+        y: 176.85
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102151"
+    },
+    {
+      id: "5102977",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 7,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:31:41.0000000",
+      point: {
+        lng: -73.9814113,
+        lat: 40.72733268,
+        x: 577.28,
+        y: 203.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102977"
+    },
+    {
+      id: "5107261",
+      active: true,
+      latinName: "Picea pungens 'Glauca'",
+      commonName: "'Glauca' blue spruce",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9813939,
+        lat: 40.72698795,
+        x: 581.72,
+        y: 319.78
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107261"
+    },
+    {
+      id: "5103864",
+      active: true,
+      latinName: "Gleditsia triacanthos var. inermis",
+      commonName: "Thornless honeylocust",
+      dbh: 25,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2021-06-21 14:50:23.0000000",
+      point: {
+        lng: -73.98167738,
+        lat: 40.72674493,
+        x: 509.36,
+        y: 401.63
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103864"
+    },
+    {
+      id: "5099753",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 28,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2020-05-19 16:49:44.0000000",
+      point: {
+        lng: -73.98136773,
+        lat: 40.72716442,
+        x: 588.4,
+        y: 260.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099753"
+    },
+    {
+      id: "5107793",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 26,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2020-05-19 16:19:55.0000000",
+      point: {
+        lng: -73.98121016,
+        lat: 40.72691375,
+        x: 628.62,
+        y: 344.77
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107793"
+    },
+    {
+      id: "5105762",
+      active: true,
+      latinName: "Crataegus",
+      commonName: "Hawthorn",
+      dbh: 4,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2022-01-11 18:28:26.0000000",
+      point: {
+        lng: -73.98163315,
+        lat: 40.72687226,
+        x: 520.65,
+        y: 358.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105762"
+    },
+    {
+      id: "5111941",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 8,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98125516,
+        lat: 40.72730268,
+        x: 617.13,
+        y: 213.77
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111941"
+    },
+    {
+      id: "5115071",
+      active: true,
+      latinName: "Platanus occidentalis",
+      commonName: "American sycamore",
+      dbh: 59,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2020-08-08 13:49:21.0000000",
+      point: {
+        lng: -73.98167553,
+        lat: 40.72750648,
+        x: 509.84,
+        y: 145.13
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5115071"
+    },
+    {
+      id: "5113700",
+      active: true,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-09-20 16:26:33.0000000",
+      point: {
+        lng: -73.98153636,
+        lat: 40.72714501,
+        x: 545.36,
+        y: 266.88
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113700"
+    },
+    {
+      id: "5113814",
+      active: false,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 8,
+      condition: "Dead",
+      structure: "Stump",
+      updatedDate: "2019-09-11 14:25:07.0000000",
+      point: {
+        lng: -73.9818872,
+        lat: 40.72758499,
+        x: 455.81,
+        y: 118.69
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113814"
+    },
+    {
+      id: "5114851",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 35,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "9",
+      updatedDate: "2023-11-01 18:55:00.0000000",
+      point: {
+        lng: -73.98195744,
+        lat: 40.72717165,
+        x: 437.88,
+        y: 257.91
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114851"
+    },
+    {
+      id: "5114442",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.98210632,
+        lat: 40.72693899,
+        x: 399.88,
+        y: 336.27
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114442"
+    },
+    {
+      id: "5114352",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98189757,
+        lat: 40.72704149,
+        x: 453.16,
+        y: 301.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114352"
+    },
+    {
+      id: "5114259",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9812183,
+        lat: 40.72721418,
+        x: 626.54,
+        y: 243.58
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114259"
+    },
+    {
+      id: "5114761",
+      active: false,
+      latinName: "Acer campestre",
+      commonName: "hedge maple",
+      dbh: 12,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "5",
+      updatedDate: "2020-06-04 17:56:00.0000000",
+      point: {
+        lng: -73.98148235,
+        lat: 40.72720092,
+        x: 559.14,
+        y: 248.05
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114761"
+    },
+    {
+      id: "10462437",
+      active: true,
+      latinName: "Ulmus 'Homestead'",
+      commonName: "'Homestead' Elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98198184,
+        lat: 40.72706473,
+        x: 431.65,
+        y: 293.92
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462437"
+    },
+    {
+      id: "10461521",
+      active: true,
+      latinName: "Eucommia ulmoides",
+      commonName: "Hardy Rubber Tree",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98198502,
+        lat: 40.72691701,
+        x: 430.84,
+        y: 343.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10461521"
+    },
+    {
+      id: "10468599",
+      active: true,
+      latinName: "Ulmus 'Homestead'",
+      commonName: "'Homestead' Elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.9819479,
+        lat: 40.72669483,
+        x: 440.31,
+        y: 418.5
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10468599"
+    },
+    {
+      id: "13879450",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98213348,
+        lat: 40.72674643,
+        x: 392.95,
+        y: 401.12
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13879450"
     },
     {
       id: "5104978",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 31,
@@ -7962,24 +6773,42 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104978"
     },
     {
-      id: "5107272",
-      latinName: "Ulmus americana",
-      commonName: "American elm",
-      dbh: 22,
+      id: "5104908",
+      active: true,
+      latinName: "Syringa reticulata",
+      commonName: "Japanese tree lilac",
+      dbh: 9,
+      condition: "Fair",
+      structure: "Full",
+      point: {
+        lng: -73.98013951,
+        lat: 40.72677048,
+        x: 901.89,
+        y: 393.02
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104908"
+    },
+    {
+      id: "5107982",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 31,
       condition: "Good",
       structure: "Full",
-      riskRating: "6",
-      updatedDate: "2026-04-07 14:24:10.0000000",
+      riskRating: "8",
+      updatedDate: "2019-08-07 12:53:34.0000000",
       point: {
-        lng: -73.9806763,
-        lat: 40.72700491,
-        x: 764.88,
-        y: 314.06
+        lng: -73.98015283,
+        lat: 40.72675362,
+        x: 898.49,
+        y: 398.7
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107272"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107982"
     },
     {
       id: "5102710",
+      active: true,
       latinName: "Syringa reticulata",
       commonName: "Japanese tree lilac",
       dbh: 3,
@@ -7994,24 +6823,8 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102710"
     },
     {
-      id: "5113324",
-      latinName: "Styphnolobium japonicum",
-      commonName: "Japanese pagoda tree",
-      dbh: 21,
-      condition: "Poor",
-      structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-02-19 16:43:46.0000000",
-      point: {
-        lng: -73.98059918,
-        lat: 40.72702123,
-        x: 784.56,
-        y: 308.57
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113324"
-    },
-    {
       id: "5113563",
+      active: true,
       latinName: "Syringa reticulata",
       commonName: "Japanese tree lilac",
       dbh: 8,
@@ -8026,84 +6839,2542 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113563"
     },
     {
-      id: "5094978",
-      latinName: "Ulmus parvifolia",
-      commonName: "Chinese elm",
-      dbh: 9,
+      id: "17200033",
+      active: false,
+      latinName: "Morus",
+      commonName: "mulberry",
+      dbh: 16,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "7",
+      updatedDate: "2026-04-15 17:51:00.0000000",
+      point: {
+        lng: -73.98016024,
+        lat: 40.72683694,
+        x: 896.6,
+        y: 370.64
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/17200033"
+    },
+    {
+      id: "5011612",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 44,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2025-02-26 12:40:14.0000000",
+      point: {
+        lng: -73.98062668,
+        lat: 40.72610519,
+        x: 777.55,
+        y: 617.09
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5011612"
+    },
+    {
+      id: "5095074",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 50,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-02-26 12:51:56.0000000",
+      point: {
+        lng: -73.98045571,
+        lat: 40.72645955,
+        x: 821.19,
+        y: 497.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095074"
+    },
+    {
+      id: "5096255",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 30,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2026-04-07 15:04:46.0000000",
+      point: {
+        lng: -73.98085548,
+        lat: 40.72596201,
+        x: 719.15,
+        y: 665.32
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096255"
+    },
+    {
+      id: "5096775",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 37,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:54:47.0000000",
+      point: {
+        lng: -73.98129373,
+        lat: 40.72619989,
+        x: 607.29,
+        y: 585.2
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096775"
+    },
+    {
+      id: "5096635",
+      active: true,
+      latinName: "Carpinus caroliniana",
+      commonName: "American hornbeam",
+      dbh: 3,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98308248,
-        lat: 40.72599882,
-        x: 150.72,
-        y: 652.92
+        lng: -73.98038481,
+        lat: 40.7264263,
+        x: 839.28,
+        y: 508.94
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094978"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096635"
     },
     {
-      id: "5100091",
-      latinName: "Fagus sylvatica",
-      commonName: "European beech",
+      id: "5095495",
+      active: true,
+      latinName: "Morus",
+      commonName: "mulberry",
+      dbh: 5,
+      condition: "Fair",
+      structure: "Full",
+      point: {
+        lng: -73.98112954,
+        lat: 40.72626957,
+        x: 649.19,
+        y: 561.73
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095495"
+    },
+    {
+      id: "5096612",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
       dbh: 5,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98304778,
-        lat: 40.72639571,
-        x: 159.58,
-        y: 519.25
+        lng: -73.98098961,
+        lat: 40.72614316,
+        x: 684.91,
+        y: 604.31
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100091"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096612"
     },
     {
-      id: "5110316",
-      latinName: "Malus",
-      commonName: "apple",
-      dbh: 14,
+      id: "5100237",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 24,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2026-04-07 15:08:50.0000000",
+      point: {
+        lng: -73.98055383,
+        lat: 40.72622594,
+        x: 796.14,
+        y: 576.42
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100237"
+    },
+    {
+      id: "5110337",
+      active: true,
+      latinName: "Carpinus caroliniana",
+      commonName: "American hornbeam",
+      dbh: 3,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98322785,
-        lat: 40.72617805,
-        x: 113.62,
-        y: 592.56
+        lng: -73.98029073,
+        lat: 40.72659243,
+        x: 863.29,
+        y: 452.99
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110316"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110337"
     },
     {
-      id: "5106716",
+      id: "5108916",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98073402,
+        lat: 40.726149,
+        x: 750.15,
+        y: 602.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108916"
+    },
+    {
+      id: "5111314",
+      active: true,
+      latinName: "Betula papyrifera",
+      commonName: "paper birch",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98078166,
+        lat: 40.72625086,
+        x: 737.99,
+        y: 568.03
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111314"
+    },
+    {
+      id: "5110374",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98140364,
+        lat: 40.72647559,
+        x: 579.23,
+        y: 492.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110374"
+    },
+    {
+      id: "5110538",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98124097,
+        lat: 40.72610222,
+        x: 620.75,
+        y: 618.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110538"
+    },
+    {
+      id: "5099977",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98105278,
+        lat: 40.72599933,
+        x: 668.79,
+        y: 652.75
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099977"
+    },
+    {
+      id: "5108170",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
-      dbh: 54,
-      condition: "Fair",
+      dbh: 37,
+      condition: "Good",
       structure: "Full",
-      riskRating: "7",
-      updatedDate: "2026-04-07 14:38:38.0000000",
+      riskRating: "5",
+      updatedDate: "2025-02-20 17:11:52.0000000",
       point: {
-        lng: -73.98287509,
-        lat: 40.72626608,
-        x: 203.66,
-        y: 562.91
+        lng: -73.98098201,
+        lat: 40.72596224,
+        x: 686.85,
+        y: 665.24
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106716"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108170"
     },
     {
-      id: "5108598",
-      latinName: "Platanus x acerifolia",
-      commonName: "London planetree",
+      id: "5111675",
+      active: true,
+      latinName: "Robinia pseudoacacia",
+      commonName: "black locust",
       dbh: 23,
       condition: "Good",
       structure: "Full",
       point: {
-        lng: -73.98307221,
-        lat: 40.72628506,
-        x: 153.34,
-        y: 556.51
+        lng: -73.98080516,
+        lat: 40.72619839,
+        x: 731.99,
+        y: 585.7
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108598"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111675"
+    },
+    {
+      id: "5103692",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 36,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:53:05.0000000",
+      point: {
+        lng: -73.9812249,
+        lat: 40.72597473,
+        x: 624.86,
+        y: 661.04
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103692"
+    },
+    {
+      id: "5105112",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98100284,
+        lat: 40.72604431,
+        x: 681.53,
+        y: 637.6
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105112"
+    },
+    {
+      id: "5110092",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 37,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2026-04-07 14:53:55.0000000",
+      point: {
+        lng: -73.98140426,
+        lat: 40.72616464,
+        x: 579.07,
+        y: 597.07
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110092"
+    },
+    {
+      id: "5096914",
+      active: true,
+      latinName: "Pinus strobus",
+      commonName: "eastern white pine",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98065336,
+        lat: 40.72627354,
+        x: 770.74,
+        y: 560.4
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096914"
+    },
+    {
+      id: "5112059",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98095598,
+        lat: 40.72607139,
+        x: 693.49,
+        y: 628.48
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112059"
+    },
+    {
+      id: "5098709",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98061096,
+        lat: 40.72629748,
+        x: 781.56,
+        y: 552.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098709"
+    },
+    {
+      id: "5099421",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 17,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "10",
+      updatedDate: "2025-07-18 17:12:13.0000000",
+      point: {
+        lng: -73.98086538,
+        lat: 40.72640175,
+        x: 716.62,
+        y: 517.21
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099421"
+    },
+    {
+      id: "5103132",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98101307,
+        lat: 40.72610609,
+        x: 678.92,
+        y: 616.79
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103132"
+    },
+    {
+      id: "5108250",
+      active: true,
+      latinName: "Acer rubrum",
+      commonName: "red maple",
+      dbh: 9,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2019-02-11 15:14:54.0000000",
+      point: {
+        lng: -73.98076146,
+        lat: 40.7259329,
+        x: 743.14,
+        y: 675.12
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108250"
+    },
+    {
+      id: "5105056",
+      active: true,
+      latinName: "Lagerstroemia",
+      commonName: "lagerstroemia",
+      dbh: 19,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98102188,
+        lat: 40.72629614,
+        x: 676.67,
+        y: 552.78
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105056"
+    },
+    {
+      id: "5099983",
+      active: false,
+      latinName: "Gleditsia triacanthos var. inermis",
+      commonName: "Thornless honeylocust",
+      dbh: 18,
+      condition: "Critical",
+      structure: "Retired",
+      riskRating: "10",
+      updatedDate: "2023-05-24 20:51:00.0000000",
+      point: {
+        lng: -73.98147464,
+        lat: 40.72646641,
+        x: 561.11,
+        y: 495.44
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099983"
+    },
+    {
+      id: "5110857",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98093768,
+        lat: 40.72610266,
+        x: 698.17,
+        y: 617.95
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110857"
+    },
+    {
+      id: "5103087",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98120606,
+        lat: 40.7264038,
+        x: 629.66,
+        y: 516.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103087"
+    },
+    {
+      id: "5106889",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 15,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98092712,
+        lat: 40.72658722,
+        x: 700.86,
+        y: 454.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106889"
+    },
+    {
+      id: "5098053",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9807679,
+        lat: 40.72614048,
+        x: 741.5,
+        y: 605.21
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5098053"
+    },
+    {
+      id: "5104067",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 11,
+      condition: "Fair",
+      structure: "Full",
+      point: {
+        lng: -73.98056212,
+        lat: 40.72648712,
+        x: 794.02,
+        y: 488.46
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104067"
+    },
+    {
+      id: "5097854",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2022-09-19 14:51:24.0000000",
+      point: {
+        lng: -73.98111623,
+        lat: 40.72627608,
+        x: 652.59,
+        y: 559.54
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097854"
+    },
+    {
+      id: "5108326",
+      active: true,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 13,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98070159,
+        lat: 40.72599724,
+        x: 758.43,
+        y: 653.45
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108326"
+    },
+    {
+      id: "5106979",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98032067,
+        lat: 40.72650666,
+        x: 855.65,
+        y: 481.88
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106979"
+    },
+    {
+      id: "5107743",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98083967,
+        lat: 40.72612988,
+        x: 723.18,
+        y: 608.78
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107743"
+    },
+    {
+      id: "5109390",
+      active: true,
+      latinName: "Lagerstroemia",
+      commonName: "lagerstroemia",
+      dbh: 6,
+      condition: "Fair",
+      structure: "Full",
+      point: {
+        lng: -73.98100348,
+        lat: 40.72652424,
+        x: 681.37,
+        y: 475.96
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109390"
+    },
+    {
+      id: "5100836",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.98094646,
+        lat: 40.72660273,
+        x: 695.92,
+        y: 449.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100836"
+    },
+    {
+      id: "5103247",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "3",
+      updatedDate: "2019-04-10 16:54:20.0000000",
+      point: {
+        lng: -73.98142532,
+        lat: 40.72649106,
+        x: 573.7,
+        y: 487.13
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103247"
+    },
+    {
+      id: "5105831",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98071715,
+        lat: 40.72618429,
+        x: 754.46,
+        y: 590.45
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105831"
+    },
+    {
+      id: "5110694",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98099999,
+        lat: 40.72611671,
+        x: 682.26,
+        y: 613.22
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110694"
+    },
+    {
+      id: "5107025",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 36,
+      condition: "Poor",
+      structure: "Retired",
+      riskRating: "7",
+      updatedDate: "2023-03-08 20:40:28.0000000",
+      point: {
+        lng: -73.98067773,
+        lat: 40.72632002,
+        x: 764.52,
+        y: 544.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107025"
+    },
+    {
+      id: "5112422",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98086964,
+        lat: 40.72611988,
+        x: 715.53,
+        y: 612.15
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112422"
+    },
+    {
+      id: "5100937",
+      active: true,
+      latinName: "Prunus virginiana",
+      commonName: "chokecherry",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98091047,
+        lat: 40.72608124,
+        x: 705.11,
+        y: 625.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100937"
+    },
+    {
+      id: "5100978",
+      active: false,
+      latinName: "Acer palmatum",
+      commonName: "Japanese maple",
+      dbh: 4,
+      condition: "Dead",
+      structure: "Stump",
+      riskRating: "7",
+      updatedDate: "2022-08-19 16:09:00.0000000",
+      point: {
+        lng: -73.98146869,
+        lat: 40.72654003,
+        x: 562.63,
+        y: 470.64
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100978"
+    },
+    {
+      id: "5111358",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 36,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 15:06:12.0000000",
+      point: {
+        lng: -73.98068689,
+        lat: 40.72604759,
+        x: 762.18,
+        y: 636.49
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111358"
+    },
+    {
+      id: "5110750",
+      active: true,
+      latinName: "Quercus ellipsoidalis",
+      commonName: "northern pin oak",
+      dbh: 24,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98144606,
+        lat: 40.7260055,
+        x: 568.41,
+        y: 650.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110750"
+    },
+    {
+      id: "5101393",
+      active: true,
+      latinName: "Quercus phellos",
+      commonName: "willow oak",
+      dbh: 31,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-07-27 16:42:59.0000000",
+      point: {
+        lng: -73.9815357,
+        lat: 40.7259712,
+        x: 545.53,
+        y: 662.22
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101393"
+    },
+    {
+      id: "5102003",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2022-01-09 14:38:37.0000000",
+      point: {
+        lng: -73.98112881,
+        lat: 40.72631499,
+        x: 649.38,
+        y: 546.43
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102003"
+    },
+    {
+      id: "5108502",
+      active: true,
+      latinName: "Robinia pseudoacacia",
+      commonName: "black locust",
+      dbh: 13,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2022-01-09 15:23:50.0000000",
+      point: {
+        lng: -73.98099548,
+        lat: 40.7263148,
+        x: 683.41,
+        y: 546.5
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108502"
+    },
+    {
+      id: "5110485",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 12,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-08-17 15:45:49.0000000",
+      point: {
+        lng: -73.98151217,
+        lat: 40.72610116,
+        x: 551.53,
+        y: 618.45
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110485"
+    },
+    {
+      id: "5104219",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 36,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-04-07 14:57:49.0000000",
+      point: {
+        lng: -73.9812462,
+        lat: 40.72632224,
+        x: 619.42,
+        y: 543.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104219"
+    },
+    {
+      id: "5104085",
+      active: true,
+      latinName: "Liriodendron tulipifera",
+      commonName: "tuliptree",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98140944,
+        lat: 40.7264638,
+        x: 577.75,
+        y: 496.31
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104085"
+    },
+    {
+      id: "5107871",
+      active: true,
+      latinName: "Pinus strobus",
+      commonName: "eastern white pine",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98074799,
+        lat: 40.72626112,
+        x: 746.58,
+        y: 564.58
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107871"
+    },
+    {
+      id: "5109079",
+      active: false,
+      latinName: "Picea",
+      commonName: "spruce",
+      dbh: 5,
+      condition: "Dead",
+      structure: "Stump",
+      riskRating: "6",
+      updatedDate: "2026-04-15 17:50:00.0000000",
+      point: {
+        lng: -73.98149498,
+        lat: 40.72663871,
+        x: 555.92,
+        y: 437.4
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109079"
+    },
+    {
+      id: "5105023",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 17,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2020-07-31 15:26:28.0000000",
+      point: {
+        lng: -73.9809645,
+        lat: 40.72661343,
+        x: 691.32,
+        y: 445.92
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105023"
+    },
+    {
+      id: "5097791",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 34,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "10",
+      updatedDate: "2023-03-15 17:25:00.0000000",
+      point: {
+        lng: -73.98142394,
+        lat: 40.72625937,
+        x: 574.05,
+        y: 565.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097791"
+    },
+    {
+      id: "5111502",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 11,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2022-09-19 14:56:01.0000000",
+      point: {
+        lng: -73.98095838,
+        lat: 40.72650601,
+        x: 692.88,
+        y: 482.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111502"
+    },
+    {
+      id: "5102432",
+      active: true,
+      latinName: "Quercus phellos",
+      commonName: "willow oak",
+      dbh: 11,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98103165,
+        lat: 40.72606304,
+        x: 674.18,
+        y: 631.29
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102432"
+    },
+    {
+      id: "5105888",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98104589,
+        lat: 40.72603768,
+        x: 670.55,
+        y: 639.83
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105888"
+    },
+    {
+      id: "5106105",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 42,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2026-04-13 15:31:00.0000000",
+      point: {
+        lng: -73.98135732,
+        lat: 40.72654622,
+        x: 591.06,
+        y: 468.55
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106105"
+    },
+    {
+      id: "5104377",
+      active: true,
+      latinName: "Picea",
+      commonName: "spruce",
+      dbh: 11,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98168274,
+        lat: 40.7261199,
+        x: 508,
+        y: 612.14
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104377"
+    },
+    {
+      id: "5102236",
+      active: true,
+      latinName: "Picea pungens",
+      commonName: "blue spruce",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      updatedDate: "2024-09-17 14:54:00.0000000",
+      point: {
+        lng: -73.98170117,
+        lat: 40.72624486,
+        x: 503.29,
+        y: 570.06
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102236"
+    },
+    {
+      id: "5099057",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98084225,
+        lat: 40.72607903,
+        x: 722.52,
+        y: 625.91
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099057"
+    },
+    {
+      id: "5104477",
+      active: true,
+      latinName: "Ostrya virginiana",
+      commonName: "hophornbeam",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9808965,
+        lat: 40.72624987,
+        x: 708.68,
+        y: 568.37
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104477"
+    },
+    {
+      id: "5107524",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98067846,
+        lat: 40.7261908,
+        x: 764.33,
+        y: 588.26
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107524"
+    },
+    {
+      id: "5107285",
+      active: false,
+      latinName: "Magnolia",
+      commonName: "magnolia",
+      dbh: 3,
+      condition: "Dead",
+      structure: "Stump",
+      riskRating: "6",
+      updatedDate: "2026-04-15 17:49:00.0000000",
+      point: {
+        lng: -73.98148883,
+        lat: 40.72659058,
+        x: 557.49,
+        y: 453.61
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107285"
+    },
+    {
+      id: "5112067",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 34,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2022-09-29 10:51:42.0000000",
+      point: {
+        lng: -73.98172885,
+        lat: 40.72654515,
+        x: 496.22,
+        y: 468.91
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112067"
+    },
+    {
+      id: "5099176",
+      active: true,
+      latinName: "Magnolia",
+      commonName: "magnolia",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9809652,
+        lat: 40.7263338,
+        x: 691.14,
+        y: 540.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099176"
+    },
+    {
+      id: "5103188",
+      active: true,
+      latinName: "Malus",
+      commonName: "apple",
+      dbh: 8,
+      condition: "Poor",
+      structure: "Full",
+      point: {
+        lng: -73.98129447,
+        lat: 40.72636111,
+        x: 607.1,
+        y: 530.9
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103188"
+    },
+    {
+      id: "5109288",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 31,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2018-03-12 14:03:49.0000000",
+      point: {
+        lng: -73.98085033,
+        lat: 40.7266248,
+        x: 720.46,
+        y: 442.09
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109288"
+    },
+    {
+      id: "5112131",
+      active: true,
+      latinName: "Pseudotsuga menziesii",
+      commonName: "Douglas-fir",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98081759,
+        lat: 40.72624061,
+        x: 728.82,
+        y: 571.49
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112131"
+    },
+    {
+      id: "5111398",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98089045,
+        lat: 40.72614507,
+        x: 710.22,
+        y: 603.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111398"
+    },
+    {
+      id: "5100834",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Critical",
+      structure: "Full",
+      point: {
+        lng: -73.98095802,
+        lat: 40.72611952,
+        x: 692.97,
+        y: 612.27
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100834"
+    },
+    {
+      id: "5104178",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 28,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2022-08-24 18:24:30.0000000",
+      point: {
+        lng: -73.98161103,
+        lat: 40.72649349,
+        x: 526.3,
+        y: 486.31
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104178"
+    },
+    {
+      id: "5112831",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 23,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2023-07-12 15:11:02.0000000",
+      point: {
+        lng: -73.98080239,
+        lat: 40.72654497,
+        x: 732.7,
+        y: 468.97
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112831"
+    },
+    {
+      id: "5101700",
+      active: true,
+      latinName: "Acer rubrum",
+      commonName: "red maple",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9811373,
+        lat: 40.72657421,
+        x: 647.21,
+        y: 459.13
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101700"
+    },
+    {
+      id: "5113242",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.98025038,
+        lat: 40.72665273,
+        x: 873.59,
+        y: 432.68
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113242"
+    },
+    {
+      id: "5115070",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 11,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98092366,
+        lat: 40.72634671,
+        x: 701.74,
+        y: 535.75
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5115070"
+    },
+    {
+      id: "5113824",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98072797,
+        lat: 40.72610859,
+        x: 751.69,
+        y: 615.95
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113824"
+    },
+    {
+      id: "5113674",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 8,
+      condition: "Fair",
+      structure: "Full",
+      point: {
+        lng: -73.98065119,
+        lat: 40.7265464,
+        x: 771.29,
+        y: 468.49
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113674"
+    },
+    {
+      id: "5113381",
+      active: true,
+      latinName: "Styrax japonicus",
+      commonName: "Japanese snowbell",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98093593,
+        lat: 40.72660326,
+        x: 698.61,
+        y: 449.34
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113381"
+    },
+    {
+      id: "5113996",
+      active: true,
+      latinName: "Acer palmatum",
+      commonName: "Japanese maple",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98085607,
+        lat: 40.72640974,
+        x: 719,
+        y: 514.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113996"
+    },
+    {
+      id: "6017985",
+      active: true,
+      latinName: "Tilia cordata",
+      commonName: "littleleaf linden",
+      dbh: 12,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2019-02-11 15:15:00.0000000",
+      point: {
+        lng: -73.98081718,
+        lat: 40.72628941,
+        x: 728.92,
+        y: 555.05
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/6017985"
+    },
+    {
+      id: "6082250",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 28,
+      condition: "Poor",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2026-04-07 14:14:08.0000000",
+      point: {
+        lng: -73.98035078,
+        lat: 40.72648931,
+        x: 847.97,
+        y: 487.72
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/6082250"
+    },
+    {
+      id: "10462005",
+      active: false,
+      latinName: "Liquidambar styraciflua",
+      commonName: "sweetgum",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Retired",
+      updatedDate: "2025-08-25 15:02:56.0000000",
+      point: {
+        lng: -73.98171625,
+        lat: 40.72595178,
+        x: 499.44,
+        y: 668.76
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462005"
+    },
+    {
+      id: "13883746",
+      active: true,
+      latinName: "Ulmus 'Patriot'",
+      commonName: "'Patriot' Elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98147464,
+        lat: 40.72646641,
+        x: 561.11,
+        y: 495.44
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13883746"
+    },
+    {
+      id: "13878287",
+      active: true,
+      latinName: "Prunus 'Snow Goose'",
+      commonName: "'Snow Goose' Cherry",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98082703,
+        lat: 40.72600973,
+        x: 726.41,
+        y: 649.25
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878287"
+    },
+    {
+      id: "13878288",
+      active: true,
+      latinName: "Ulmus 'Patriot'",
+      commonName: "'Patriot' Elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98142394,
+        lat: 40.72625937,
+        x: 574.05,
+        y: 565.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878288"
+    },
+    {
+      id: "14514581",
+      active: true,
+      latinName: "Amelanchier canadensis 'Robin Hill'",
+      commonName: "'Robin Hill' Canadian serviceberry",
+      dbh: 2,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98048488,
+        lat: 40.72627712,
+        x: 813.74,
+        y: 559.19
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514581"
+    },
+    {
+      id: "14514580",
+      active: false,
+      latinName: "Amelanchier canadensis 'Robin Hill'",
+      commonName: "'Robin Hill' Canadian serviceberry",
+      dbh: 2,
+      condition: "Excellent",
+      structure: "Retired",
+      updatedDate: "2026-02-19 15:35:25.0000000",
+      point: {
+        lng: -73.98041168,
+        lat: 40.72638263,
+        x: 832.42,
+        y: 523.65
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514580"
+    },
+    {
+      id: "14516269",
+      active: true,
+      latinName: "Taxodium distichum",
+      commonName: "bald cypress",
+      dbh: 2,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98067773,
+        lat: 40.72632002,
+        x: 764.52,
+        y: 544.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14516269"
+    },
+    {
+      id: "15207053",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2024-05-31 14:10:45.0000000",
+      point: {
+        lng: -73.98042118,
+        lat: 40.72664738,
+        x: 830,
+        y: 434.48
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/15207053"
+    },
+    {
+      id: "4872026",
+      active: true,
+      latinName: "Morus",
+      commonName: "mulberry",
+      dbh: 35,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2024-08-29 14:27:01.0000000",
+      point: {
+        lng: -73.98180747,
+        lat: 40.72546943,
+        x: 476.16,
+        y: 831.22
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4872026"
+    },
+    {
+      id: "4973702",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 16,
+      condition: "Good",
+      structure: "Full",
+      updatedDate: "2017-06-19 08:15:22.0000000",
+      point: {
+        lng: -73.98222439,
+        lat: 40.72589715,
+        x: 369.74,
+        y: 687.17
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973702"
+    },
+    {
+      id: "4973700",
+      active: true,
+      latinName: "Quercus",
+      commonName: "Oak",
+      dbh: 40,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2022-09-20 15:57:40.0000000",
+      point: {
+        lng: -73.98241359,
+        lat: 40.72631659,
+        x: 321.45,
+        y: 545.9
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973700"
+    },
+    {
+      id: "5011744",
+      active: true,
+      latinName: "Robinia pseudoacacia",
+      commonName: "black locust",
+      dbh: 28,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2017-11-21 04:11:11.0000000",
+      point: {
+        lng: -73.98241484,
+        lat: 40.72571132,
+        x: 321.13,
+        y: 749.75
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5011744"
+    },
+    {
+      id: "4973699",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 18,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2017-11-21 04:11:11.0000000",
+      point: {
+        lng: -73.98210905,
+        lat: 40.72619443,
+        x: 399.18,
+        y: 587.04
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/4973699"
+    },
+    {
+      id: "5096601",
+      active: true,
+      latinName: "Larix laricina",
+      commonName: "tamarack",
+      dbh: 5,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98229377,
+        lat: 40.72571813,
+        x: 352.04,
+        y: 747.46
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096601"
+    },
+    {
+      id: "5094924",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 8,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98254301,
+        lat: 40.72600802,
+        x: 288.42,
+        y: 649.82
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094924"
+    },
+    {
+      id: "5096211",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 34,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-08-29 13:51:36.0000000",
+      point: {
+        lng: -73.98212257,
+        lat: 40.72639402,
+        x: 395.73,
+        y: 519.82
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5096211"
+    },
+    {
+      id: "5094899",
+      active: false,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 6,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "8",
+      updatedDate: "2023-05-24 15:27:00.0000000",
+      point: {
+        lng: -73.98217451,
+        lat: 40.72559472,
+        x: 382.47,
+        y: 789.02
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094899"
+    },
+    {
+      id: "5095559",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98223,
+        lat: 40.72653895,
+        x: 368.31,
+        y: 471
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095559"
+    },
+    {
+      id: "5095230",
+      active: true,
+      latinName: "Platanus x acerifolia",
+      commonName: "London planetree",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98249335,
+        lat: 40.72575724,
+        x: 301.09,
+        y: 734.29
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5095230"
+    },
+    {
+      id: "5094971",
+      active: false,
+      latinName: "Pyrus calleryana",
+      commonName: "Callery pear",
+      dbh: 25,
+      condition: "Dead",
+      structure: "Stump",
+      riskRating: "3",
+      updatedDate: "2024-12-10 16:44:19.0000000",
+      point: {
+        lng: -73.98280218,
+        lat: 40.72650896,
+        x: 222.27,
+        y: 481.1
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5094971"
+    },
+    {
+      id: "5078639",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 30,
+      condition: "Fair",
+      structure: "Retired",
+      riskRating: "10",
+      updatedDate: "2017-11-21 04:11:11.0000000",
+      point: {
+        lng: -73.98174675,
+        lat: 40.72542398,
+        x: 491.66,
+        y: 846.53
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5078639"
+    },
+    {
+      id: "5104410",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 20,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98228867,
+        lat: 40.72582819,
+        x: 353.33,
+        y: 710.39
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104410"
+    },
+    {
+      id: "5099283",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 11,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-05-14 20:51:55.0000000",
+      point: {
+        lng: -73.98193874,
+        lat: 40.72549692,
+        x: 442.65,
+        y: 821.96
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5099283"
+    },
+    {
+      id: "5111052",
+      active: true,
+      latinName: "Quercus phellos",
+      commonName: "willow oak",
+      dbh: 10,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98223086,
+        lat: 40.72632224,
+        x: 368.09,
+        y: 543.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5111052"
+    },
+    {
+      id: "5102706",
+      active: false,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 8,
+      condition: "Critical",
+      structure: "Stump",
+      riskRating: "12",
+      updatedDate: "2026-02-26 19:19:00.0000000",
+      point: {
+        lng: -73.98283282,
+        lat: 40.72587125,
+        x: 214.45,
+        y: 695.89
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102706"
+    },
+    {
+      id: "5102362",
+      active: true,
+      latinName: "Robinia pseudoacacia",
+      commonName: "black locust",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9825246,
+        lat: 40.72575611,
+        x: 293.12,
+        y: 734.67
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5102362"
+    },
+    {
+      id: "5101643",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 12,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-05-14 20:48:46.0000000",
+      point: {
+        lng: -73.9820489,
+        lat: 40.72554451,
+        x: 414.54,
+        y: 805.93
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101643"
+    },
+    {
+      id: "5110249",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 12,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-05-14 20:41:12.0000000",
+      point: {
+        lng: -73.98210288,
+        lat: 40.72556597,
+        x: 400.76,
+        y: 798.71
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110249"
+    },
+    {
+      id: "5105816",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 38,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2026-04-07 15:02:20.0000000",
+      point: {
+        lng: -73.98175702,
+        lat: 40.72638408,
+        x: 489.04,
+        y: 523.16
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5105816"
+    },
+    {
+      id: "5104544",
+      active: true,
+      latinName: "Juniperus virginiana",
+      commonName: "eastern redcedar",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98196822,
+        lat: 40.7258495,
+        x: 435.13,
+        y: 703.21
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5104544"
+    },
+    {
+      id: "5110933",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98239105,
+        lat: 40.72602574,
+        x: 327.2,
+        y: 643.86
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110933"
+    },
+    {
+      id: "5097193",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 52,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-02-20 16:53:02.0000000",
+      point: {
+        lng: -73.98200696,
+        lat: 40.72612955,
+        x: 425.24,
+        y: 608.89
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097193"
+    },
+    {
+      id: "5103900",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 18,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9817926,
+        lat: 40.72585908,
+        x: 479.95,
+        y: 699.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103900"
+    },
+    {
+      id: "5103294",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9823371,
+        lat: 40.72567483,
+        x: 340.97,
+        y: 762.04
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103294"
+    },
+    {
+      id: "5103773",
+      active: false,
+      commonName: "Unknown",
+      dbh: 12,
+      condition: "Unknown",
+      structure: "Retired",
+      updatedDate: "2020-01-29 18:36:00.0000000",
+      point: {
+        lng: -73.9823938,
+        lat: 40.72571009,
+        x: 326.5,
+        y: 750.17
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103773"
+    },
+    {
+      id: "5112905",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 10,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2022-09-19 15:20:43.0000000",
+      point: {
+        lng: -73.98183021,
+        lat: 40.72579898,
+        x: 470.35,
+        y: 720.23
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112905"
+    },
+    {
+      id: "5101493",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 8,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98189363,
+        lat: 40.72648766,
+        x: 454.17,
+        y: 488.28
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101493"
+    },
+    {
+      id: "5110815",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 35,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.9824429,
+        lat: 40.72641095,
+        x: 313.97,
+        y: 514.11
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110815"
+    },
+    {
+      id: "5110067",
+      active: true,
+      latinName: "Ulmus parvifolia",
+      commonName: "Chinese elm",
+      dbh: 12,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2025-05-14 20:49:28.0000000",
+      point: {
+        lng: -73.98199442,
+        lat: 40.72551801,
+        x: 428.44,
+        y: 814.86
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110067"
+    },
+    {
+      id: "5100111",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 27,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-08-29 13:47:28.0000000",
+      point: {
+        lng: -73.98194006,
+        lat: 40.72644118,
+        x: 442.32,
+        y: 503.93
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100111"
+    },
+    {
+      id: "5110004",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 16,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98267124,
+        lat: 40.72585387,
+        x: 255.69,
+        y: 701.74
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5110004"
+    },
+    {
+      id: "5097189",
+      active: false,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 24,
+      condition: "Poor",
+      structure: "Stump",
+      riskRating: "9",
+      updatedDate: "2021-08-02 09:33:00.0000000",
+      point: {
+        lng: -73.98197395,
+        lat: 40.72648593,
+        x: 433.67,
+        y: 488.86
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097189"
+    },
+    {
+      id: "5103587",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 27,
+      condition: "Good",
+      structure: "Retired",
+      updatedDate: "2020-03-21 20:06:39.0000000",
+      point: {
+        lng: -73.98174675,
+        lat: 40.72542398,
+        x: 491.66,
+        y: 846.53
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103587"
+    },
+    {
+      id: "5097273",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 3,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98234123,
+        lat: 40.72655268,
+        x: 339.92,
+        y: 466.38
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5097273"
+    },
+    {
+      id: "5107384",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 33,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2022-08-04 13:34:23.0000000",
+      point: {
+        lng: -73.9820434,
+        lat: 40.72624645,
+        x: 415.94,
+        y: 569.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5107384"
+    },
+    {
+      id: "5106242",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 38,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2026-04-07 14:43:29.0000000",
+      point: {
+        lng: -73.98223834,
+        lat: 40.72595336,
+        x: 366.18,
+        y: 668.23
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5106242"
+    },
+    {
+      id: "5109792",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-20 16:38:48.0000000",
+      point: {
+        lng: -73.98255728,
+        lat: 40.72579537,
+        x: 284.77,
+        y: 721.44
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109792"
+    },
+    {
+      id: "5108626",
+      active: true,
+      latinName: "Quercus bicolor",
+      commonName: "swamp white oak",
+      dbh: 5,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98232967,
+        lat: 40.72602826,
+        x: 342.87,
+        y: 643.01
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108626"
+    },
+    {
+      id: "5100287",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 27,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-20 15:59:37.0000000",
+      point: {
+        lng: -73.98260304,
+        lat: 40.72604769,
+        x: 273.1,
+        y: 636.46
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5100287"
+    },
+    {
+      id: "5109166",
+      active: true,
+      latinName: "Prunus",
+      commonName: "Cherry",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98224339,
+        lat: 40.7256324,
+        x: 364.89,
+        y: 776.33
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5109166"
+    },
+    {
+      id: "5103733",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "9",
+      updatedDate: "2018-12-05 14:22:17.0000000",
+      point: {
+        lng: -73.9829727,
+        lat: 40.72651725,
+        x: 178.74,
+        y: 478.31
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103733"
+    },
+    {
+      id: "5108455",
+      active: true,
+      latinName: "Quercus phellos",
+      commonName: "willow oak",
+      dbh: 34,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98211822,
+        lat: 40.72650634,
+        x: 396.84,
+        y: 481.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108455"
+    },
+    {
+      id: "5112427",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 9,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-08-17 15:42:47.0000000",
+      point: {
+        lng: -73.98181524,
+        lat: 40.72650673,
+        x: 474.17,
+        y: 481.85
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5112427"
+    },
+    {
+      id: "5101404",
+      active: false,
+      commonName: "Unknown",
+      dbh: 0,
+      condition: "Unknown",
+      structure: "Stump",
+      point: {
+        lng: -73.98221151,
+        lat: 40.72565041,
+        x: 373.03,
+        y: 770.27
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101404"
+    },
+    {
+      id: "5101010",
+      active: true,
+      latinName: "Quercus rubra",
+      commonName: "northern red oak",
+      dbh: 27,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2025-05-13 18:11:33.0000000",
+      point: {
+        lng: -73.98246336,
+        lat: 40.72632817,
+        x: 308.75,
+        y: 541.99
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101010"
+    },
+    {
+      id: "5108007",
+      active: true,
+      latinName: "Ilex",
+      commonName: "holly",
+      dbh: 2,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98204186,
+        lat: 40.72584225,
+        x: 416.33,
+        y: 705.65
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5108007"
+    },
+    {
+      id: "5103842",
+      active: true,
+      latinName: "Chamaecyparis thyoides",
+      commonName: "Atlantic white cedar",
+      dbh: 14,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2026-03-25 13:52:05.0000000",
+      point: {
+        lng: -73.98217529,
+        lat: 40.72573329,
+        x: 382.28,
+        y: 742.35
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103842"
+    },
+    {
+      id: "5101225",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2024-08-29 14:05:01.0000000",
+      point: {
+        lng: -73.98236568,
+        lat: 40.72596921,
+        x: 333.68,
+        y: 662.89
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5101225"
+    },
+    {
+      id: "5103584",
+      active: true,
+      latinName: "Styphnolobium japonicum",
+      commonName: "Japanese pagoda tree",
+      dbh: 22,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2022-09-20 16:09:18.0000000",
+      point: {
+        lng: -73.98210655,
+        lat: 40.72630021,
+        x: 399.82,
+        y: 551.41
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5103584"
+    },
+    {
+      id: "5113294",
+      active: false,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 30,
+      condition: "Dead",
+      structure: "Retired",
+      riskRating: "9",
+      updatedDate: "2024-11-13 14:14:00.0000000",
+      point: {
+        lng: -73.98271576,
+        lat: 40.72596701,
+        x: 244.32,
+        y: 663.63
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113294"
+    },
+    {
+      id: "5113697",
+      active: true,
+      latinName: "Metasequoia glyptostroboides",
+      commonName: "dawn redwood",
+      dbh: 4,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98206275,
+        lat: 40.72655548,
+        x: 411,
+        y: 465.44
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113697"
+    },
+    {
+      id: "5113283",
+      active: true,
+      latinName: "Lagerstroemia",
+      commonName: "lagerstroemia",
+      dbh: 13,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98237638,
+        lat: 40.72573836,
+        x: 330.95,
+        y: 740.64
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113283"
+    },
+    {
+      id: "5114496",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "7",
+      updatedDate: "2024-08-29 14:09:00.0000000",
+      point: {
+        lng: -73.98249977,
+        lat: 40.72596772,
+        x: 299.45,
+        y: 663.4
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114496"
+    },
+    {
+      id: "5113405",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 22,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "5",
+      updatedDate: "2026-04-07 14:40:44.0000000",
+      point: {
+        lng: -73.98255946,
+        lat: 40.72593572,
+        x: 284.22,
+        y: 674.17
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113405"
     },
     {
       id: "5114412",
+      active: true,
       latinName: "Platanus x acerifolia",
       commonName: "London planetree",
       dbh: 21,
@@ -8121,6 +9392,7 @@ export const tompkinsMapData = {
     },
     {
       id: "5114104",
+      active: true,
       latinName: "Ulmus americana",
       commonName: "American elm",
       dbh: 41,
@@ -8137,23 +9409,124 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114104"
     },
     {
-      id: "10461520",
-      latinName: "Cladrastis kentukea",
-      commonName: "Kentucky yellowwood",
+      id: "5113692",
+      active: true,
+      latinName: "Quercus palustris",
+      commonName: "pin oak",
+      dbh: 26,
+      condition: "Good",
+      structure: "Full",
+      riskRating: "8",
+      updatedDate: "2024-08-29 14:18:08.0000000",
+      point: {
+        lng: -73.98189531,
+        lat: 40.72566437,
+        x: 453.74,
+        y: 765.57
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113692"
+    },
+    {
+      id: "5113930",
+      active: true,
+      latinName: "Ulmus americana",
+      commonName: "American elm",
+      dbh: 35,
+      condition: "Fair",
+      structure: "Full",
+      riskRating: "6",
+      updatedDate: "2026-04-07 14:45:15.0000000",
+      point: {
+        lng: -73.98198027,
+        lat: 40.72568533,
+        x: 432.05,
+        y: 758.51
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5113930"
+    },
+    {
+      id: "5114757",
+      active: true,
+      latinName: "Cornus kousa",
+      commonName: "kousa dogwood",
+      dbh: 7,
+      condition: "Good",
+      structure: "Full",
+      point: {
+        lng: -73.98237971,
+        lat: 40.72605635,
+        x: 330.1,
+        y: 633.54
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/5114757"
+    },
+    {
+      id: "10462003",
+      active: true,
+      latinName: "Ulmus 'Homestead'",
+      commonName: "'Homestead' Elm",
       dbh: 3,
       condition: "Excellent",
       structure: "Full",
-      updatedDate: "2020-03-10 14:12:00.0000000",
       point: {
-        lng: -73.98272935,
-        lat: 40.72612825,
-        x: 240.86,
-        y: 609.33
+        lng: -73.98227228,
+        lat: 40.72616737,
+        x: 357.52,
+        y: 596.15
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10461520"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462003"
+    },
+    {
+      id: "10331237",
+      active: false,
+      commonName: "Unknown",
+      dbh: 7,
+      condition: "Unknown",
+      structure: "Retired",
+      updatedDate: "2020-01-29 18:37:00.0000000",
+      point: {
+        lng: -73.98284488,
+        lat: 40.72594447,
+        x: 211.37,
+        y: 671.23
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10331237"
+    },
+    {
+      id: "10462434",
+      active: false,
+      latinName: "Liquidambar styraciflua",
+      commonName: "sweetgum",
+      condition: "Dead",
+      structure: "Stump",
+      updatedDate: "2025-08-25 16:47:50.0000000",
+      point: {
+        lng: -73.9818542,
+        lat: 40.72660867,
+        x: 464.23,
+        y: 447.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462434"
+    },
+    {
+      id: "10462435",
+      active: true,
+      latinName: "Ulmus 'Homestead'",
+      commonName: "'Homestead' Elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98228326,
+        lat: 40.72609584,
+        x: 354.72,
+        y: 620.24
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/10462435"
     },
     {
       id: "13878736",
+      active: true,
       latinName: "Acer rubrum",
       commonName: "red maple",
       dbh: 3,
@@ -8168,66 +9541,84 @@ export const tompkinsMapData = {
       treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878736"
     },
     {
-      id: "13879449",
-      latinName: "Cladrastis kentukea",
-      commonName: "Kentucky yellowwood",
+      id: "13640769",
+      active: false,
+      commonName: "Unknown",
+      dbh: 29,
+      condition: "Dead",
+      structure: "Retired",
+      updatedDate: "2024-11-13 14:14:00.0000000",
+      point: {
+        lng: -73.98265195,
+        lat: 40.72584561,
+        x: 260.61,
+        y: 704.52
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13640769"
+    },
+    {
+      id: "13878284",
+      active: true,
+      latinName: "Prunus 'Snow Goose'",
+      commonName: "'Snow Goose' Cherry",
       dbh: 3,
       condition: "Excellent",
       structure: "Full",
       point: {
-        lng: -73.98270704,
-        lat: 40.72638544,
-        x: 246.55,
-        y: 522.71
+        lng: -73.98246113,
+        lat: 40.72617712,
+        x: 309.32,
+        y: 592.87
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13879449"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878284"
     },
     {
-      id: "14514578",
-      latinName: "Acer miyabei 'State Street'",
-      commonName: "'State Street' Miyabe maple",
+      id: "13878285",
+      active: true,
+      latinName: "Ulmus parvifolia 'Allee'",
+      commonName: "'Allee' Chinese elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98217451,
+        lat: 40.72559472,
+        x: 382.47,
+        y: 789.02
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878285"
+    },
+    {
+      id: "13878737",
+      active: true,
+      latinName: "Ulmus parvifolia 'Allee'",
+      commonName: "'Allee' Chinese elm",
+      dbh: 3,
+      condition: "Excellent",
+      structure: "Full",
+      point: {
+        lng: -73.98174675,
+        lat: 40.72542398,
+        x: 491.66,
+        y: 846.53
+      },
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/13878737"
+    },
+    {
+      id: "14516268",
+      active: true,
+      latinName: "Cornus mas",
+      commonName: "Cornelian cherry",
       dbh: 2,
       condition: "Excellent",
       structure: "Full",
-      updatedDate: "2023-11-27 16:04:00.0000000",
       point: {
-        lng: -73.98326205,
-        lat: 40.72614203,
-        x: 104.89,
-        y: 604.69
+        lng: -73.98301159,
+        lat: 40.72603023,
+        x: 168.82,
+        y: 642.34
       },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514578"
-    },
-    {
-      id: "14514579",
-      latinName: "Quercus muehlenbergii",
-      commonName: "chinkapin oak",
-      dbh: 2,
-      condition: "Excellent",
-      structure: "Full",
-      updatedDate: "2023-11-27 16:04:00.0000000",
-      point: {
-        lng: -73.98321749,
-        lat: 40.72620282,
-        x: 116.26,
-        y: 584.21
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14514579"
-    },
-    {
-      id: "15763352",
-      latinName: "Quercus bicolor",
-      commonName: "swamp white oak",
-      dbh: 4,
-      condition: "Excellent",
-      structure: "Full",
-      point: {
-        lng: -73.98323507,
-        lat: 40.72603918,
-        x: 111.77,
-        y: 639.33
-      },
-      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/15763352"
+      treeMapUrl: "https://tree-map.nycgovparks.org/tree-map/tree/14516268"
     }
   ]
 } as const;
