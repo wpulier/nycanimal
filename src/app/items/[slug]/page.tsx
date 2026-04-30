@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ItemPageChrome } from "@/components/ItemPageChrome";
 import { ItemExperience } from "@/components/item-experiences/registry";
 import { localCatalogFallback } from "@/lib/catalogFallback";
+import { isCatalogItemLaunched } from "@/lib/catalogLifecycle";
 import { orderCatalogItems } from "@/lib/catalogOrder";
 import { getCatalogItemAdmin, getItemPageDataAdmin, getPublishedCatalogItemsAdmin } from "@/lib/catalogServer";
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = await getCatalogItemAdmin(slug);
 
-  if (!item) {
+  if (!item || !isCatalogItemLaunched(item)) {
     return { title: "Unknown catalog item" };
   }
 
@@ -29,14 +30,16 @@ export default async function ItemPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const [data, publishedItems] = await Promise.all([getItemPageDataAdmin(slug), getPublishedCatalogItemsAdmin()]);
 
-  if (!data) {
+  if (!data || !isCatalogItemLaunched(data.catalogItem)) {
     notFound();
   }
 
-  const navItems = orderCatalogItems(publishedItems).map((item) => ({
-    slug: item.slug,
-    commonName: item.commonName,
-  }));
+  const navItems = orderCatalogItems(publishedItems)
+    .filter(isCatalogItemLaunched)
+    .map((item) => ({
+      slug: item.slug,
+      commonName: item.commonName,
+    }));
 
   return (
     <ItemPageChrome currentSlug={slug} items={navItems}>

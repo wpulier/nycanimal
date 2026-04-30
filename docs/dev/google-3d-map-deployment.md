@@ -53,25 +53,79 @@ If the user taps Map before `onReady`, keep Catalog visible and mark the Map but
 
 ## Data and pin rules
 
-Map pins are derived from `catalogItems`.
+Map pins are derived from `catalogItems`. The Catalog sticker board and the Map tab do not use the same placement fields:
 
-Visibility:
+- Catalog sticker-board placement uses `stickerLayout` and renders CSS variables such as `--sticker-x`, `--sticker-y`, and `--sticker-w`.
+- Google 3D Map placement uses geographic coordinates first, then map projection fallback fields.
 
-- Default visible pins are curated primary collection items.
-- Generated tree species cards are hidden by default.
-- Future items can opt in with `mapPin.enabled: true`.
+### Pin visibility
 
-Position precedence:
+An item gets onto the Google 3D map through `catalogItems.<slug>.mapPin.enabled`, with a curated default allowlist for the primary first collection.
+
+The runtime visibility rule is:
+
+```ts
+item.mapPin?.enabled ?? DEFAULT_GOOGLE_PIN_SLUGS.has(item.slug)
+```
+
+That means:
+
+- `mapPin.enabled: true` forces an item onto the map.
+- `mapPin.enabled: false` forces an item off the map.
+- No `mapPin` field means only the hardcoded default slugs appear.
+
+Current default visible slugs:
+
+```txt
+rock-pigeon
+eastern-gray-squirrel
+house-sparrow
+american-elm
+london-plane
+cobblestone-edge
+```
+
+Generated tree species cards are hidden by default unless a document opts in with `mapPin.enabled: true`.
+
+### Pin position
+
+Map coordinates come from the catalog item itself. The runtime position precedence is:
 
 1. `coordinates`
 2. `geo`
 3. projected `position.mapX` / `position.mapY`
+
+Use `coordinates` for accurate real-world placement:
+
+```ts
+coordinates: {
+  latitude: 40.72669402,
+  longitude: -73.98183092
+}
+```
+
+`geo` is kept as a legacy fallback. Prefer `coordinates` for new or edited items.
+
+If neither `coordinates` nor `geo` exists, the map falls back to the older internal map-position fields:
+
+```ts
+position: {
+  mapX: 63,
+  mapY: 58
+}
+```
+
+Those values are scaled and projected against the imported Tompkins map geometry. They are useful for rough placement, but they should not be treated as the best source for real Google 3D map pins.
+
+### Pin display
 
 Marker image precedence:
 
 1. `mapPin.imageUrl`
 2. `stickerImageUrl`
 3. color/glyph fallback
+
+The marker label comes from `mapPin.label` first, then `sticker`.
 
 Pin taps open one anchored Google 3D popover with common name, optional Latin name, kind, and an `Open card` link.
 

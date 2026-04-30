@@ -300,14 +300,27 @@
   animation-delay: var(--delay);
 }
 
-.sticker:hover,
-.sticker:focus-visible {
+.sticker[data-launched="true"]:hover,
+.sticker[data-launched="true"]:focus-visible {
   transform: translate(-50%, calc(-50% - 9px)) rotate(var(--angle)) scale(1.045);
   outline: 0;
 }
 
-.sticker:active {
+.sticker[data-launched="true"]:active {
   transform: translate(-50%, calc(-50% - 3px)) rotate(var(--angle)) scale(0.985);
+}
+
+.sticker[data-launched="false"] {
+  cursor: default;
+  filter: grayscale(0.86) saturate(0.44);
+}
+
+.sticker[data-launched="false"] .placeholderSticker {
+  opacity: 0.62;
+}
+
+.sticker[data-launched="false"] .placeholderBacking {
+  fill: rgba(255, 253, 242, 0.72);
 }
 
 .stickerAsset {
@@ -381,6 +394,26 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.stickerStatus {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  z-index: 2;
+  transform: translateX(-50%) rotate(-1deg);
+  border: 1px solid rgba(27, 33, 24, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 247, 221, 0.86);
+  color: rgba(27, 33, 24, 0.54);
+  font-size: 0.54rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  padding: 4px 7px;
+  pointer-events: none;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 @keyframes stickerSettle {
@@ -530,6 +563,12 @@
     drop-shadow(0 5px 6px rgba(27, 33, 24, 0.14));
 }
 
+.google3dPin[data-launched="false"] {
+  --pin-color: #8d8f86;
+  filter: grayscale(0.9) saturate(0.42);
+  opacity: 0.78;
+}
+
 .google3dPopover {
   display: grid;
   gap: 8px;
@@ -560,6 +599,20 @@
   font-size: 0.82rem;
   font-weight: 900;
   padding: 8px 10px;
+}
+
+.google3dPopoverStatus {
+  display: inline-flex;
+  width: fit-content;
+  border: 1px solid rgba(255, 247, 221, 0.44);
+  border-radius: 999px;
+  color: rgba(255, 247, 221, 0.72);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  padding: 7px 9px;
+  text-transform: uppercase;
 }
 
 .treePopoverKicker {

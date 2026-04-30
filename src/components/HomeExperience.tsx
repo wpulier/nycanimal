@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { CatalogItem } from "@/lib/catalogSchema";
+import { isCatalogItemLaunched } from "@/lib/catalogLifecycle";
 import { orderCatalogItems } from "@/lib/catalogOrder";
 import styles from "@/app/page.module.css";
 
@@ -204,6 +205,31 @@ function PlaceholderSticker({ item }: { item: CatalogItem }) {
   );
 }
 
+function StickerContent({ item, index }: { item: CatalogItem; index: number }) {
+  const launched = isCatalogItemLaunched(item);
+
+  return (
+    <>
+      <span className={styles.stickerAsset}>
+        {launched && item.stickerImageUrl ? (
+          <img
+            src={item.stickerImageUrl}
+            alt=""
+            data-critical-sticker-image={index < HIGH_PRIORITY_STICKER_COUNT ? "true" : undefined}
+            decoding="async"
+            fetchPriority={index < HIGH_PRIORITY_STICKER_COUNT ? "high" : "auto"}
+            loading={index < INITIAL_EAGER_STICKER_COUNT ? "eager" : "lazy"}
+          />
+        ) : (
+          <PlaceholderSticker item={item} />
+        )}
+      </span>
+      <span className={styles.stickerId}>{item.sticker}</span>
+      {!launched ? <span className={styles.stickerStatus}>Coming soon</span> : null}
+    </>
+  );
+}
+
 export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }) {
   const [view, setView] = useState<"catalog" | "map">("catalog");
   const [mapWarmupState, setMapWarmupState] = useState<MapWarmupState>("idle");
@@ -314,42 +340,36 @@ export function HomeExperience({ initialItems }: { initialItems: CatalogItem[] }
 
               <span className={styles.paperDoodle} aria-hidden="true" />
 
-              {stickerViews.map(({ item, layout, index }) => (
-                <Link
-                  aria-label={`Open ${item.commonName}`}
-                  className={styles.sticker}
-                  data-featured={layout.featured ? "true" : undefined}
-                  data-has-asset={item.stickerImageUrl ? "true" : "false"}
-                  data-enter={index < INITIAL_ANIMATED_STICKER_COUNT ? "true" : undefined}
-                  href={`/items/${item.slug}`}
-                  key={item.slug}
-                  style={{
-                    "--sticker-x": `${layout.x}%`,
-                    "--sticker-y": `${layout.y}px`,
-                    "--sticker-w": `${layout.width}px`,
-                    "--angle": `${layout.rotate}deg`,
-                    "--sticker-color": item.color,
-                    "--z": layout.zIndex ?? index + 1,
-                    "--delay": `${Math.min(index, 18) * 34}ms`,
-                  } as CSSProperties}
-                >
-                  <span className={styles.stickerAsset}>
-                    {item.stickerImageUrl ? (
-                      <img
-                        src={item.stickerImageUrl}
-                        alt=""
-                        data-critical-sticker-image={index < HIGH_PRIORITY_STICKER_COUNT ? "true" : undefined}
-                        decoding="async"
-                        fetchPriority={index < HIGH_PRIORITY_STICKER_COUNT ? "high" : "auto"}
-                        loading={index < INITIAL_EAGER_STICKER_COUNT ? "eager" : "lazy"}
-                      />
-                    ) : (
-                      <PlaceholderSticker item={item} />
-                    )}
-                  </span>
-                  <span className={styles.stickerId}>{item.sticker}</span>
-                </Link>
-              ))}
+              {stickerViews.map(({ item, layout, index }) => {
+                const launched = isCatalogItemLaunched(item);
+                const stickerStyle = {
+                  "--sticker-x": `${layout.x}%`,
+                  "--sticker-y": `${layout.y}px`,
+                  "--sticker-w": `${layout.width}px`,
+                  "--angle": `${layout.rotate}deg`,
+                  "--sticker-color": item.color,
+                  "--z": layout.zIndex ?? index + 1,
+                  "--delay": `${Math.min(index, 18) * 34}ms`,
+                } as CSSProperties;
+                const stickerProps = {
+                  className: styles.sticker,
+                  "data-featured": layout.featured ? "true" : undefined,
+                  "data-has-asset": item.stickerImageUrl ? "true" : "false",
+                  "data-launched": launched ? "true" : "false",
+                  "data-enter": index < INITIAL_ANIMATED_STICKER_COUNT ? "true" : undefined,
+                  style: stickerStyle,
+                };
+
+                return launched ? (
+                  <Link aria-label={`Open ${item.commonName}`} href={`/items/${item.slug}`} key={item.slug} {...stickerProps}>
+                    <StickerContent item={item} index={index} />
+                  </Link>
+                ) : (
+                  <div aria-label={`${item.commonName} coming soon`} key={item.slug} {...stickerProps}>
+                    <StickerContent item={item} index={index} />
+                  </div>
+                );
+              })}
             </div>
           </section>
         </section>

@@ -37,7 +37,10 @@ This matters for layout and assets:
 
 - Editing `src/data/catalog.ts` does not automatically change `catalogItems` in Firebase.
 - Run the seed/upload scripts intentionally when Firestore should change.
+- `status: "published"` makes an item visible in the public collection; `status: "draft"` keeps it hidden.
+- A published item without `stickerImageUrl` is treated as coming soon: it can appear as a muted placeholder sticker/map pin, but it does not link to a detail page.
 - `stickerImageUrl` on `catalogItems/<slug>` is the fast homepage image path.
+- Uploading a `sticker` media asset launches the item because the uploader sets `stickerImageUrl` and `stickerAssetId`.
 - `mediaRefs` points detail pages to the richer `mediaAssets` records.
 - The app owns a few curated first-screen sticker layouts in `HomeExperience` so stale Firestore layout data cannot break the opening composition.
 - Uploaded/non-curated items can still use `catalogItems.<slug>.stickerLayout` for art direction.
@@ -62,7 +65,7 @@ Important fields:
   seasonalNote: string;
   facts: string[];
   experienceKey?: string;    // chooses bespoke React page
-  stickerImageUrl?: string;  // fast homepage sticker image
+  stickerImageUrl?: string;  // fast homepage sticker image; presence makes the item launched/clickable
   stickerAssetId?: string;   // mediaAssets id for sticker
   mediaRefs: string[];       // mediaAssets ids
   coordinates?: { latitude: number; longitude: number };
@@ -279,12 +282,14 @@ Speed rules:
 
 - Homepage reads `catalogItems` only.
 - Homepage uses `stickerImageUrl`; it should not resolve every `mediaAssets` document.
+- Published items without `stickerImageUrl` render as coming-soon placeholders and are not clickable.
 - The first visible sticker images are prioritized; map warm-up runs only after sticker load has started.
 - Keep the first screen visually dense, but avoid horizontal overflow and large offscreen animation work.
 
 For each item:
 
 - `stickerImageUrl` should point to a transparent sticker asset.
+- Leave `stickerImageUrl` empty for visible-but-unlaunched future collection items.
 - `sticker` should be a tiny ID label, not a full UI label.
 - `stickerLayout` can art-direct placement.
 - Stickers should not overflow horizontally.
@@ -304,6 +309,7 @@ Homepage rendering uses `catalogItems` directly for speed. It does not fetch eve
 The map is a spatial interaction layer, not the main catalog page.
 
 - Curated item markers come from `catalogItems` coordinates/map data.
+- Coming-soon item pins can appear on the map, but their popovers should not link to `/items/<slug>`.
 - Physical tree dots come from `treePoints`.
 - Tapping a dot should show a compact card first, not immediately route away.
 - The card can link to the shared species/concept page.

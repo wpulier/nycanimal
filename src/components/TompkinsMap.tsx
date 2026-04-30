@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObjec
 import styles from "@/app/page.module.css";
 import { tompkinsMapData } from "@/data/tompkinsMap";
 import type { CatalogItem } from "@/lib/catalogSchema";
+import { isCatalogItemLaunched } from "@/lib/catalogLifecycle";
 import { hasGoogleMapsApiKey, publicEnv } from "@/lib/publicEnv";
 import { projectTompkinsMapToGeo } from "@/lib/tompkinsProjection";
 
@@ -15,6 +16,7 @@ type GoogleMapPin = {
   color: string;
   label: string;
   imageUrl?: string;
+  launched: boolean;
   position: { lat: number; lng: number };
 };
 
@@ -219,6 +221,8 @@ function isVisibleGoogleMapItem(item: CatalogItem) {
 function googleMapPinFromItem(item: CatalogItem): GoogleMapPin | null {
   if (!isVisibleGoogleMapItem(item)) return null;
 
+  const launched = isCatalogItemLaunched(item);
+
   return {
     slug: item.slug,
     commonName: item.commonName,
@@ -226,7 +230,8 @@ function googleMapPinFromItem(item: CatalogItem): GoogleMapPin | null {
     kind: item.kind,
     color: item.color,
     label: item.mapPin?.label ?? item.sticker,
-    imageUrl: item.mapPin?.imageUrl ?? item.stickerImageUrl,
+    imageUrl: launched ? item.mapPin?.imageUrl ?? item.stickerImageUrl : undefined,
+    launched,
     position: itemLngLat(item),
   };
 }
@@ -525,6 +530,7 @@ function createGooglePinNode(pin: GoogleMapPin) {
   element.className = styles.google3dPin;
   element.style.backgroundColor = pin.color;
   element.style.setProperty("--pin-color", pin.color);
+  element.dataset.launched = pin.launched ? "true" : "false";
 
   if (pin.imageUrl) {
     const image = document.createElement("img");
@@ -542,7 +548,7 @@ function createGooglePinElement(marker: GoogleMarkerLibrary, pin: GoogleMapPin) 
   if (!marker.PinElement) return null;
 
   return new marker.PinElement({
-    background: pin.color,
+    background: pin.launched ? pin.color : "#8d8f86",
     borderColor: "#fff7dd",
     glyphColor: "#1b2118",
     scale: 1.18,
@@ -554,14 +560,11 @@ function buildGooglePopoverContent(pin: GoogleMapPin) {
   const wrapper = document.createElement("div");
   const kicker = document.createElement("p");
   const title = document.createElement("h3");
-  const link = document.createElement("a");
 
   wrapper.className = styles.google3dPopover;
   kicker.className = styles.treePopoverKicker;
   kicker.textContent = pin.kind;
   title.textContent = pin.commonName;
-  link.href = `/items/${pin.slug}`;
-  link.textContent = "Open card";
   wrapper.append(kicker, title);
 
   if (pin.latinName) {
@@ -571,7 +574,18 @@ function buildGooglePopoverContent(pin: GoogleMapPin) {
     wrapper.append(latin);
   }
 
-  wrapper.append(link);
+  if (pin.launched) {
+    const link = document.createElement("a");
+    link.href = `/items/${pin.slug}`;
+    link.textContent = "Open card";
+    wrapper.append(link);
+  } else {
+    const status = document.createElement("p");
+    status.className = styles.google3dPopoverStatus;
+    status.textContent = "Coming soon";
+    wrapper.append(status);
+  }
+
   return wrapper;
 }
 
