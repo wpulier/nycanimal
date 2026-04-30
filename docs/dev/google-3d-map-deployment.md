@@ -60,32 +60,7 @@ Map pins are derived from `catalogItems`. The Catalog sticker board and the Map 
 
 ### Pin visibility
 
-An item gets onto the Google 3D map through `catalogItems.<slug>.mapPin.enabled`, with a curated default allowlist for the primary first collection.
-
-The runtime visibility rule is:
-
-```ts
-item.mapPin?.enabled ?? DEFAULT_GOOGLE_PIN_SLUGS.has(item.slug)
-```
-
-That means:
-
-- `mapPin.enabled: true` forces an item onto the map.
-- `mapPin.enabled: false` forces an item off the map.
-- No `mapPin` field means only the hardcoded default slugs appear.
-
-Current default visible slugs:
-
-```txt
-rock-pigeon
-eastern-gray-squirrel
-house-sparrow
-american-elm
-london-plane
-cobblestone-edge
-```
-
-Generated tree species cards are hidden by default unless a document opts in with `mapPin.enabled: true`.
+Published catalog items get onto the Google 3D map through the public Active / All scope. `Active` renders launched, clickable catalog pages. `All` renders every mapped catalog item, including generated coming-soon species cards.
 
 ### Pin position
 
@@ -148,22 +123,21 @@ Current tree locations are generated from the Tompkins NYC Parks Forestry snapsh
 - `status: "hidden"` for other in-park records retained for audit/all-data viewing.
 - `visibility: "public"` means the record may be loaded by the public map.
 
-The map controls keep these as a separate layer from curated sticker pins:
+The public map uses one catalog entry-scope control:
 
-- `Trees` shows/hides `catalogLocations`.
-- `Active` / `All` switches between active public tree records and every public in-park tree record.
-- The default map remains curated pins only, with `Trees` off and the location mode set to `Active`.
+- `Active` shows only launched/clickable catalog entries.
+- `All` shows launched entries plus coming-soon mapped catalog entries.
+- The default map scope is `Active`.
 
-Tree popovers read species names, Latin names, page readiness, and links from joined `catalogItems`; DBH, condition, and source provenance come from `catalogLocations`.
+Tree occurrence records in `catalogLocations` remain available to item pages and data workflows, but they are not shown by the public Active / All map control.
 
 ## Camera and zoom rules
 
-The map intentionally avoids raw Google gesture zoom as the main interaction. Wheel and two-finger pinch are intercepted and converted into controlled range updates around the Tompkins target. This keeps zooming from drifting toward surrounding buildings in tilted 3D mode.
+The map supports native drag/pan. Wheel and two-finger pinch are intercepted and converted into controlled range updates around the current map center so zooming does not snap back after the user has dragged elsewhere.
 
 - `Fit` snaps to the active preset.
-- `3D` toggles the oblique testing preset without changing the park target.
-- `Trees` toggles the owned tree occurrence layer.
-- `Active` / `All` toggles location scope without changing the camera.
+- `3D` toggles the oblique testing preset while preserving the current map center.
+- `Active` / `All` toggles launched-only versus all mapped entry scope without changing the camera.
 - Range changes are clamped separately for top-down and 3D.
 - Do not add camera-correcting writes inside Google `gmp-*change` listeners; that can create visible jitter. Range-change listeners should remain read-only except for pin scale styling.
 

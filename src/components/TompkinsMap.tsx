@@ -20,18 +20,6 @@ type GoogleMapPin = {
   position: { lat: number; lng: number };
 };
 
-type GoogleTreeLocationPin = {
-  id: string;
-  catalogItemSlug: string;
-  commonName: string;
-  latinName?: string;
-  color: string;
-  launched: boolean;
-  position: { lat: number; lng: number };
-  status: CatalogLocation["status"];
-  tree?: CatalogLocation["tree"];
-};
-
 type GoogleMapsRoot = {
   importLibrary: (library: string) => Promise<Record<string, unknown>>;
 };
@@ -45,7 +33,7 @@ type GoogleMapsWindow = Window & {
 
 type GoogleBounds = { north: number; south: number; east: number; west: number };
 type GoogleMapMode = "top-down" | "oblique";
-type TreeLocationMode = "active" | "all";
+type MapContentMode = "active" | "all";
 
 type GoogleMap3DElement = HTMLElement & {
   bounds?: GoogleBounds;
@@ -142,14 +130,6 @@ const TOMPKINS_OBLIQUE_MAX_RANGE = 560;
 const TOMPKINS_OBLIQUE_CAMERA_MARGIN_METERS = 80;
 const GOOGLE_ZOOMED_IN_PIN_SCALE = 1;
 const GOOGLE_ZOOMED_OUT_PIN_SCALE = 0.5;
-const DEFAULT_GOOGLE_PIN_SLUGS = new Set([
-  "rock-pigeon",
-  "eastern-gray-squirrel",
-  "house-sparrow",
-  "american-elm",
-  "london-plane",
-  "cobblestone-edge",
-]);
 let googleMapsLoadPromise: Promise<GoogleMapsRoot> | null = null;
 let google3DLoadPromise: Promise<{ maps3d: GoogleMaps3DLibrary; marker: GoogleMarkerLibrary }> | null = null;
 
@@ -228,14 +208,9 @@ function itemLngLat(item: CatalogItem) {
   return pointToLngLat({ x: item.position.mapX * 10, y: item.position.mapY * 10 });
 }
 
-function isVisibleGoogleMapItem(item: CatalogItem) {
-  return item.mapPin?.enabled ?? DEFAULT_GOOGLE_PIN_SLUGS.has(item.slug);
-}
-
-function googleMapPinFromItem(item: CatalogItem): GoogleMapPin | null {
-  if (!isVisibleGoogleMapItem(item)) return null;
-
+function googleMapPinFromItem(item: CatalogItem, mode: MapContentMode): GoogleMapPin | null {
   const launched = isCatalogItemLaunched(item);
+  if (mode === "active" && !launched) return null;
 
   return {
     slug: item.slug,
@@ -250,36 +225,8 @@ function googleMapPinFromItem(item: CatalogItem): GoogleMapPin | null {
   };
 }
 
-function buildGoogleMapPins(items: CatalogItem[]) {
-  return items.map(googleMapPinFromItem).filter((pin): pin is GoogleMapPin => Boolean(pin));
-}
-
-function isPublicTreeLocation(location: CatalogLocation) {
-  return location.locationType === "individual-tree" && location.visibility === "public";
-}
-
-function buildGoogleTreeLocationPins(items: CatalogItem[], locations: CatalogLocation[], mode: TreeLocationMode) {
-  const itemsBySlug = new Map(items.map((item) => [item.slug, item]));
-
-  return locations
-    .filter((location) => isPublicTreeLocation(location) && (mode === "all" || location.status === "active"))
-    .map((location): GoogleTreeLocationPin | null => {
-      const item = itemsBySlug.get(location.catalogItemSlug);
-      if (!item) return null;
-
-      return {
-        id: location.id,
-        catalogItemSlug: location.catalogItemSlug,
-        commonName: item.commonName,
-        latinName: item.latinName,
-        color: item.color,
-        launched: isCatalogItemLaunched(item),
-        position: { lat: location.coordinates.latitude, lng: location.coordinates.longitude },
-        status: location.status,
-        tree: location.tree,
-      };
-    })
-    .filter((pin): pin is GoogleTreeLocationPin => Boolean(pin));
+function buildGoogleMapPins(items: CatalogItem[], mode: MapContentMode) {
+  return items.map((item) => googleMapPinFromItem(item, mode)).filter((pin): pin is GoogleMapPin => Boolean(pin));
 }
 
 function buildTompkinsBaseBounds(): GoogleBounds {
@@ -393,13 +340,27 @@ function rangeBoundsForMode(mode: GoogleMapMode) {
   return { min: TOMPKINS_TOP_DOWN_MIN_RANGE, max: TOMPKINS_TOP_DOWN_MAX_RANGE };
 }
 
-function cameraForMode(mode: GoogleMapMode, range?: number): GoogleCamera {
+function currentGoogleCenter(map: GoogleMap3DElement): GoogleCamera["center"] {
+  const center = map.center;
+
+  if (typeof center?.lat !== "number" || typeof center.lng !== "number") {
+    return TOMPKINS_CENTER;
+  }
+
+  return {
+    lat: center.lat,
+    lng: center.lng,
+    altitude: typeof center.altitude === "number" ? center.altitude : TOMPKINS_CENTER.altitude,
+  };
+}
+
+function cameraForMode(mode: GoogleMapMode, range?: number, center: GoogleCamera["center"] = TOMPKINS_CENTER): GoogleCamera {
   const camera = mode === "oblique" ? TOMPKINS_OBLIQUE_CAMERA : TOMPKINS_CAMERA;
   const rangeBounds = rangeBoundsForMode(mode);
 
   return {
     ...camera,
-    center: TOMPKINS_CENTER,
+    center,
     range: clamp(range ?? camera.range, rangeBounds.min, rangeBounds.max),
   };
 }
@@ -434,14 +395,14 @@ function setGoogleCamera(map: GoogleMap3DElement, camera: GoogleCamera, mode: Go
   writeGoogleCamera(map, camera, mode);
 }
 
-function setGoogleMapMode(map: GoogleMap3DElement, mode: GoogleMapMode, range?: number) {
+function setGoogleMapMode(map: GoogleMap3DElement, mode: GoogleMapMode, range?: number, center?: GoogleCamera["center"]) {
   if (mode === "oblique") {
     map.bounds = buildTompkinsGoogleBounds("oblique");
-    setGoogleCamera(map, cameraForMode("oblique", range), "oblique");
+    setGoogleCamera(map, cameraForMode("oblique", range, center), "oblique");
     return;
   }
 
-  setGoogleCamera(map, cameraForMode("top-down", range), "top-down");
+  setGoogleCamera(map, cameraForMode("top-down", range, center), "top-down");
   map.bounds = buildTompkinsGoogleBounds("top-down");
 }
 
@@ -485,7 +446,7 @@ function attachGoogleCameraZoom(map: GoogleMap3DElement, modeRef: MutableRefObje
       queuedRange = undefined;
 
       if (rangeToWrite === undefined) return;
-      writeGoogleCamera(map, cameraForMode(mode, rangeToWrite), mode);
+      writeGoogleCamera(map, cameraForMode(mode, rangeToWrite, currentGoogleCenter(map)), mode);
     });
   };
 
@@ -598,28 +559,6 @@ function createGooglePinElement(marker: GoogleMarkerLibrary, pin: GoogleMapPin) 
   });
 }
 
-function createGoogleTreeNode(pin: GoogleTreeLocationPin) {
-  const element = document.createElement("span");
-  element.className = styles.googleTreeLocationDot;
-  element.style.setProperty("--tree-dot-color", pin.color);
-  element.dataset.launched = pin.launched ? "true" : "false";
-  element.dataset.status = pin.status;
-
-  return element;
-}
-
-function createGoogleTreePinElement(marker: GoogleMarkerLibrary, pin: GoogleTreeLocationPin) {
-  if (!marker.PinElement) return null;
-
-  return new marker.PinElement({
-    background: pin.launched ? pin.color : "#8d8f86",
-    borderColor: "#fff7dd",
-    glyphColor: "#1b2118",
-    glyphText: "",
-    scale: 0.52,
-  });
-}
-
 function buildGooglePopoverContent(pin: GoogleMapPin) {
   const wrapper = document.createElement("div");
   const kicker = document.createElement("p");
@@ -641,53 +580,6 @@ function buildGooglePopoverContent(pin: GoogleMapPin) {
   if (pin.launched) {
     const link = document.createElement("a");
     link.href = `/items/${pin.slug}`;
-    link.textContent = "Open card";
-    wrapper.append(link);
-  } else {
-    const status = document.createElement("p");
-    status.className = styles.google3dPopoverStatus;
-    status.textContent = "Coming soon";
-    wrapper.append(status);
-  }
-
-  return wrapper;
-}
-
-function buildGoogleTreeLocationPopoverContent(pin: GoogleTreeLocationPin) {
-  const wrapper = document.createElement("div");
-  const kicker = document.createElement("p");
-  const title = document.createElement("h3");
-
-  wrapper.className = styles.google3dPopover;
-  kicker.className = styles.treePopoverKicker;
-  kicker.textContent = "tree";
-  title.textContent = pin.commonName;
-  wrapper.append(kicker, title);
-
-  if (pin.latinName) {
-    const latin = document.createElement("p");
-    latin.className = styles.treePopoverLatin;
-    latin.textContent = pin.latinName;
-    wrapper.append(latin);
-  }
-
-  if (pin.tree?.dbh || pin.tree?.condition) {
-    const details = document.createElement("p");
-    details.className = styles.treeLocationDetails;
-    details.textContent = [pin.tree.dbh ? `${pin.tree.dbh}" DBH` : undefined, pin.tree.condition].filter(Boolean).join(" / ");
-    wrapper.append(details);
-  }
-
-  if (pin.status !== "active") {
-    const status = document.createElement("p");
-    status.className = styles.treeLocationDetails;
-    status.textContent = "NYC record outside active default";
-    wrapper.append(status);
-  }
-
-  if (pin.launched) {
-    const link = document.createElement("a");
-    link.href = `/items/${pin.catalogItemSlug}`;
     link.textContent = "Open card";
     wrapper.append(link);
   } else {
@@ -741,11 +633,11 @@ function GoogleMapUnavailable({ reason }: { reason: "missing-key" | "load-error"
   );
 }
 
-function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: TompkinsMapProps & { apiKey: string }) {
+function GoogleTompkinsMap({ apiKey, items, onError, onReady }: TompkinsMapProps & { apiKey: string }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<GoogleMap3DElement | null>(null);
   const mapModeRef = useRef<GoogleMapMode>("oblique");
-  const treeLayerRef = useRef<{
+  const markerLayerRef = useRef<{
     maps3d: GoogleMaps3DLibrary;
     marker: GoogleMarkerLibrary;
     popover: InstanceType<GoogleMaps3DLibrary["PopoverElement"]>;
@@ -757,13 +649,8 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
   const [loadFailed, setLoadFailed] = useState(false);
   const [isObliqueView, setIsObliqueView] = useState(true);
   const [isMapReady, setIsMapReady] = useState(false);
-  const [showTreeLayer, setShowTreeLayer] = useState(false);
-  const [treeLocationMode, setTreeLocationMode] = useState<TreeLocationMode>("active");
-  const mapPins = useMemo(() => buildGoogleMapPins(items), [items]);
-  const treeLocationPins = useMemo(
-    () => buildGoogleTreeLocationPins(items, locations, treeLocationMode),
-    [items, locations, treeLocationMode],
-  );
+  const [mapContentMode, setMapContentMode] = useState<MapContentMode>("active");
+  const mapPins = useMemo(() => buildGoogleMapPins(items, mapContentMode), [items, mapContentMode]);
 
   useEffect(() => {
     onErrorRef.current = onError;
@@ -810,7 +697,7 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
     };
 
     container.replaceChildren();
-    treeLayerRef.current = null;
+    markerLayerRef.current = null;
     setIsMapReady(false);
     setLoadFailed(false);
 
@@ -869,41 +756,7 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
         if (!MarkerClass) {
           throw new Error("Google Maps 3D marker library is unavailable.");
         }
-        treeLayerRef.current = { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers };
-
-        for (const pin of mapPins) {
-          const interactiveMarker = new MarkerClass({
-            altitudeMode: maps3d.AltitudeMode?.CLAMP_TO_GROUND ?? "CLAMP_TO_GROUND",
-            ...(supportsHtmlMarkers
-              ? {
-                  anchorLeft: "-50%",
-                  anchorTop: "-50%",
-                  collisionPriority: 1000,
-                }
-              : {
-                  label: googlePinLabel(pin),
-                  sizePreserved: true,
-            }),
-            position: { ...pin.position, altitude: supportsHtmlMarkers ? 8 : 24 },
-            title: pin.commonName,
-          });
-          (interactiveMarker as HTMLElement & { sizePreserved?: boolean }).sizePreserved = false;
-
-          if (supportsHtmlMarkers) {
-            interactiveMarker.append(createGooglePinNode(pin));
-          } else {
-            const fallbackPin = createGooglePinElement(marker, pin);
-            if (fallbackPin) interactiveMarker.append(fallbackPin);
-          }
-
-          interactiveMarker.addEventListener("gmp-click", () => {
-            popover.open = false;
-            popover.positionAnchor = interactiveMarker;
-            popover.replaceChildren(buildGooglePopoverContent(pin));
-            popover.open = true;
-          });
-          map.append(interactiveMarker);
-        }
+        markerLayerRef.current = { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers };
 
         sceneBuilt = true;
         if (steadyBeforeSceneBuilt || map.isSteady === true) {
@@ -920,47 +773,47 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
       detachSteadyListener?.();
       detachMapErrorListener?.();
       mapRef.current = null;
-      treeLayerRef.current = null;
+      markerLayerRef.current = null;
       setIsMapReady(false);
       container.replaceChildren();
     };
-  }, [apiKey, mapPins]);
+  }, [apiKey]);
 
   useEffect(() => {
     const map = mapRef.current;
-    const treeLayer = treeLayerRef.current;
-    if (!map || !treeLayer || !isMapReady || !showTreeLayer) return;
+    const markerLayer = markerLayerRef.current;
+    if (!map || !markerLayer || !isMapReady) return;
 
-    const { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers } = treeLayer;
-    const treeMarkers = treeLocationPins.map((pin) => {
+    const { maps3d, marker, popover, MarkerClass, supportsHtmlMarkers } = markerLayer;
+    const itemMarkers = mapPins.map((pin) => {
       const interactiveMarker = new MarkerClass({
         altitudeMode: maps3d.AltitudeMode?.CLAMP_TO_GROUND ?? "CLAMP_TO_GROUND",
         ...(supportsHtmlMarkers
           ? {
               anchorLeft: "-50%",
               anchorTop: "-50%",
-              collisionPriority: 100,
+              collisionPriority: 1000,
             }
           : {
-              label: "",
+              label: googlePinLabel(pin),
               sizePreserved: true,
           }),
-        position: { ...pin.position, altitude: supportsHtmlMarkers ? 6 : 18 },
+        position: { ...pin.position, altitude: supportsHtmlMarkers ? 8 : 24 },
         title: pin.commonName,
       });
       (interactiveMarker as HTMLElement & { sizePreserved?: boolean }).sizePreserved = false;
 
       if (supportsHtmlMarkers) {
-        interactiveMarker.append(createGoogleTreeNode(pin));
+        interactiveMarker.append(createGooglePinNode(pin));
       } else {
-        const fallbackPin = createGoogleTreePinElement(marker, pin);
+        const fallbackPin = createGooglePinElement(marker, pin);
         if (fallbackPin) interactiveMarker.append(fallbackPin);
       }
 
       interactiveMarker.addEventListener("gmp-click", () => {
         popover.open = false;
         popover.positionAnchor = interactiveMarker;
-        popover.replaceChildren(buildGoogleTreeLocationPopoverContent(pin));
+        popover.replaceChildren(buildGooglePopoverContent(pin));
         popover.open = true;
       });
       map.append(interactiveMarker);
@@ -969,11 +822,11 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
 
     return () => {
       popover.open = false;
-      for (const markerElement of treeMarkers) {
+      for (const markerElement of itemMarkers) {
         markerElement.remove();
       }
     };
-  }, [isMapReady, showTreeLayer, treeLocationPins]);
+  }, [isMapReady, mapPins]);
 
   const resetView = useCallback(() => {
     const map = mapRef.current;
@@ -989,16 +842,7 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
     setIsObliqueView(nextIsObliqueView);
 
     if (!map) return;
-    setGoogleMapMode(map, mapModeRef.current);
-  }, []);
-
-  const toggleTreeLayer = useCallback(() => {
-    setShowTreeLayer((current) => !current);
-  }, []);
-
-  const toggleTreeLocationMode = useCallback(() => {
-    setShowTreeLayer(true);
-    setTreeLocationMode((current) => (current === "active" ? "all" : "active"));
+    setGoogleMapMode(map, mapModeRef.current, map.range, currentGoogleCenter(map));
   }, []);
 
   if (loadFailed) {
@@ -1023,24 +867,26 @@ function GoogleTompkinsMap({ apiKey, items, locations = [], onError, onReady }: 
         >
           3D
         </button>
-        <button
-          aria-pressed={showTreeLayer}
-          data-active={showTreeLayer ? "true" : undefined}
-          disabled={!isMapReady || treeLocationPins.length === 0}
-          type="button"
-          onClick={toggleTreeLayer}
-        >
-          Trees
-        </button>
-        <button
-          aria-pressed={treeLocationMode === "all"}
-          data-active={treeLocationMode === "all" ? "true" : undefined}
-          disabled={!isMapReady || locations.length === 0}
-          type="button"
-          onClick={toggleTreeLocationMode}
-        >
-          {treeLocationMode === "active" ? "Active" : "All"}
-        </button>
+        <div className={styles.mapScopeControl} role="group" aria-label="Map entry scope">
+          <button
+            aria-pressed={mapContentMode === "active"}
+            data-active={mapContentMode === "active" ? "true" : undefined}
+            disabled={!isMapReady}
+            type="button"
+            onClick={() => setMapContentMode("active")}
+          >
+            Active
+          </button>
+          <button
+            aria-pressed={mapContentMode === "all"}
+            data-active={mapContentMode === "all" ? "true" : undefined}
+            disabled={!isMapReady}
+            type="button"
+            onClick={() => setMapContentMode("all")}
+          >
+            All
+          </button>
+        </div>
       </div>
     </section>
   );
